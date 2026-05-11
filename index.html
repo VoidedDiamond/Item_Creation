@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>P21 Item Creator</title>
+  <title>P21 Item Creator | Hydraquip</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
- 
+
     :root {
-      --navy:   #0d1f3c;
-      --red:    #c0272d;
+      --red:    #bf2027;
+      --red-dk: #a31b21;
       --white:  #f5f7fa;
       --gray:   #8a94a6;
       --border: #dce2ed;
@@ -17,48 +17,45 @@
       --amber:  #b45309;
       --bg:     #eef1f7;
       --card:   #ffffff;
+      --text:   #0d1f3c;
     }
- 
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
     body {
       font-family: 'IBM Plex Sans', sans-serif;
       background: var(--bg);
-      color: var(--navy);
+      color: var(--text);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
- 
+
     header {
-      background: var(--navy);
+      background: #ffffff;
       padding: 0 2rem;
-      height: 56px;
+      height: 68px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-bottom: 3px solid var(--red);
+      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
     }
- 
-    header .logo {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--white);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+
+    header img.logo {
+      height: 44px;
+      display: block;
     }
- 
-    header .logo span { color: var(--red); }
- 
+
     header .badge {
       font-size: 0.7rem;
       font-weight: 600;
       color: var(--gray);
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      font-family: 'IBM Plex Mono', monospace;
     }
- 
+
     main {
       flex: 1;
       display: flex;
@@ -66,7 +63,7 @@
       justify-content: center;
       padding: 2.5rem 1rem;
     }
- 
+
     .card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -76,43 +73,43 @@
       box-shadow: 0 2px 12px rgba(13,31,60,0.07);
       overflow: hidden;
     }
- 
+
     .card-header {
-      background: var(--navy);
+      background: var(--red);
       padding: 1.25rem 1.75rem;
-      border-bottom: 2px solid var(--red);
+      border-bottom: 3px solid var(--red-dk);
     }
- 
+
     .card-header h1 {
       font-size: 1rem;
       font-weight: 600;
-      color: var(--white);
+      color: #ffffff;
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
- 
+
     .card-header p {
       font-size: 0.78rem;
-      color: var(--gray);
+      color: rgba(255,255,255,0.7);
       margin-top: 0.3rem;
     }
- 
+
     .card-body { padding: 1.75rem; }
- 
+
     .field { margin-bottom: 1.4rem; }
- 
+
     label {
       display: block;
       font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--navy);
+      color: var(--text);
       margin-bottom: 0.45rem;
     }
- 
+
     label .req { color: var(--red); margin-left: 2px; }
- 
+
     input[type="text"], select, textarea {
       width: 100%;
       padding: 0.6rem 0.85rem;
@@ -120,41 +117,39 @@
       border-radius: 4px;
       font-family: 'IBM Plex Sans', sans-serif;
       font-size: 0.88rem;
-      color: var(--navy);
+      color: var(--text);
       background: var(--white);
       transition: border-color 0.15s;
       appearance: none;
     }
- 
+
     input[type="text"]:focus, select:focus, textarea:focus {
       outline: none;
-      border-color: var(--navy);
+      border-color: var(--red);
     }
- 
+
     input.valid   { border-color: var(--green); }
     input.invalid { border-color: var(--red); }
- 
+
     .hint {
       font-size: 0.72rem;
       color: var(--gray);
       margin-top: 0.35rem;
       font-family: 'IBM Plex Mono', monospace;
     }
- 
-    .hint.error { color: var(--red); font-weight: 600; }
+
+    .hint.error   { color: var(--red);   font-weight: 600; }
     .hint.success { color: var(--green); font-weight: 600; }
     .hint.warning { color: var(--amber); font-weight: 600; }
- 
+
     .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
- 
-    select option[value=""] { color: var(--gray); }
- 
+
     .divider {
       border: none;
       border-top: 1px solid var(--border);
       margin: 1.5rem 0;
     }
- 
+
     .section-label {
       font-size: 0.68rem;
       font-weight: 600;
@@ -163,8 +158,7 @@
       color: var(--gray);
       margin-bottom: 1.1rem;
     }
- 
-    /* Duplicate warning banner */
+
     #dupWarning {
       display: none;
       background: #fff8e1;
@@ -173,7 +167,7 @@
       padding: 0.85rem 1rem;
       margin-bottom: 1.25rem;
     }
- 
+
     #dupWarning .dup-title {
       font-size: 0.72rem;
       font-weight: 600;
@@ -182,40 +176,36 @@
       color: var(--amber);
       margin-bottom: 0.5rem;
     }
- 
-    #dupWarning ul {
-      list-style: none;
-      padding: 0;
-    }
- 
+
+    #dupWarning ul { list-style: none; padding: 0; }
+
     #dupWarning ul li {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.8rem;
-      color: var(--navy);
+      color: var(--text);
       padding: 0.2rem 0;
     }
- 
+
     #dupWarning .dup-confirm {
       margin-top: 0.75rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
       font-size: 0.8rem;
-      color: var(--navy);
+      color: var(--text);
       cursor: pointer;
     }
- 
-    /* Submit area */
+
     .submit-area {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-top: 1.75rem;
     }
- 
+
     .btn-primary {
-      background: var(--navy);
-      color: var(--white);
+      background: var(--red);
+      color: #ffffff;
       border: none;
       border-radius: 4px;
       padding: 0.65rem 1.75rem;
@@ -226,10 +216,10 @@
       cursor: pointer;
       transition: background 0.15s;
     }
- 
-    .btn-primary:hover:not(:disabled) { background: #162d52; }
+
+    .btn-primary:hover:not(:disabled) { background: var(--red-dk); }
     .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
- 
+
     .btn-reset {
       background: none;
       border: 1.5px solid var(--border);
@@ -241,17 +231,16 @@
       cursor: pointer;
       transition: border-color 0.15s, color 0.15s;
     }
- 
-    .btn-reset:hover { border-color: var(--navy); color: var(--navy); }
- 
-    /* Status toast */
+
+    .btn-reset:hover { border-color: var(--red); color: var(--red); }
+
     #toast {
       display: none;
       position: fixed;
       bottom: 2rem;
       right: 2rem;
-      background: var(--navy);
-      color: var(--white);
+      background: var(--text);
+      color: #ffffff;
       padding: 0.85rem 1.25rem;
       border-radius: 5px;
       font-size: 0.85rem;
@@ -260,11 +249,10 @@
       max-width: 340px;
       z-index: 999;
     }
- 
+
     #toast.success { border-left-color: var(--green); }
-    #toast.error   { border-left-color: var(--red); }
- 
-    /* Spinner */
+    #toast.error   { border-left-color: var(--red);   }
+
     .spinner {
       display: inline-block;
       width: 14px; height: 14px;
@@ -275,9 +263,9 @@
       margin-right: 6px;
       vertical-align: middle;
     }
- 
+
     @keyframes spin { to { transform: rotate(360deg); } }
- 
+
     .api-note {
       font-size: 0.7rem;
       color: var(--gray);
@@ -286,12 +274,18 @@
   </style>
 </head>
 <body>
- 
+
 <header>
-  <div class="logo">HYD <span>/</span> P21 Item Creator</div>
-  <div class="badge">Internal Tool — Hydraquip</div>
+  <img
+    class="logo"
+    src="https://shop.hydraquip.com/customer/images/theme-logos/logo.jpg?x=eec3f2"
+    alt="Hydraquip"
+    onerror="this.style.display='none';document.getElementById('logoFallback').style.display='block';"
+  />
+  <span id="logoFallback" style="display:none;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:1rem;color:#bf2027;">HYDRAQUIP</span>
+  <div class="badge">P21 Internal Tool</div>
 </header>
- 
+
 <main>
   <div class="card">
     <div class="card-header">
@@ -299,25 +293,25 @@
       <p>Validates item ID format against supplier convention before creating in P21.</p>
     </div>
     <div class="card-body">
- 
+
       <div class="section-label">Supplier</div>
- 
+
       <div class="field">
         <label for="supplier">Supplier <span class="req">*</span></label>
         <select id="supplier">
           <option value="">Select a supplier...</option>
         </select>
       </div>
- 
+
       <hr class="divider" />
       <div class="section-label">Item Details</div>
- 
+
       <div class="field">
         <label for="itemId">Item ID <span class="req">*</span></label>
         <input type="text" id="itemId" placeholder="Enter item ID" disabled />
         <div class="hint" id="itemIdHint">Select a supplier to see format requirements.</div>
       </div>
- 
+
       <div class="row">
         <div class="field">
           <label for="productGroup">Product Group <span class="req">*</span></label>
@@ -330,14 +324,14 @@
           <input type="text" id="itemDesc" placeholder="Short description" disabled />
         </div>
       </div>
- 
+
       <div class="field">
         <label for="extDesc">Extended Description</label>
         <textarea id="extDesc" rows="2" placeholder="Optional additional detail" disabled style="resize:vertical;"></textarea>
       </div>
- 
+
       <hr class="divider" />
- 
+
       <div id="dupWarning">
         <div class="dup-title">Possible Duplicate Items Found</div>
         <ul id="dupList"></ul>
@@ -346,7 +340,7 @@
           I have reviewed these and confirm this is a new item.
         </label>
       </div>
- 
+
       <div class="submit-area">
         <button class="btn-reset" id="resetBtn" type="button">Clear Form</button>
         <div style="display:flex;align-items:center;gap:1rem;">
@@ -354,28 +348,23 @@
           <button class="btn-primary" id="submitBtn" type="button" disabled>Create Item in P21</button>
         </div>
       </div>
- 
+
     </div>
   </div>
 </main>
- 
+
 <div id="toast"></div>
- 
+
 <script>
-  // -------------------------------------------------------
-  // CONFIG
-  // -------------------------------------------------------
-  const P21_API_BASE = 'https://YOUR-P21-INSTANCE/api/v2'; // swap in when ready
+  const P21_API_BASE   = 'https://YOUR-P21-INSTANCE/api/v2';
   const SUPPLIERS_FILE = 'suppliers.json';
- 
-  let suppliers = [];
+
+  let suppliers       = [];
   let currentSupplier = null;
-  let dupCheckPassed = false;
-  let hasDuplicates = false;
- 
-  // -------------------------------------------------------
-  // INIT
-  // -------------------------------------------------------
+  let dupCheckPassed  = false;
+  let hasDuplicates   = false;
+  let validationTimer = null;
+
   async function init() {
     try {
       const res = await fetch(SUPPLIERS_FILE);
@@ -385,7 +374,7 @@
       showToast('Could not load suppliers.json. Make sure it is in the same folder.', 'error');
     }
   }
- 
+
   function populateSupplierDropdown() {
     const sel = document.getElementById('supplier');
     suppliers.forEach(s => {
@@ -395,22 +384,19 @@
       sel.appendChild(opt);
     });
   }
- 
-  // -------------------------------------------------------
-  // SUPPLIER CHANGE
-  // -------------------------------------------------------
+
   document.getElementById('supplier').addEventListener('change', function () {
     const id = this.value;
     currentSupplier = suppliers.find(s => s.supplier_id === id) || null;
- 
-    const itemId     = document.getElementById('itemId');
-    const itemDesc   = document.getElementById('itemDesc');
-    const extDesc    = document.getElementById('extDesc');
-    const pg         = document.getElementById('productGroup');
-    const hint       = document.getElementById('itemIdHint');
- 
+
+    const itemId   = document.getElementById('itemId');
+    const itemDesc = document.getElementById('itemDesc');
+    const extDesc  = document.getElementById('extDesc');
+    const pg       = document.getElementById('productGroup');
+    const hint     = document.getElementById('itemIdHint');
+
     resetValidation();
- 
+
     if (!currentSupplier) {
       [itemId, itemDesc, extDesc, pg].forEach(el => el.disabled = true);
       pg.innerHTML = '<option value="">Select supplier first...</option>';
@@ -419,176 +405,125 @@
       updateSubmitState();
       return;
     }
- 
-    // Enable fields
+
     [itemId, itemDesc, extDesc, pg].forEach(el => el.disabled = false);
-    itemId.value = '';
+    itemId.value     = '';
     itemId.className = '';
- 
-    // Format hint
+
     hint.textContent = `Format: ${currentSupplier.pattern_display}`;
-    hint.className = 'hint';
- 
-    // Product group dropdown
+    hint.className   = 'hint';
+
     pg.innerHTML = '<option value="">Select product group...</option>';
     currentSupplier.product_groups.forEach(g => {
       const opt = document.createElement('option');
-      opt.value = g.id;
+      opt.value       = g.id;
       opt.textContent = g.label;
       pg.appendChild(opt);
     });
- 
+
     updateSubmitState();
   });
- 
-  // -------------------------------------------------------
-  // ITEM ID VALIDATION (real-time)
-  // -------------------------------------------------------
+
   document.getElementById('itemId').addEventListener('input', function () {
     resetDupWarning();
     dupCheckPassed = false;
- 
-    if (!currentSupplier) return;
- 
-    const val = this.value.trim().toUpperCase();
-    this.value = val;
- 
-    const hint = document.getElementById('itemIdHint');
- 
-    if (val === '') {
-      this.className = '';
-      hint.textContent = `Format: ${currentSupplier.pattern_display}`;
-      hint.className = 'hint';
-      updateSubmitState();
-      return;
-    }
- 
-    const regex = new RegExp(currentSupplier.regex);
-    if (regex.test(val)) {
-      this.className = 'valid';
-      hint.textContent = 'Format looks good.';
-      hint.className = 'hint success';
-    } else {
-      this.className = 'invalid';
-      hint.textContent = `Invalid format. Expected: ${currentSupplier.pattern_hint}`;
-      hint.className = 'hint error';
-    }
- 
+    if (validationTimer) clearTimeout(validationTimer);
+
+    const input = this;
+    const hint  = document.getElementById('itemIdHint');
+
+    input.className  = '';
+    hint.textContent = currentSupplier ? `Format: ${currentSupplier.pattern_display}` : '';
+    hint.className   = 'hint';
     updateSubmitState();
+
+    if (!currentSupplier || input.value.trim() === '') return;
+    validationTimer = setTimeout(() => validateItemId(input), 600);
   });
- 
-  // -------------------------------------------------------
-  // OTHER FIELD LISTENERS
-  // -------------------------------------------------------
+
+  document.getElementById('itemId').addEventListener('blur', function () {
+    if (validationTimer) clearTimeout(validationTimer);
+    if (!currentSupplier || this.value.trim() === '') return;
+    validateItemId(this);
+  });
+
+  function validateItemId(input) {
+    const val   = input.value.trim().toUpperCase();
+    input.value = val;
+    const hint  = document.getElementById('itemIdHint');
+    const regex = new RegExp(currentSupplier.regex);
+
+    if (regex.test(val)) {
+      input.className  = 'valid';
+      hint.textContent = 'Format looks good.';
+      hint.className   = 'hint success';
+    } else {
+      input.className  = 'invalid';
+      hint.textContent = `Invalid format. Expected: ${currentSupplier.pattern_hint}`;
+      hint.className   = 'hint error';
+    }
+    updateSubmitState();
+  }
+
   ['productGroup', 'itemDesc'].forEach(id => {
     document.getElementById(id).addEventListener('change', updateSubmitState);
-    document.getElementById(id).addEventListener('input', updateSubmitState);
+    document.getElementById(id).addEventListener('input',  updateSubmitState);
   });
- 
+
   document.getElementById('dupConfirm').addEventListener('change', function () {
     dupCheckPassed = this.checked;
     updateSubmitState();
   });
- 
-  // -------------------------------------------------------
-  // SUBMIT STATE
-  // -------------------------------------------------------
+
   function updateSubmitState() {
     const itemIdVal = document.getElementById('itemId').value.trim();
     const pgVal     = document.getElementById('productGroup').value;
     const descVal   = document.getElementById('itemDesc').value.trim();
-    const hint      = document.getElementById('itemIdHint');
- 
     const formatOk  = currentSupplier && new RegExp(currentSupplier.regex).test(itemIdVal);
     const allFilled = formatOk && pgVal && descVal;
     const dupOk     = !hasDuplicates || dupCheckPassed;
- 
     document.getElementById('submitBtn').disabled = !(allFilled && dupOk);
   }
- 
-  // -------------------------------------------------------
-  // SUBMIT
-  // -------------------------------------------------------
+
   document.getElementById('submitBtn').addEventListener('click', async function () {
     const itemId = document.getElementById('itemId').value.trim();
- 
-    // Step 1: duplicate check (stubbed - wire to P21 search endpoint)
     if (!dupCheckPassed) {
       const dups = await checkDuplicates(itemId);
-      if (dups.length > 0) {
-        showDupWarning(dups);
-        return;
-      }
+      if (dups.length > 0) { showDupWarning(dups); return; }
     }
- 
-    // Step 2: create item
     await createItem();
   });
- 
-  // -------------------------------------------------------
-  // DUPLICATE CHECK (stub - replace with real P21 API call)
-  // -------------------------------------------------------
+
   async function checkDuplicates(itemId) {
-    // Normalize: strip dashes, dots, spaces for fuzzy comparison
     const normalized = itemId.replace(/[-.\s]/g, '').toUpperCase();
- 
-    // TODO: replace with real call:
-    // const res = await fetch(`${P21_API_BASE}/items?filter=item_id like '%${normalized}%'`, {
-    //   headers: { 'Authorization': 'Bearer YOUR_TOKEN' }
-    // });
-    // const data = await res.json();
-    // return data.value.map(i => i.item_id);
- 
-    // STUB: returns empty array (no duplicates) until API is wired in
-    console.log(`[STUB] Duplicate check for normalized ID: ${normalized}`);
+    console.log(`[STUB] Duplicate check for: ${normalized}`);
     return [];
   }
- 
-  // -------------------------------------------------------
-  // CREATE ITEM (stub - replace with real P21 API call)
-  // -------------------------------------------------------
+
   async function createItem() {
     const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
+    btn.disabled  = true;
     btn.innerHTML = '<span class="spinner"></span> Creating...';
     document.getElementById('apiNote').textContent = '';
- 
+
     const payload = {
-      item_id:           document.getElementById('itemId').value.trim(),
-      item_desc:         document.getElementById('itemDesc').value.trim(),
-      extended_desc:     document.getElementById('extDesc').value.trim(),
-      product_group_id:  document.getElementById('productGroup').value,
-      supplier_id:       currentSupplier.supplier_id
+      item_id:          document.getElementById('itemId').value.trim(),
+      item_desc:        document.getElementById('itemDesc').value.trim(),
+      extended_desc:    document.getElementById('extDesc').value.trim(),
+      product_group_id: document.getElementById('productGroup').value,
+      supplier_id:      currentSupplier.supplier_id
     };
- 
+
     console.log('[STUB] Would POST to P21 API:', payload);
- 
-    // TODO: replace with real call:
-    // const res = await fetch(`${P21_API_BASE}/items`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Authorization': 'Bearer YOUR_TOKEN'
-    //   },
-    //   body: JSON.stringify(payload)
-    // });
-    // if (!res.ok) throw new Error(await res.text());
- 
-    // STUB: simulate success
     await new Promise(r => setTimeout(r, 900));
- 
     showToast(`Item ${payload.item_id} created successfully (stub mode).`, 'success');
-    document.getElementById('apiNote').textContent = '[API stub — not connected to P21 yet]';
+    document.getElementById('apiNote').textContent = '[stub — not connected to P21 yet]';
     btn.innerHTML = 'Create Item in P21';
     resetForm();
   }
- 
-  // -------------------------------------------------------
-  // DUP WARNING
-  // -------------------------------------------------------
+
   function showDupWarning(dups) {
     hasDuplicates = true;
-    const warn = document.getElementById('dupWarning');
     const list = document.getElementById('dupList');
     list.innerHTML = '';
     dups.forEach(d => {
@@ -596,62 +531,54 @@
       li.textContent = d;
       list.appendChild(li);
     });
-    warn.style.display = 'block';
+    document.getElementById('dupWarning').style.display = 'block';
     updateSubmitState();
   }
- 
+
   function resetDupWarning() {
-    hasDuplicates = false;
+    hasDuplicates  = false;
     dupCheckPassed = false;
     document.getElementById('dupWarning').style.display = 'none';
-    document.getElementById('dupConfirm').checked = false;
-    document.getElementById('dupList').innerHTML = '';
+    document.getElementById('dupConfirm').checked       = false;
+    document.getElementById('dupList').innerHTML        = '';
   }
- 
-  // -------------------------------------------------------
-  // RESET
-  // -------------------------------------------------------
+
   function resetValidation() {
-    const itemId = document.getElementById('itemId');
-    itemId.value = '';
+    if (validationTimer) clearTimeout(validationTimer);
+    const itemId     = document.getElementById('itemId');
+    itemId.value     = '';
     itemId.className = '';
     resetDupWarning();
   }
- 
+
   function resetForm() {
-    document.getElementById('supplier').value = '';
-    document.getElementById('itemId').value = '';
-    document.getElementById('itemId').className = '';
-    document.getElementById('itemId').disabled = true;
-    document.getElementById('itemDesc').value = '';
-    document.getElementById('itemDesc').disabled = true;
-    document.getElementById('extDesc').value = '';
-    document.getElementById('extDesc').disabled = true;
+    document.getElementById('supplier').value         = '';
+    document.getElementById('itemId').value           = '';
+    document.getElementById('itemId').className       = '';
+    document.getElementById('itemId').disabled        = true;
+    document.getElementById('itemDesc').value         = '';
+    document.getElementById('itemDesc').disabled      = true;
+    document.getElementById('extDesc').value          = '';
+    document.getElementById('extDesc').disabled       = true;
     document.getElementById('productGroup').innerHTML = '<option value="">Select supplier first...</option>';
-    document.getElementById('productGroup').disabled = true;
+    document.getElementById('productGroup').disabled  = true;
     document.getElementById('itemIdHint').textContent = 'Select a supplier to see format requirements.';
-    document.getElementById('itemIdHint').className = 'hint';
+    document.getElementById('itemIdHint').className   = 'hint';
     resetDupWarning();
     currentSupplier = null;
     updateSubmitState();
   }
- 
+
   document.getElementById('resetBtn').addEventListener('click', resetForm);
- 
-  // -------------------------------------------------------
-  // TOAST
-  // -------------------------------------------------------
+
   function showToast(msg, type = 'success') {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = type;
+    const t         = document.getElementById('toast');
+    t.textContent   = msg;
+    t.className     = type;
     t.style.display = 'block';
     setTimeout(() => { t.style.display = 'none'; }, 4500);
   }
- 
-  // -------------------------------------------------------
-  // GO
-  // -------------------------------------------------------
+
   init();
 </script>
 </body>
