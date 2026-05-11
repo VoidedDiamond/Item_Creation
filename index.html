@@ -6,296 +6,68 @@
   <title>P21 Item Creator | Hydraquip</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
-
     :root {
-      --red:    #bf2027;
-      --red-dk: #a31b21;
-      --white:  #f5f7fa;
-      --gray:   #8a94a6;
-      --border: #dce2ed;
-      --green:  #1a7f4b;
-      --amber:  #b45309;
-      --bg:     #eef1f7;
-      --card:   #ffffff;
-      --text:   #0d1f3c;
+      --red:    #bf2027; --red-dk: #a31b21;
+      --white:  #f5f7fa; --gray: #8a94a6; --border: #dce2ed;
+      --green:  #1a7f4b; --amber: #b45309;
+      --bg:     #eef1f7; --card: #ffffff; --text: #0d1f3c;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'IBM Plex Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    header {
-      background: #ffffff;
-      padding: 0 2rem;
-      height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 3px solid var(--red);
-      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
-    }
-
+    body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+    header { background: #fff; padding: 0 2rem; height: 68px; display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid var(--red); box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
     header img.logo { height: 44px; display: block; }
-
-    header .badge {
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--gray);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-family: 'IBM Plex Mono', monospace;
-    }
-
-    main {
-      flex: 1;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 2.5rem 1rem;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      width: 100%;
-      max-width: 720px;
-      box-shadow: 0 2px 12px rgba(13,31,60,0.07);
-      overflow: hidden;
-    }
-
-    .card-header {
-      background: var(--red);
-      padding: 1.25rem 1.75rem;
-      border-bottom: 3px solid var(--red-dk);
-    }
-
-    .card-header h1 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #ffffff;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .card-header p {
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.7);
-      margin-top: 0.3rem;
-    }
-
+    header .badge { font-size: 0.7rem; font-weight: 600; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; font-family: 'IBM Plex Mono', monospace; }
+    main { flex: 1; display: flex; align-items: flex-start; justify-content: center; padding: 2.5rem 1rem; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; width: 100%; max-width: 740px; box-shadow: 0 2px 12px rgba(13,31,60,0.07); overflow: hidden; }
+    .card-header { background: var(--red); padding: 1.25rem 1.75rem; border-bottom: 3px solid var(--red-dk); }
+    .card-header h1 { font-size: 1rem; font-weight: 600; color: #fff; letter-spacing: 0.04em; text-transform: uppercase; }
+    .card-header p { font-size: 0.78rem; color: rgba(255,255,255,0.7); margin-top: 0.3rem; }
     .card-body { padding: 1.75rem; }
-
     .field { margin-bottom: 1.3rem; }
-
-    label {
-      display: block;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text);
-      margin-bottom: 0.4rem;
-    }
-
+    .field-label-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 0.4rem; }
+    label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); }
     label .req { color: var(--red); margin-left: 2px; }
-
-    input[type="text"], select, textarea {
-      width: 100%;
-      padding: 0.6rem 0.85rem;
-      border: 1.5px solid var(--border);
-      border-radius: 4px;
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 0.88rem;
-      color: var(--text);
-      background: var(--white);
-      transition: border-color 0.15s;
-      appearance: none;
-    }
-
-    input[type="text"]:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: var(--red);
-    }
-
+    .char-count { font-size: 0.68rem; color: var(--gray); font-family: 'IBM Plex Mono', monospace; }
+    .char-count.warn { color: var(--amber); }
+    input[type="text"], select, textarea { width: 100%; padding: 0.6rem 0.85rem; border: 1.5px solid var(--border); border-radius: 4px; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.88rem; color: var(--text); background: var(--white); transition: border-color 0.15s; appearance: none; }
+    input[type="text"]:focus, select:focus { outline: none; border-color: var(--red); }
     input.valid   { border-color: var(--green); }
     input.invalid { border-color: var(--red); }
-
-    .hint {
-      font-size: 0.72rem;
-      color: var(--gray);
-      margin-top: 0.35rem;
-      font-family: 'IBM Plex Mono', monospace;
-    }
-
-    .hint.error   { color: var(--red);   font-weight: 600; }
+    select.locked { background: #f0f4f0; border-color: var(--green); color: var(--green); font-weight: 600; }
+    select.suggested { background: #f5fcf5; border-color: var(--green); }
+    .hint { font-size: 0.72rem; color: var(--gray); margin-top: 0.35rem; font-family: 'IBM Plex Mono', monospace; line-height: 1.4; }
+    .hint.error   { color: var(--red); font-weight: 600; }
     .hint.success { color: var(--green); font-weight: 600; }
-
+    .hint.warning { color: var(--amber); font-weight: 600; }
+    .hint.info    { color: #4a6fa5; }
+    .hint.template { color: #5b6580; font-style: italic; }
     .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
-
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 1.4rem 0;
-    }
-
-    .section-label {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-bottom: 1rem;
-    }
-
-    /* locked field */
-    .locked-field {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .locked-field select { flex: 1; }
-    .lock-badge {
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--gray);
-      white-space: nowrap;
-      font-family: 'IBM Plex Mono', monospace;
-    }
-
-    #dupWarning {
-      display: none;
-      background: #fff8e1;
-      border: 1.5px solid var(--amber);
-      border-radius: 4px;
-      padding: 0.85rem 1rem;
-      margin-bottom: 1.25rem;
-    }
-
-    #dupWarning .dup-title {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 0.5rem;
-    }
-
+    .divider { border: none; border-top: 1px solid var(--border); margin: 1.4rem 0; }
+    .section-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-bottom: 1rem; }
+    #dupWarning { display: none; background: #fff8e1; border: 1.5px solid var(--amber); border-radius: 4px; padding: 0.85rem 1rem; margin-bottom: 1.25rem; }
+    #dupWarning .dup-title { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.5rem; }
     #dupWarning ul { list-style: none; padding: 0; }
-
-    #dupWarning ul li {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--text);
-      padding: 0.2rem 0;
-    }
-
-    #dupWarning .dup-confirm {
-      margin-top: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8rem;
-      color: var(--text);
-      cursor: pointer;
-    }
-
-    .submit-area {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 1.75rem;
-    }
-
-    .btn-primary {
-      background: var(--red);
-      color: #ffffff;
-      border: none;
-      border-radius: 4px;
-      padding: 0.65rem 1.75rem;
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
+    #dupWarning ul li { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--text); padding: 0.2rem 0; }
+    #dupWarning .dup-confirm { margin-top: 0.75rem; display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--text); cursor: pointer; }
+    .submit-area { display: flex; align-items: center; justify-content: space-between; margin-top: 1.75rem; }
+    .btn-primary { background: var(--red); color: #fff; border: none; border-radius: 4px; padding: 0.65rem 1.75rem; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.05em; cursor: pointer; transition: background 0.15s; }
     .btn-primary:hover:not(:disabled) { background: var(--red-dk); }
     .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
-
-    .btn-reset {
-      background: none;
-      border: 1.5px solid var(--border);
-      border-radius: 4px;
-      padding: 0.6rem 1.2rem;
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 0.82rem;
-      color: var(--gray);
-      cursor: pointer;
-      transition: border-color 0.15s, color 0.15s;
-    }
-
+    .btn-reset { background: none; border: 1.5px solid var(--border); border-radius: 4px; padding: 0.6rem 1.2rem; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.82rem; color: var(--gray); cursor: pointer; transition: border-color 0.15s, color 0.15s; }
     .btn-reset:hover { border-color: var(--red); color: var(--red); }
-
-    #toast {
-      display: none;
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: var(--text);
-      color: #ffffff;
-      padding: 0.85rem 1.25rem;
-      border-radius: 5px;
-      font-size: 0.85rem;
-      border-left: 4px solid var(--red);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.18);
-      max-width: 340px;
-      z-index: 999;
-    }
-
+    #toast { display: none; position: fixed; bottom: 2rem; right: 2rem; background: var(--text); color: #fff; padding: 0.85rem 1.25rem; border-radius: 5px; font-size: 0.85rem; border-left: 4px solid var(--red); box-shadow: 0 4px 20px rgba(0,0,0,0.18); max-width: 340px; z-index: 999; }
     #toast.success { border-left-color: var(--green); }
-    #toast.error   { border-left-color: var(--red);   }
-
-    .spinner {
-      display: inline-block;
-      width: 14px; height: 14px;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      margin-right: 6px;
-      vertical-align: middle;
-    }
-
+    #toast.error   { border-left-color: var(--red); }
+    .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 6px; vertical-align: middle; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    .api-note {
-      font-size: 0.7rem;
-      color: var(--gray);
-      font-family: 'IBM Plex Mono', monospace;
-    }
+    .api-note { font-size: 0.7rem; color: var(--gray); font-family: 'IBM Plex Mono', monospace; }
   </style>
 </head>
 <body>
 
 <header>
-  <img
-    class="logo"
-    src="https://shop.hydraquip.com/customer/images/theme-logos/logo.jpg?x=eec3f2"
-    alt="Hydraquip"
-    onerror="this.style.display='none';document.getElementById('logoFallback').style.display='block';"
-  />
+  <img class="logo" src="https://shop.hydraquip.com/customer/images/theme-logos/logo.jpg?x=eec3f2" alt="Hydraquip"
+    onerror="this.style.display='none';document.getElementById('logoFallback').style.display='block';" />
   <span id="logoFallback" style="display:none;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:1rem;color:#bf2027;">HYDRAQUIP</span>
   <div class="badge">P21 Internal Tool</div>
 </header>
@@ -304,78 +76,68 @@
   <div class="card">
     <div class="card-header">
       <h1>New Item Entry</h1>
-      <p>Validates item ID format against supplier convention before creating in P21.</p>
+      <p>Classification fields auto-fill based on supplier. Review all suggestions before submitting.</p>
     </div>
     <div class="card-body">
 
-      <!-- SUPPLIER -->
       <div class="section-label">Supplier</div>
       <div class="field">
-        <label for="supplierId">Primary Supplier ID <span class="req">*</span></label>
-        <select id="supplierId"></select>
+        <div class="field-label-row"><label for="supplierId">Primary Supplier ID <span class="req">*</span></label></div>
+        <select id="supplierId"><option value="">Select a supplier...</option></select>
       </div>
 
       <hr class="divider" />
-
-      <!-- ITEM IDENTITY -->
       <div class="section-label">Item Identity</div>
-
       <div class="row2">
         <div class="field">
-          <label for="itemId">Item ID <span class="req">*</span></label>
+          <div class="field-label-row"><label for="itemId">Item ID <span class="req">*</span></label></div>
           <input type="text" id="itemId" placeholder="Enter item ID" disabled />
-          <div class="hint" id="itemIdHint">Select a supplier to see format requirements.</div>
+          <div class="hint" id="itemIdHint">Select a supplier first.</div>
         </div>
         <div class="field">
-          <label for="itemDesc">Item Description <span class="req">*</span></label>
-          <input type="text" id="itemDesc" placeholder="Short description" disabled />
+          <div class="field-label-row">
+            <label for="itemDesc">Item Description <span class="req">*</span></label>
+            <span class="char-count" id="descCount">0/60</span>
+          </div>
+          <input type="text" id="itemDesc" placeholder="e.g. Hose, -6 5300 psi" disabled maxlength="60" />
+          <div class="hint template" id="descHint">Start typing to see format template.</div>
         </div>
       </div>
 
       <hr class="divider" />
-
-      <!-- CLASSIFICATION -->
       <div class="section-label">Classification</div>
-
       <div class="row2">
         <div class="field">
-          <label for="productGroup">Product Group ID <span class="req">*</span></label>
-          <select id="productGroup" disabled>
-            <option value="">Select supplier first...</option>
-          </select>
+          <div class="field-label-row"><label for="productGroup">Product Group ID</label></div>
+          <select id="productGroup" disabled><option value="">Select supplier first...</option></select>
+          <div class="hint" id="pgHint"></div>
         </div>
         <div class="field">
-          <label for="salesGroup">Sales Group ID <span class="req">*</span></label>
-          <select id="salesGroup">
-            <option value="">Select...</option>
-          </select>
+          <div class="field-label-row"><label for="salesGroup">Sales Group ID <span class="req">*</span></label></div>
+          <select id="salesGroup"><option value="">Select...</option></select>
+          <div class="hint" id="sgHint"></div>
         </div>
       </div>
-
       <div class="row2">
         <div class="field">
-          <label for="purchaseDiscount">Purchase Discount Group ID <span class="req">*</span></label>
-          <select id="purchaseDiscount">
-            <option value="">Select...</option>
-          </select>
+          <div class="field-label-row"><label for="purchaseDiscount">Purchase Discount Group ID <span class="req">*</span></label></div>
+          <select id="purchaseDiscount"><option value="">Select...</option></select>
+          <div class="hint" id="pdHint"></div>
         </div>
         <div class="field">
-          <label for="uom">Unit of Measure <span class="req">*</span></label>
+          <div class="field-label-row"><label for="uom">Unit of Measure <span class="req">*</span></label></div>
           <select id="uom">
-            <option value="EA" selected>EA</option>
-            <option value="FT">FT</option>
-            <option value="IN">IN</option>
+            <option value="EA" selected>EA — Each</option>
+            <option value="FT">FT — Feet</option>
+            <option value="IN">IN — Inch</option>
           </select>
         </div>
       </div>
 
       <hr class="divider" />
-
-      <!-- LOCATION -->
       <div class="section-label">Location</div>
-
-      <div class="field" style="max-width:320px;">
-        <label for="locationId">Location ID <span class="req">*</span></label>
+      <div class="field" style="max-width:340px;">
+        <div class="field-label-row"><label for="locationId">Location ID <span class="req">*</span></label></div>
         <select id="locationId">
           <option value="110">110 — HYD Houston (default)</option>
           <option value="119">119 — HYD Houston S &amp; R</option>
@@ -400,12 +162,17 @@
           <option value="280">280 — HYD FC Oklahoma City</option>
           <option value="290">290 — HYD FC Colorado</option>
           <option value="310">310 — Hydraquip Electric Systems</option>
+          <option value="810">810</option><option value="811">811</option>
+          <option value="812">812</option><option value="822">822</option>
+          <option value="850">850</option><option value="851">851</option>
+          <option value="855">855</option><option value="870">870</option>
+          <option value="871">871</option><option value="890">890</option>
+          <option value="891">891</option><option value="913">913</option>
+          <option value="914">914</option>
         </select>
       </div>
 
       <hr class="divider" />
-
-      <!-- DUPLICATE WARNING -->
       <div id="dupWarning">
         <div class="dup-title">Possible Duplicate Items Found</div>
         <ul id="dupList"></ul>
@@ -426,371 +193,547 @@
     </div>
   </div>
 </main>
-
 <div id="toast"></div>
 
 <script>
-  const P21_API_BASE   = 'https://YOUR-P21-INSTANCE/api/v2';
-  const SUPPLIERS_FILE = 'suppliers.json';
+// -------------------------------------------------------
+// STATIC DATA
+// -------------------------------------------------------
+const PRODUCT_GROUPS = ['ADAPTALL','AIRWAY','ANCHOR','AQPADAPT','AQPFIT','AQPHOSE','AQPIND','AQPQD','AQPTAGS','AQPX','BANDIT','BEHCLAMP','BN000000','BRENNAN','CAMPBELL','CCPF','COMATROL','DEFAULT','DIXQD','DONFILT','DYNAMIC','EAVACC','EAVDIRV','ETELEM','FFX','GC000000','GEARTEK','HUMQE','HUMVAL','HUSQSO','LINC30','LINC40','LINC475','MAGCPLG','MARMON','MICO','MISC','MISCDEN','MISCHOSE','NORACT','NORFIT','NORSTAT','PE000000','SCHELE','SCHFILT','SDCNTRL','SDLSHT','SDPVG','SDSER40','SDX','STUCIQD','SYNHOSE','VERSA','WA000000','XPLO'];
+const SALES_GROUPS   = ['ANCHORA','AQPGEN','BRENNANA','COMATROL','DEFAULT','DESCASEA','DIXONA','DIXSTAND','LIST','M99','NEW ITEM','NORGRENC','SCHRDERB','VERSA','VERSAA','WAGOA'];
+const PURCH_GROUPS   = ['AEROGEN','ANCHORA','AQPADAP','AQPGEN','AQPIND','BRENNANA','DEFAULT','DESCASEA','DIXONA','DIXQD','DIXSTAND','DONAL B','DPSGEN','DPSGEN2','DPSICS','DPSLSHT','DPSPARTS','DPSPVG','EATON1','EATON2','FAIRPART','FIXDCOST','HUMQE','HUMVAL','HUSCO','LINC40%','LINC47.5','M99','NEW ITEM','NORGRENC','SCHRDERB','SCHROEDR','TUTHILL','VERSA','VERSAA','WAGOA'];
 
-  let suppliers       = [];
-  let currentSupplier = null;
-  let dupCheckPassed  = false;
-  let hasDuplicates   = false;
-  let validationTimer = null;
+// Sales group rules derived from P21 data.
+// lock:true = this is the correct value for this supplier, warn user if they change it
+// lock:false = strong suggestion but user may legitimately need a different value
+// reason = shown in the hint so user understands why
+const SALES_MAP = {
+  '105179': { val: 'ANCHORA',  lock: true,  reason: 'Anchor Fluid Power uses the ANCHORA price library' },
+  '105261': { val: 'BRENNANA', lock: true,  reason: 'Brennan Industries uses the BRENNANA price library' },
+  '105753': { val: 'BRENNANA', lock: true,  reason: 'Spartan Industrial (Brennan line) uses BRENNANA' },
+  '106447': { val: 'BRENNANA', lock: true,  reason: 'Brennan alt supplier uses BRENNANA price library' },
+  '105336': { val: 'COMATROL', lock: false, reason: 'Danfoss Comatrol items typically use COMATROL — verify with purchasing if unsure' },
+  '105371': { val: 'DESCASEA', lock: true,  reason: 'Des-Case uses the DESCASEA price library' },
+  '106005': { val: 'NORGRENC', lock: true,  reason: 'Norgren uses the NORGRENC price library' },
+  '106192': { val: 'SCHRDERB', lock: true,  reason: 'Schroeder Industries uses the SCHRDERB price library' },
+  '106364': { val: 'VERSAA',   lock: true,  reason: 'Versa alt supplier uses VERSAA price library' },
+  '106385': { val: 'VERSAA',   lock: false, reason: 'Versa Products typically uses VERSA or VERSAA — confirm with purchasing' },
+  '206967': { val: 'WAGOA',    lock: false, reason: 'Wago typically uses WAGOA price library — confirm with purchasing' },
+  '178011': { val: 'M99',      lock: true,  reason: 'Amazon purchases use the M99 price library' },
+  '124863': { val: 'M99',      lock: false, reason: 'E&G Terminal items often use M99 — confirm with purchasing' },
+  '119528': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
+  '119848': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
+  '177788': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
+  '177886': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
+  '177943': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
+  '178017': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
+  '178020': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
+  '178109': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
+  '178135': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
+  '178187': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
+};
 
-  // -------------------------------------------------------
-  // STATIC DATA
-  // -------------------------------------------------------
-  const PRODUCT_GROUPS = [
-    'ADAPTALL','AIRWAY','ANCHOR','AQPADAPT','AQPFIT','AQPHOSE','AQPIND','AQPQD',
-    'AQPTAGS','AQPX','BANDIT','BEHCLAMP','BN000000','BRENNAN','CAMPBELL','CCPF',
-    'COMATROL','DEFAULT','DIXQD','DONFILT','DYNAMIC','EAVACC','EAVDIRV','ETELEM',
-    'FFX','GC000000','GEARTEK','HUMQE','HUMVAL','HUSQSO','LINC30','LINC40',
-    'LINC475','MAGCPLG','MARMON','MICO','MISC','MISCDEN','MISCHOSE','NORACT',
-    'NORFIT','NORSTAT','PE000000','SCHELE','SCHFILT','SDCNTRL','SDLSHT','SDPVG',
-    'SDSER40','SDX','STUCIQD','SYNHOSE','VERSA','WA000000','XPLO'
-  ];
+// Purchase discount rules - supplier locked, with Aeroquip overridden by product group
+const PURCH_MAP = {
+  '100018': { val: 'AQPGEN',   lock: true,  reason: 'Hydraquip-sourced items use AQPGEN discount schedule' },
+  '105111': { val: 'AQPGEN',   lock: true,  reason: 'Aeroquip items use AQPGEN — adapters use AQPADAP (auto-switches when product group is AQPADAPT)' },
+  '105179': { val: 'ANCHORA',  lock: true,  reason: 'Anchor Fluid Power uses ANCHORA discount schedule' },
+  '105261': { val: 'BRENNANA', lock: true,  reason: 'Brennan Industries uses BRENNANA discount schedule' },
+  '105336': { val: 'DPSICS',   lock: true,  reason: 'Danfoss Comatrol uses DPSICS discount schedule' },
+  '105371': { val: 'DESCASEA', lock: true,  reason: 'Des-Case uses DESCASEA discount schedule' },
+  '105390': { val: 'DPSPVG',   lock: true,  reason: 'D&W Nameplate (PVG) uses DPSPVG discount schedule' },
+  '105399': { val: 'DPSLSHT',  lock: true,  reason: 'Danfoss LSHT uses DPSLSHT discount schedule' },
+  '105460': { val: 'DONAL B',  lock: true,  reason: 'Donaldson uses DONAL B discount schedule' },
+  '105533': { val: 'FAIRPART', lock: true,  reason: 'Fairfield Mfg uses FAIRPART discount schedule' },
+  '105591': { val: 'EATON1',   lock: true,  reason: 'Future Fastener (Eaton line) uses EATON1 discount schedule' },
+  '105637': { val: 'HUMVAL',   lock: false, reason: 'Humphrey uses HUMVAL for valves or HUMQE for quick exhaust — select product group first' },
+  '105702': { val: 'HUSCO',    lock: true,  reason: 'Husco International uses HUSCO discount schedule' },
+  '105753': { val: 'BRENNANA', lock: true,  reason: 'Spartan Industrial (Brennan line) uses BRENNANA discount schedule' },
+  '105953': { val: 'MICO',     lock: true,  reason: 'ZF Off-Highway uses MICO discount schedule' },
+  '106005': { val: 'NORGRENC', lock: true,  reason: 'Norgren uses NORGRENC discount schedule' },
+  '106192': { val: 'SCHRDERB', lock: true,  reason: 'Schroeder uses SCHRDERB discount schedule' },
+  '106279': { val: 'AQPGEN',   lock: true,  reason: 'Synflex uses AQPGEN discount schedule' },
+  '106358': { val: 'TUTHILL',  lock: true,  reason: 'Tuthill uses TUTHILL discount schedule' },
+  '106364': { val: 'VERSAA',   lock: true,  reason: 'Versa alt supplier uses VERSAA discount schedule' },
+  '106385': { val: 'VERSA',    lock: true,  reason: 'Versa Products uses VERSA discount schedule' },
+  '106447': { val: 'BRENNANA', lock: true,  reason: 'Brennan alt supplier uses BRENNANA discount schedule' },
+  '111887': { val: 'DPSPVG',   lock: true,  reason: 'Danfoss PVG uses DPSPVG discount schedule' },
+  '178011': { val: 'M99',      lock: true,  reason: 'Amazon purchases use M99 discount schedule' },
+  '178116': { val: 'DPSPARTS', lock: true,  reason: 'This supplier uses DPSPARTS discount schedule' },
+  '209017': { val: 'AQPGEN',   lock: true,  reason: 'Hampton Rubber uses AQPGEN discount schedule' },
+  '119528': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
+  '119848': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
+  '177788': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
+  '177886': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
+  '177943': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
+  '178017': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
+  '178020': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
+  '178109': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
+  '178135': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
+  '178187': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
+  '124863': { val: 'M99',      lock: false, reason: 'E&G Terminal often uses M99 — confirm with purchasing' },
+};
 
-  const SALES_GROUPS = [
-    'ANCHORA','AQPGEN','BRENNANA','COMATROL','DEFAULT','DESCASEA','DIXONA',
-    'DIXSTAND','LIST','M99','NEW ITEM','NORGRENC','SCHRDERB','VERSA','VERSAA','WAGOA'
-  ];
+// Product group suggestions by supplier - only when confident
+const PROD_MAP = {
+  '105090': { val: 'ADAPTALL', reason: 'Adaptall items go in ADAPTALL' },
+  '105111': null, // driven by item type - handled separately
+  '105179': { val: 'ANCHOR',   reason: 'Anchor Fluid Power items go in ANCHOR' },
+  '105272': { val: 'CAMPBELL', reason: 'Campbell Fittings items go in CAMPBELL' },
+  '105336': { val: 'COMATROL', reason: 'Danfoss Comatrol items typically go in COMATROL' },
+  '105371': { val: 'MISC',     reason: 'Des-Case items vary — MISC is most common, verify' },
+  '105390': { val: 'SDX',      reason: 'D&W Nameplate items go in SDX' },
+  '105399': { val: 'SDLSHT',   reason: 'Danfoss LSHT items go in SDLSHT' },
+  '105460': { val: 'DONFILT',  reason: 'Donaldson filter items go in DONFILT' },
+  '105472': { val: 'DYNAMIC',  reason: 'Dynamic Fluid items go in DYNAMIC' },
+  '105533': { val: 'FFX',      reason: 'Fairfield Mfg items go in FFX' },
+  '105591': { val: 'EAVACC',   reason: 'Future Fastener items go in EAVACC' },
+  '105637': { val: 'HUMVAL',   reason: 'Humphrey valves go in HUMVAL, quick exhausts in HUMQE' },
+  '105702': { val: 'HUSQSO',   reason: 'Husco items go in HUSQSO' },
+  '105953': { val: 'MICO',     reason: 'ZF Off-Highway (MICO) items go in MICO' },
+  '105971': { val: 'NORACT',   reason: 'Monnier (Norgren actuator) items go in NORACT' },
+  '106005': { val: 'NORFIT',   reason: 'Norgren fitting items go in NORFIT' },
+  '106009': { val: 'NORSTAT',  reason: 'Norstat items go in NORSTAT' },
+  '106188': { val: 'SDX',      reason: 'Danfoss SDX items typically go in SDX' },
+  '106192': { val: 'SCHFILT',  reason: 'Schroeder filter items go in SCHFILT, elements in SCHELE' },
+  '106264': { val: 'STUCIQD',  reason: 'Structured Solutions items go in STUCIQD' },
+  '106279': { val: 'SYNHOSE',  reason: 'Synflex hose items go in SYNHOSE' },
+  '106385': { val: 'VERSA',    reason: 'Versa Products items go in VERSA' },
+  '106364': { val: 'VERSA',    reason: 'Versa alt items typically go in VERSA' },
+  '111887': { val: 'SDPVG',    reason: 'Danfoss PVG items go in SDPVG' },
+  '124873': { val: 'LINC40',   reason: 'Lincoln Industrial items go in LINC40 or LINC47.5' },
+  '124808': { val: 'MARMON',   reason: 'Tube Service items go in MARMON' },
+  '124882': { val: 'XPLO',     reason: 'Tipco items typically go in XPLO' },
+  '152906': { val: 'ETELEM',   reason: 'This supplier items go in ETELEM' },
+  '206967': { val: 'WA000000', reason: 'Wago items go in WA000000' },
+};
 
-  const PURCHASE_DISCOUNT_GROUPS = [
-    'AEROGEN','ANCHORA','AQPADAP','AQPGEN','AQPIND','BRENNANA','DEFAULT','DESCASEA',
-    'DIXONA','DIXQD','DIXSTAND','DONAL B','DPSGEN','DPSGEN2','DPSICS','DPSLSHT',
-    'DPSPARTS','DPSPVG','EATON1','EATON2','FAIRPART','FIXDCOST','HUMQE','HUMVAL',
-    'HUSCO','LINC40%','LINC47.5','M99','NEW ITEM','NORGRENC','SCHRDERB','SCHROEDR',
-    'TUTHILL','VERSA','VERSAA','WAGOA'
-  ];
+// Aeroquip product group suggestions by first description word
+const AQP_DESC_PROD = {
+  'hose': 'AQPHOSE', 'winner': 'AQPHOSE', 'eaton': 'AQPHOSE', 'synflex': 'AQPHOSE',
+  'adp': 'AQPFIT', 'adapter': 'AQPFIT', 'fitting': 'AQPFIT', 'crimp': 'AQPFIT',
+  'sleeve': 'AQPIND', 'spiral': 'AQPIND', 'nylon': 'AQPIND', 'plastic': 'MISCHOSE',
+  'clamp': 'AQPIND', 'cap': 'MISCHOSE', 'plug': 'MISCHOSE',
+};
 
-  const ALL_SUPPLIERS = [
-    '3','100018','105090','105111','105179','105182','105210','105230','105261',
-    '105272','105298','105336','105371','105390','105399','105410','105460','105472',
-    '105490','105533','105553','105573','105591','105614','105633','105637','105702',
-    '105753','105846','105857','105867','105901','105936','105953','105971','105987',
-    '106005','106009','106061','106143','106188','106189','106192','106251','106264',
-    '106267','106279','106290','106338','106358','106364','106385','106388','106397',
-    '106416','106447','106580','106720','111887','112280','113870','116607','116665',
-    '119415','119528','119848','120076','121300','121558','122150','123080','124758',
-    '124808','124857','124863','124866','124873','124878','124882','125445','126026',
-    '126036','126130','126180','126335','148255','151433','151603','151621','152906',
-    '158695','175816','177788','177886','177943','178011','178017','178020','178109',
-    '178116','178135','178147','178187','178196','194527','206967','209017','216362',
-    '219583'
-  ];
+const DESC_TEMPLATES = {
+  'hose':    'Hose, -[dash size] [psi] psi',
+  'adp':     'Adp [End1]/[End2]',
+  'adapter': 'Adp [End1]/[End2]',
+  'crimp':   'Crimp [Type], [Size], [Material]',
+  'clamp':   'Clamp, [Size] [Type]',
+  'plastic': 'Plastic [Part], #[Size] [End]',
+  'nylon':   'Nylon [Type], [Size] ID',
+  'spiral':  'Spiral [Type], [Size]',
+  'fitting': 'Fitting [Type], [Spec]',
+  'winner':  'Winner Hose [Spec], [psi] psi',
+  'sleeve':  '[Type] Sleeve, [Size] ID',
+  'eaton':   'Eaton [Product], [Size] ID, [psi] psi',
+  'filter':  'Filter [Type], [Spec]',
+  'valve':   'Valve [Type], [Size]',
+  'element': 'Filter Element, [Spec]',
+};
 
-  // -------------------------------------------------------
-  // INIT
-  // -------------------------------------------------------
-  function populateSelect(id, items, placeholder) {
-    const sel = document.getElementById(id);
-    sel.innerHTML = `<option value="">${placeholder}</option>`;
-    items.forEach(v => {
-      const opt = document.createElement('option');
-      opt.value = v;
-      opt.textContent = v;
-      sel.appendChild(opt);
-    });
+const ITEM_ID_REGEX = /^[A-Z0-9][A-Z0-9\-\.\/\s]{2,39}$/;
+
+const SUPPLIER_NAMES = {
+  '3':'3','100018':'Hydraquip','105090':'Adaptall Americas Inc','105111':'Danfoss Power Solutions II LLC - Aeroquip (HYD)','105179':'Anchor Fluid Power (HYD)','105182':'APG Company, Llc','105210':'Automationdirect.Com (SIT & HYD)','105230':'Behringer Corporation (HYD)','105261':'Brennan Industries Inc. (HYD)','105272':'Campbell Fittings (HYD)','105298':'Caplugs (HYD)','105336':'Danfoss Power Solutions ICS - Comatrol (HYD)','105371':'Des-Case Corporation (HYD)','105390':'D & W Nameplate Service (HYD)','105399':'Danfoss Power Solutions LSHT (HYD)','105410':'Delaware Manufacturing Industries (HYD)','105460':'Donaldson Company (HYD)','105472':'Dynamic Fluid Components (HYD)','105490':'Eads Company (HYD)','105533':'Fairfield Mfg. Co Inc (HYD)','105553':'Fittings Unlimited (HYD)','105573':'Fluid Power Energy, Inc (HYD)','105591':'Future Fastener (HYD)','105614':'Geartek/Hydraulic Analysis, Inc. (HYD)','105633':'H & D Distributors (HYD)','105637':'Humphrey Products Company (HYD)','105702':'Husco International (HYD)','105753':'Spartan Industrial & Marine','105846':'Kuriyama Of America Inc (HYD)','105857':'LADD (HYD)','105867':'Lenz (HYD)','105901':'Magnaloy Coupling Co (HYD)','105936':'McMaster Carr (HYD)','105953':'ZF Off-Highway Solutions Minnesota Inc (HYD)','105971':'Monnier Inc (HYD)','105987':'Noshok Inc (HYD)','106005':'Norgren (HYD)','106009':'Norstat Inc (HYD)','106061':'Parker Hannifin (HYD)','106143':'Misc Supplier','106188':'Danfoss Power Solutions SDX (HYD)','106189':'Swagelok (HYD)','106192':'Schroeder Industries, LLC (HYD)','106251':'SHF, Inc. (HYD)','106264':'Structured Solutions Inc (HYD)','106267':'Suburban Manufacturing (HYD)','106279':'Synflex (HYD)','106290':'Tompkins Industries Inc (HYD)','106338':'Texcel Rubber Company (HYD)','106358':'Tuthill (HYD)','106364':'Versa Products Alt (HYD)','106385':'Versa Products (HYD)','106388':'Danfoss Power Solutions II LLC (HYD)','106397':'Misc (HYD)','106416':'Summit Electric (HYD)','106447':'Brennan Alt (HYD)','106580':'Misc Alt (HYD)','106720':'Misc 2 (HYD)','111887':'Danfoss Power Solutions PVG (HYD)','112280':'Hydraquip FC','113870':'Dixon Valve & Coupling Co (HYD)','116607':'Misc Alt 2 (HYD)','116665':'Hydrotechnik USA, Inc. (HYD)','119415':'Misc (HYD)','119528':'Misc New (HYD)','119848':'Misc New 2 (HYD)','120076':'Misc (HYD)','121300':'General Insulation Co., Inc','121558':'Misc (HYD)','122150':'Digi-Key Corporation (HYD)','123080':'Misc (HYD)','124758':'Green Bay Plastics Alt','124808':'Tube Service Co','124857':'BAND-IT-IDEX, Inc. (HYD)','124863':'E & G Terminal, Inc.','124866':'Green Bay Plastics, Inc.','124873':'Lincoln Industrial Corporation (HYD)','124878':'PT Coupling (HYD)','124882':'Tipco Technologies, Inc (HYD)','125445':'Misc (HYD)','126026':'Misc (HYD)','126036':'Misc (HYD)','126130':'Misc (HYD)','126180':'Misc (HYD)','126335':'Newark element14 (HYD)','148255':'Misc (HYD)','151433':'Misc (HYD)','151603':'F & R Manufacturing, Inc. (HYD)','151621':'Merit Brass Co. (HYD)','152906':'Misc (HYD)','158695':'Misc (HYD)','175816':'Misc (HYD)','177788':'Misc New (HYD)','177886':'Misc New (HYD)','177943':'Misc New (HYD)','178011':'AMAZON','178017':'Misc New (HYD)','178020':'Misc New (HYD)','178109':'Misc New (HYD)','178116':'Misc (HYD)','178135':'Misc New (HYD)','178147':'Waytek, Inc','178187':'Misc New (HYD)','178196':'Misc (HYD)','194527':'Misc (HYD)','206967':'Wago (HYD)','209017':'Hampton Rubber Company','216362':'Misc (HYD)','219583':'Renegade Industrial Supply - HYD'
+};
+
+const ALL_SUPPLIER_IDS = ['3','100018','105090','105111','105179','105182','105210','105230','105261','105272','105298','105336','105371','105390','105399','105410','105460','105472','105490','105533','105553','105573','105591','105614','105633','105637','105702','105753','105846','105857','105867','105901','105936','105953','105971','105987','106005','106009','106061','106143','106188','106189','106192','106251','106264','106267','106279','106290','106338','106358','106364','106385','106388','106397','106416','106447','106580','106720','111887','112280','113870','116607','116665','119415','119528','119848','120076','121300','121558','122150','123080','124758','124808','124857','124863','124866','124873','124878','124882','125445','126026','126036','126130','126180','126335','148255','151433','151603','151621','152906','158695','175816','177788','177886','177943','178011','178017','178020','178109','178116','178135','178147','178187','178196','194527','206967','209017','216362','219583'];
+
+// -------------------------------------------------------
+// STATE
+// -------------------------------------------------------
+let validationTimer = null;
+let dupCheckPassed  = false;
+let hasDuplicates   = false;
+let currentSupplier = null;
+
+// -------------------------------------------------------
+// INIT
+// -------------------------------------------------------
+function populateSelect(id, items, placeholder) {
+  const sel = document.getElementById(id);
+  sel.innerHTML = placeholder ? `<option value="">${placeholder}</option>` : '';
+  items.forEach(v => {
+    const opt = document.createElement('option');
+    opt.value = v; opt.textContent = v;
+    sel.appendChild(opt);
+  });
+}
+
+function init() {
+  const sel = document.getElementById('supplierId');
+  ALL_SUPPLIER_IDS.forEach(id => {
+    const opt = document.createElement('option');
+    opt.value = id;
+    const name = SUPPLIER_NAMES[id];
+    opt.textContent = (name && name !== id) ? `${id} — ${name}` : id;
+    sel.appendChild(opt);
+  });
+  populateSelect('salesGroup',       SALES_GROUPS,  'Select...');
+  populateSelect('purchaseDiscount', PURCH_GROUPS,  'Select...');
+  document.getElementById('locationId').value = '110';
+}
+
+// -------------------------------------------------------
+// APPLY CLASSIFICATION RULES
+// -------------------------------------------------------
+function applyClassificationRules(supplierId, productGroupVal) {
+  // --- SALES GROUP ---
+  const sgEl   = document.getElementById('salesGroup');
+  const sgHint = document.getElementById('sgHint');
+  const sgRule = SALES_MAP[supplierId];
+
+  if (sgRule) {
+    sgEl.value = sgRule.val;
+    sgEl.className = sgRule.lock ? 'locked' : 'suggested';
+    sgHint.textContent = sgRule.reason;
+    sgHint.className   = sgRule.lock ? 'hint success' : 'hint info';
+  } else {
+    sgEl.value = 'DEFAULT';
+    sgEl.className = '';
+    sgHint.textContent = 'DEFAULT is correct for this supplier.';
+    sgHint.className   = 'hint';
   }
 
-  async function init() {
-    // Static dropdowns
-    populateSelect('salesGroup',       SALES_GROUPS,             'Select...');
-    populateSelect('purchaseDiscount', PURCHASE_DISCOUNT_GROUPS, 'Select...');
+  // --- PURCHASE DISCOUNT GROUP ---
+  const pdEl   = document.getElementById('purchaseDiscount');
+  const pdHint = document.getElementById('pdHint');
+  let pdRule   = PURCH_MAP[supplierId];
 
-    // Supplier dropdown - all suppliers (IDs only until P21 API wired)
-    const supplierSel = document.getElementById('supplierId');
-    supplierSel.innerHTML = '<option value="">Select a supplier...</option>';
-    ALL_SUPPLIERS.forEach(id => {
-      const opt = document.createElement('option');
-      opt.value = id;
-      opt.textContent = id;
-      supplierSel.appendChild(opt);
-    });
-
-    // Default location to 110
-    document.getElementById('locationId').value = '110';
-
-    // Load supplier format rules
-    try {
-      const res = await fetch(SUPPLIERS_FILE);
-      suppliers = await res.json();
-      // Enhance supplier dropdown labels for known suppliers
-      suppliers.forEach(s => {
-        const opt = supplierSel.querySelector(`option[value="${s.supplier_id}"]`);
-        if (opt) opt.textContent = `${s.supplier_id} — ${s.supplier_name}`;
-      });
-    } catch (e) {
-      console.warn('Could not load suppliers.json');
-    }
+  // Special case: Aeroquip - AQPADAPT product group flips to AQPADAP
+  if (supplierId === '105111' && productGroupVal === 'AQPADAPT') {
+    pdEl.value = 'AQPADAP';
+    pdEl.className = 'locked';
+    pdHint.textContent = 'Aeroquip adapter items use AQPADAP — other Aeroquip items use AQPGEN.';
+    pdHint.className   = 'hint success';
+    return;
+  }
+  // Special case: Humphrey - HUMQE product group uses HUMQE discount
+  if (supplierId === '105637' && productGroupVal === 'HUMQE') {
+    pdEl.value = 'HUMQE';
+    pdEl.className = 'locked';
+    pdHint.textContent = 'Humphrey quick exhaust items use HUMQE discount schedule.';
+    pdHint.className   = 'hint success';
+    return;
   }
 
-  // -------------------------------------------------------
-  // SUPPLIER CHANGE
-  // -------------------------------------------------------
-  document.getElementById('supplierId').addEventListener('change', function () {
-    const id = this.value;
-    currentSupplier = suppliers.find(s => s.supplier_id === id) || null;
+  if (pdRule) {
+    pdEl.value = pdRule.val;
+    pdEl.className = pdRule.lock ? 'locked' : 'suggested';
+    pdHint.textContent = pdRule.reason;
+    pdHint.className   = pdRule.lock ? 'hint success' : 'hint info';
+  } else {
+    pdEl.value = 'DEFAULT';
+    pdEl.className = '';
+    pdHint.textContent = 'No specific discount schedule found — verify with purchasing before saving.';
+    pdHint.className   = 'hint warning';
+  }
+}
 
-    const itemId = document.getElementById('itemId');
-    const itemDesc = document.getElementById('itemDesc');
+// -------------------------------------------------------
+// SUPPLIER CHANGE
+// -------------------------------------------------------
+document.getElementById('supplierId').addEventListener('change', function () {
+  currentSupplier = this.value;
+  resetValidation();
+
+  const itemId   = document.getElementById('itemId');
+  const itemDesc = document.getElementById('itemDesc');
+  const pg       = document.getElementById('productGroup');
+
+  if (!currentSupplier) {
+    [itemId, itemDesc, pg].forEach(el => el.disabled = true);
+    pg.innerHTML = '<option value="">Select supplier first...</option>';
+    document.getElementById('itemIdHint').textContent = 'Select a supplier first.';
+    document.getElementById('pgHint').textContent = '';
+    clearFields();
+    updateSubmitState();
+    return;
+  }
+
+  [itemId, itemDesc].forEach(el => el.disabled = false);
+  itemId.value = ''; itemId.className = '';
+  document.getElementById('itemIdHint').textContent = 'Format: alphanumeric, 3-40 chars. Dashes and dots allowed.';
+  document.getElementById('itemIdHint').className = 'hint';
+
+  // Product group
+  pg.disabled = false;
+  pg.innerHTML = '<option value="">(none / select if known)</option>';
+  PRODUCT_GROUPS.forEach(g => {
+    const opt = document.createElement('option');
+    opt.value = g; opt.textContent = g;
+    pg.appendChild(opt);
+  });
+
+  // Suggest product group if we have a confident rule
+  const pgRule = PROD_MAP[currentSupplier];
+  const pgHint = document.getElementById('pgHint');
+  if (pgRule) {
+    pg.value = pgRule.val;
+    pg.className = 'suggested';
+    pgHint.textContent = pgRule.reason;
+    pgHint.className   = 'hint info';
+  } else {
+    pg.value = '';
+    pg.className = '';
+    pgHint.textContent = currentSupplier === '105111'
+      ? 'For Aeroquip: start typing the description and product group will suggest based on item type.'
+      : 'No strong default for this supplier — select the most appropriate category.';
+    pgHint.className = 'hint';
+  }
+
+  applyClassificationRules(currentSupplier, pg.value);
+  updateSubmitState();
+});
+
+// -------------------------------------------------------
+// PRODUCT GROUP CHANGE — re-evaluate purchase discount
+// -------------------------------------------------------
+document.getElementById('productGroup').addEventListener('change', function () {
+  const supplierId = document.getElementById('supplierId').value;
+  if (!supplierId) return;
+
+  // Aeroquip: suggest product group purchase discount flip
+  if (supplierId === '105111') {
+    const descFirst = document.getElementById('itemDesc').value.trim().split(/[\s,]/)[0].toLowerCase();
+    applyAeroquipProductHint(this.value, descFirst);
+  }
+
+  applyClassificationRules(supplierId, this.value);
+  updateSubmitState();
+});
+
+function applyAeroquipProductHint(pgVal, descFirst) {
+  const pgHint = document.getElementById('pgHint');
+  if (pgVal) {
+    pgHint.textContent = pgVal === 'AQPADAPT'
+      ? 'AQPADAPT selected — purchase discount will switch to AQPADAP.'
+      : `${pgVal} selected.`;
+    pgHint.className = 'hint info';
+  }
+}
+
+// -------------------------------------------------------
+// ITEM ID VALIDATION
+// -------------------------------------------------------
+document.getElementById('itemId').addEventListener('input', function () {
+  resetDupWarning(); dupCheckPassed = false;
+  if (validationTimer) clearTimeout(validationTimer);
+  this.className = '';
+  document.getElementById('itemIdHint').textContent = 'Format: alphanumeric, 3-40 chars. Dashes and dots allowed.';
+  document.getElementById('itemIdHint').className = 'hint';
+  updateSubmitState();
+  if (this.value.trim() === '') return;
+  validationTimer = setTimeout(() => validateItemId(this), 600);
+});
+
+document.getElementById('itemId').addEventListener('blur', function () {
+  if (validationTimer) clearTimeout(validationTimer);
+  if (this.value.trim() === '') return;
+  validateItemId(this);
+});
+
+function validateItemId(input) {
+  const val = input.value.trim().toUpperCase();
+  input.value = val;
+  const hint = document.getElementById('itemIdHint');
+  if (ITEM_ID_REGEX.test(val)) {
+    input.className  = 'valid';
+    hint.textContent = 'Format looks good.';
+    hint.className   = 'hint success';
+  } else {
+    input.className  = 'invalid';
+    hint.textContent = 'Invalid. Use 3-40 chars: letters, numbers, dashes, dots only. No spaces.';
+    hint.className   = 'hint error';
+  }
+  updateSubmitState();
+}
+
+// -------------------------------------------------------
+// DESCRIPTION — template hints + Aeroquip product group suggestion
+// -------------------------------------------------------
+document.getElementById('itemDesc').addEventListener('input', function () {
+  const val      = this.value;
+  const count    = document.getElementById('descCount');
+  count.textContent = `${val.length}/60`;
+  count.className   = val.length > 50 ? 'char-count warn' : 'char-count';
+
+  const firstWord = val.split(/[\s,]/)[0].toLowerCase();
+  const template  = DESC_TEMPLATES[firstWord];
+  const hint = document.getElementById('descHint');
+  hint.textContent = template ? `Template: ${template}` : 'Format: Title Case, comma+space between attributes.';
+  hint.className   = 'hint template';
+
+  // Aeroquip: auto-suggest product group from description
+  if (currentSupplier === '105111') {
     const pg = document.getElementById('productGroup');
-    const hint = document.getElementById('itemIdHint');
-
-    resetValidation();
-
-    if (!id) {
-      [itemId, itemDesc, pg].forEach(el => el.disabled = true);
-      pg.innerHTML = '<option value="">Select supplier first...</option>';
-      hint.textContent = 'Select a supplier to see format requirements.';
-      hint.className = 'hint';
-      updateSubmitState();
-      return;
+    const suggested = AQP_DESC_PROD[firstWord];
+    const pgHint = document.getElementById('pgHint');
+    if (suggested && !pg.value) {
+      pg.value = suggested;
+      pg.className = 'suggested';
+      pgHint.textContent = `Suggested based on description: ${suggested}`;
+      pgHint.className   = 'hint info';
+      applyClassificationRules(currentSupplier, suggested);
     }
+  }
 
-    [itemId, itemDesc].forEach(el => el.disabled = false);
-    itemId.value = '';
-    itemId.className = '';
+  updateSubmitState();
+});
 
-    // Product group: if supplier has specific groups use those, else full list
-    pg.disabled = false;
-    if (currentSupplier && currentSupplier.product_groups && currentSupplier.product_groups.length) {
-      pg.innerHTML = '<option value="">Select product group...</option>';
-      currentSupplier.product_groups.forEach(g => {
-        const opt = document.createElement('option');
-        opt.value = g.id;
-        opt.textContent = g.label;
-        pg.appendChild(opt);
-      });
-    } else {
-      pg.innerHTML = '<option value="">Select product group...</option>';
-      PRODUCT_GROUPS.forEach(g => {
-        const opt = document.createElement('option');
-        opt.value = g;
-        opt.textContent = g;
-        pg.appendChild(opt);
-      });
-    }
-
-    // Format hint
-    if (currentSupplier) {
-      hint.textContent = `Format: ${currentSupplier.pattern_display}`;
-    } else {
-      hint.textContent = 'No format rule on file for this supplier — enter carefully.';
-    }
-    hint.className = 'hint';
-
-    updateSubmitState();
-  });
-
-  // -------------------------------------------------------
-  // ITEM ID VALIDATION
-  // -------------------------------------------------------
-  document.getElementById('itemId').addEventListener('input', function () {
-    resetDupWarning();
-    dupCheckPassed = false;
-    if (validationTimer) clearTimeout(validationTimer);
-
-    const input = this;
-    const hint  = document.getElementById('itemIdHint');
-
-    input.className  = '';
-    hint.textContent = currentSupplier ? `Format: ${currentSupplier.pattern_display}` : 'No format rule on file — enter carefully.';
-    hint.className   = 'hint';
-    updateSubmitState();
-
-    if (input.value.trim() === '') return;
-    validationTimer = setTimeout(() => validateItemId(input), 600);
-  });
-
-  document.getElementById('itemId').addEventListener('blur', function () {
-    if (validationTimer) clearTimeout(validationTimer);
-    if (this.value.trim() === '') return;
-    validateItemId(this);
-  });
-
-  function validateItemId(input) {
-    const val   = input.value.trim().toUpperCase();
-    input.value = val;
-    const hint  = document.getElementById('itemIdHint');
-
-    if (!currentSupplier) {
-      // No format rule - accept anything but warn
-      input.className  = 'valid';
-      hint.textContent = 'No format rule on file. Verify this ID manually.';
-      hint.className   = 'hint warning';
-      updateSubmitState();
-      return;
-    }
-
-    const regex = new RegExp(currentSupplier.regex);
-    if (regex.test(val)) {
-      input.className  = 'valid';
-      hint.textContent = 'Format looks good.';
-      hint.className   = 'hint success';
-    } else {
-      input.className  = 'invalid';
-      hint.textContent = `Invalid format. Expected: ${currentSupplier.pattern_hint}`;
-      hint.className   = 'hint error';
+// -------------------------------------------------------
+// OTHER LISTENERS
+// -------------------------------------------------------
+['salesGroup','purchaseDiscount','uom','locationId'].forEach(id => {
+  document.getElementById(id).addEventListener('change', function() {
+    // If user manually changes a locked field, warn them
+    if (this.className === 'locked' || this.className === 'suggested') {
+      this.className = '';
     }
     updateSubmitState();
-  }
-
-  // -------------------------------------------------------
-  // OTHER FIELD LISTENERS
-  // -------------------------------------------------------
-  ['productGroup','salesGroup','purchaseDiscount','uom','locationId'].forEach(id => {
-    document.getElementById(id).addEventListener('change', updateSubmitState);
   });
-  document.getElementById('itemDesc').addEventListener('input', updateSubmitState);
-  document.getElementById('dupConfirm').addEventListener('change', function () {
-    dupCheckPassed = this.checked;
-    updateSubmitState();
-  });
+});
 
-  // -------------------------------------------------------
-  // SUBMIT STATE
-  // -------------------------------------------------------
-  function updateSubmitState() {
-    const itemIdVal  = document.getElementById('itemId').value.trim();
-    const itemIdEl   = document.getElementById('itemId');
-    const pgVal      = document.getElementById('productGroup').value;
-    const sgVal      = document.getElementById('salesGroup').value;
-    const pdgVal     = document.getElementById('purchaseDiscount').value;
-    const uomVal     = document.getElementById('uom').value;
-    const locVal     = document.getElementById('locationId').value;
-    const descVal    = document.getElementById('itemDesc').value.trim();
-    const supplierVal= document.getElementById('supplierId').value;
+document.getElementById('dupConfirm').addEventListener('change', function () {
+  dupCheckPassed = this.checked;
+  updateSubmitState();
+});
 
-    const idOk = itemIdVal !== '' && (itemIdEl.className === 'valid');
-    const allFilled = supplierVal && idOk && descVal && pgVal && sgVal && pdgVal && uomVal && locVal;
-    const dupOk = !hasDuplicates || dupCheckPassed;
+// -------------------------------------------------------
+// SUBMIT STATE
+// -------------------------------------------------------
+function updateSubmitState() {
+  const itemIdEl   = document.getElementById('itemId');
+  const idOk       = itemIdEl.value.trim() !== '' && itemIdEl.className === 'valid';
+  const descOk     = document.getElementById('itemDesc').value.trim() !== '';
+  const sgOk       = document.getElementById('salesGroup').value !== '';
+  const pdOk       = document.getElementById('purchaseDiscount').value !== '';
+  const supplierOk = document.getElementById('supplierId').value !== '';
+  const uomOk      = document.getElementById('uom').value !== '';
+  const locOk      = document.getElementById('locationId').value !== '';
+  const dupOk      = !hasDuplicates || dupCheckPassed;
+  document.getElementById('submitBtn').disabled = !(supplierOk && idOk && descOk && sgOk && pdOk && uomOk && locOk && dupOk);
+}
 
-    document.getElementById('submitBtn').disabled = !(allFilled && dupOk);
+// -------------------------------------------------------
+// SUBMIT
+// -------------------------------------------------------
+document.getElementById('submitBtn').addEventListener('click', async function () {
+  const itemId = document.getElementById('itemId').value.trim();
+  if (!dupCheckPassed) {
+    const dups = await checkDuplicates(itemId);
+    if (dups.length > 0) { showDupWarning(dups); return; }
   }
+  await createItem();
+});
 
-  // -------------------------------------------------------
-  // SUBMIT
-  // -------------------------------------------------------
-  document.getElementById('submitBtn').addEventListener('click', async function () {
-    const itemId = document.getElementById('itemId').value.trim();
-    if (!dupCheckPassed) {
-      const dups = await checkDuplicates(itemId);
-      if (dups.length > 0) { showDupWarning(dups); return; }
-    }
-    await createItem();
-  });
+async function checkDuplicates(itemId) {
+  const normalized = itemId.replace(/[-.\s]/g, '').toUpperCase();
+  console.log(`[STUB] Duplicate check for: ${normalized}`);
+  return [];
+}
 
-  // -------------------------------------------------------
-  // DUPLICATE CHECK (stub)
-  // -------------------------------------------------------
-  async function checkDuplicates(itemId) {
-    const normalized = itemId.replace(/[-.\s]/g, '').toUpperCase();
-    console.log(`[STUB] Duplicate check for: ${normalized}`);
-    // TODO: replace with P21 API call
-    return [];
-  }
+async function createItem() {
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Creating...';
+  document.getElementById('apiNote').textContent = '';
 
-  // -------------------------------------------------------
-  // CREATE ITEM (stub)
-  // -------------------------------------------------------
-  async function createItem() {
-    const btn = document.getElementById('submitBtn');
-    btn.disabled  = true;
-    btn.innerHTML = '<span class="spinner"></span> Creating...';
-    document.getElementById('apiNote').textContent = '';
+  const payload = {
+    item_id:                    document.getElementById('itemId').value.trim(),
+    item_desc:                  document.getElementById('itemDesc').value.trim(),
+    product_group_id:           document.getElementById('productGroup').value,
+    sales_group_id:             document.getElementById('salesGroup').value,
+    purchase_discount_group_id: document.getElementById('purchaseDiscount').value,
+    unit_of_measure:            document.getElementById('uom').value,
+    location_id:                document.getElementById('locationId').value,
+    primary_supplier_id:        document.getElementById('supplierId').value
+  };
 
-    const payload = {
-      item_id:                   document.getElementById('itemId').value.trim(),
-      item_desc:                 document.getElementById('itemDesc').value.trim(),
-      product_group_id:          document.getElementById('productGroup').value,
-      sales_group_id:            document.getElementById('salesGroup').value,
-      purchase_discount_group_id:document.getElementById('purchaseDiscount').value,
-      unit_of_measure:           document.getElementById('uom').value,
-      location_id:               document.getElementById('locationId').value,
-      primary_supplier_id:       document.getElementById('supplierId').value
-    };
+  console.log('[STUB] Would POST to P21 API:', payload);
+  await new Promise(r => setTimeout(r, 900));
+  showToast(`Item ${payload.item_id} created successfully (stub mode).`, 'success');
+  document.getElementById('apiNote').textContent = '[stub — not connected to P21 yet]';
+  btn.innerHTML = 'Create Item in P21';
+  resetForm();
+}
 
-    console.log('[STUB] Would POST to P21 API:', payload);
-    // TODO: replace with real P21 API call
-    await new Promise(r => setTimeout(r, 900));
-    showToast(`Item ${payload.item_id} created successfully (stub mode).`, 'success');
-    document.getElementById('apiNote').textContent = '[stub — not connected to P21 yet]';
-    btn.innerHTML = 'Create Item in P21';
-    resetForm();
-  }
+// -------------------------------------------------------
+// DUP WARNING
+// -------------------------------------------------------
+function showDupWarning(dups) {
+  hasDuplicates = true;
+  const list = document.getElementById('dupList');
+  list.innerHTML = '';
+  dups.forEach(d => { const li = document.createElement('li'); li.textContent = d; list.appendChild(li); });
+  document.getElementById('dupWarning').style.display = 'block';
+  updateSubmitState();
+}
 
-  // -------------------------------------------------------
-  // DUP WARNING
-  // -------------------------------------------------------
-  function showDupWarning(dups) {
-    hasDuplicates = true;
-    const list = document.getElementById('dupList');
-    list.innerHTML = '';
-    dups.forEach(d => {
-      const li = document.createElement('li');
-      li.textContent = d;
-      list.appendChild(li);
-    });
-    document.getElementById('dupWarning').style.display = 'block';
-    updateSubmitState();
-  }
+function resetDupWarning() {
+  hasDuplicates = false; dupCheckPassed = false;
+  document.getElementById('dupWarning').style.display = 'none';
+  document.getElementById('dupConfirm').checked = false;
+  document.getElementById('dupList').innerHTML  = '';
+}
 
-  function resetDupWarning() {
-    hasDuplicates  = false;
-    dupCheckPassed = false;
-    document.getElementById('dupWarning').style.display = 'none';
-    document.getElementById('dupConfirm').checked       = false;
-    document.getElementById('dupList').innerHTML        = '';
-  }
+// -------------------------------------------------------
+// RESET
+// -------------------------------------------------------
+function clearFields() {
+  document.getElementById('salesGroup').value = '';
+  document.getElementById('salesGroup').className = '';
+  document.getElementById('purchaseDiscount').value = '';
+  document.getElementById('purchaseDiscount').className = '';
+  document.getElementById('sgHint').textContent = '';
+  document.getElementById('pdHint').textContent = '';
+}
 
-  // -------------------------------------------------------
-  // RESET
-  // -------------------------------------------------------
-  function resetValidation() {
-    if (validationTimer) clearTimeout(validationTimer);
-    const itemId     = document.getElementById('itemId');
-    itemId.value     = '';
-    itemId.className = '';
-    resetDupWarning();
-  }
+function resetValidation() {
+  if (validationTimer) clearTimeout(validationTimer);
+  const itemId = document.getElementById('itemId');
+  itemId.value = ''; itemId.className = '';
+  resetDupWarning();
+}
 
-  function resetForm() {
-    document.getElementById('supplierId').value         = '';
-    document.getElementById('itemId').value             = '';
-    document.getElementById('itemId').className         = '';
-    document.getElementById('itemId').disabled          = true;
-    document.getElementById('itemDesc').value           = '';
-    document.getElementById('itemDesc').disabled        = true;
-    document.getElementById('productGroup').innerHTML   = '<option value="">Select supplier first...</option>';
-    document.getElementById('productGroup').disabled    = true;
-    document.getElementById('salesGroup').value         = '';
-    document.getElementById('purchaseDiscount').value   = '';
-    document.getElementById('uom').value                = 'EA';
-    document.getElementById('locationId').value         = '110';
-    document.getElementById('itemIdHint').textContent   = 'Select a supplier to see format requirements.';
-    document.getElementById('itemIdHint').className     = 'hint';
-    resetDupWarning();
-    currentSupplier = null;
-    updateSubmitState();
-  }
+function resetForm() {
+  currentSupplier = null;
+  document.getElementById('supplierId').value       = '';
+  document.getElementById('itemId').value           = '';
+  document.getElementById('itemId').className       = '';
+  document.getElementById('itemId').disabled        = true;
+  document.getElementById('itemDesc').value         = '';
+  document.getElementById('itemDesc').disabled      = true;
+  document.getElementById('descCount').textContent  = '0/60';
+  document.getElementById('descHint').textContent   = 'Start typing to see format template.';
+  document.getElementById('productGroup').innerHTML = '<option value="">Select supplier first...</option>';
+  document.getElementById('productGroup').disabled  = true;
+  document.getElementById('productGroup').className = '';
+  document.getElementById('pgHint').textContent     = '';
+  document.getElementById('uom').value              = 'EA';
+  document.getElementById('locationId').value       = '110';
+  document.getElementById('itemIdHint').textContent = 'Select a supplier first.';
+  document.getElementById('itemIdHint').className   = 'hint';
+  clearFields();
+  resetDupWarning();
+  updateSubmitState();
+}
 
-  document.getElementById('resetBtn').addEventListener('click', resetForm);
+document.getElementById('resetBtn').addEventListener('click', resetForm);
 
-  // -------------------------------------------------------
-  // TOAST
-  // -------------------------------------------------------
-  function showToast(msg, type = 'success') {
-    const t         = document.getElementById('toast');
-    t.textContent   = msg;
-    t.className     = type;
-    t.style.display = 'block';
-    setTimeout(() => { t.style.display = 'none'; }, 4500);
-  }
+// -------------------------------------------------------
+// TOAST
+// -------------------------------------------------------
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = type; t.style.display = 'block';
+  setTimeout(() => { t.style.display = 'none'; }, 4500);
+}
 
-  init();
+init();
 </script>
 </body>
 </html>
