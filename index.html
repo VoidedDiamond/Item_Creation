@@ -61,6 +61,14 @@
     .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 6px; vertical-align: middle; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .api-note { font-size: 0.7rem; color: var(--gray); font-family: 'IBM Plex Mono', monospace; }
+    #supplierDropdown { display:none; position:absolute; top:100%; left:0; right:0; background:#fff; border:1.5px solid var(--red); border-top:none; border-radius:0 0 4px 4px; max-height:220px; overflow-y:auto; z-index:100; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+    #supplierDropdown .sd-item { padding:0.55rem 0.85rem; font-size:0.85rem; cursor:pointer; border-bottom:1px solid var(--border); color:var(--text); }
+    #supplierDropdown .sd-item:last-child { border-bottom:none; }
+    #supplierDropdown .sd-item:hover, #supplierDropdown .sd-item.active { background:var(--red); color:#fff; }
+    #supplierDropdown .sd-item .sd-id { font-family:'IBM Plex Mono',monospace; font-weight:600; margin-right:0.5rem; font-size:0.78rem; }
+    #supplierDropdown .sd-item .sd-name { font-size:0.82rem; }
+    #supplierDropdown .sd-empty { padding:0.6rem 0.85rem; font-size:0.82rem; color:var(--gray); font-style:italic; }
+    #supplierSearch.selected { border-color:var(--green); background:#f0f4f0; }
   </style>
 </head>
 <body>
@@ -82,8 +90,13 @@
 
       <div class="section-label">Supplier</div>
       <div class="field">
-        <div class="field-label-row"><label for="supplierId">Primary Supplier ID <span class="req">*</span></label></div>
-        <select id="supplierId"><option value="">Select a supplier...</option></select>
+        <div class="field-label-row"><label>Primary Supplier ID <span class="req">*</span></label></div>
+        <div style="position:relative;">
+          <input type="text" id="supplierSearch" placeholder="Type ID or name to search..." autocomplete="off" />
+          <div id="supplierDropdown"></div>
+        </div>
+        <div class="hint" id="supplierHint"></div>
+        <input type="hidden" id="supplierId" />
       </div>
 
       <hr class="divider" />
@@ -364,14 +377,109 @@ function populateSelect(id, items, placeholder) {
 }
 
 function init() {
-  const sel = document.getElementById('supplierId');
-  ALL_SUPPLIER_IDS.forEach(id => {
-    const opt = document.createElement('option');
-    opt.value = id;
-    const name = SUPPLIER_NAMES[id];
-    opt.textContent = (name && name !== id) ? `${id} — ${name}` : id;
-    sel.appendChild(opt);
+  // Searchable supplier field
+  const searchInput = document.getElementById('supplierSearch');
+  const dropdown    = document.getElementById('supplierDropdown');
+  const hiddenId    = document.getElementById('supplierId');
+  let activeIndex   = -1;
+
+  function buildSupplierList(filter) {
+    const q = filter.toLowerCase();
+    const matches = ALL_SUPPLIER_IDS.filter(id => {
+      const name = (SUPPLIER_NAMES[id] || '').toLowerCase();
+      return id.includes(q) || name.includes(q);
+    });
+
+    dropdown.innerHTML = '';
+    if (matches.length === 0) {
+      dropdown.innerHTML = '<div class="sd-empty">No suppliers match.</div>';
+      dropdown.style.display = 'block';
+      return;
+    }
+
+    matches.slice(0, 50).forEach((id, i) => {
+      const name = SUPPLIER_NAMES[id] || '';
+      const div  = document.createElement('div');
+      div.className = 'sd-item';
+      div.dataset.id = id;
+      div.innerHTML = `<span class="sd-id">${id}</span><span class="sd-name">${name}</span>`;
+      div.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        selectSupplier(id, name);
+      });
+      dropdown.appendChild(div);
+    });
+
+    activeIndex = -1;
+    dropdown.style.display = 'block';
+  }
+
+  function selectSupplier(id, name) {
+    hiddenId.value = id;
+    searchInput.value = name ? `${id} — ${name}` : id;
+    searchInput.className = 'selected';
+    dropdown.style.display = 'none';
+    document.getElementById('supplierHint').textContent = '';
+    // Trigger supplier change logic
+    currentSupplier = id;
+    onSupplierSelected(id);
+  }
+
+  searchInput.addEventListener('input', function () {
+    const val = this.value.trim();
+    hiddenId.value = '';
+    searchInput.className = '';
+    currentSupplier = null;
+    if (val.length === 0) { dropdown.style.display = 'none'; clearSupplierFields(); return; }
+    buildSupplierList(val);
   });
+
+  searchInput.addEventListener('keydown', function (e) {
+    const items = dropdown.querySelectorAll('.sd-item');
+    if (!items.length) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      activeIndex = Math.min(activeIndex + 1, items.length - 1);
+      items.forEach((el, i) => el.classList.toggle('active', i === activeIndex));
+      items[activeIndex].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      activeIndex = Math.max(activeIndex - 1, 0);
+      items.forEach((el, i) => el.classList.toggle('active', i === activeIndex));
+      items[activeIndex].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter' && activeIndex >= 0) {
+      e.preventDefault();
+      const id   = items[activeIndex].dataset.id;
+      const name = SUPPLIER_NAMES[id] || '';
+      selectSupplier(id, name);
+    } else if (e.key === 'Escape') {
+      dropdown.style.display = 'none';
+    }
+  });
+
+  searchInput.addEventListener('blur', function () {
+    setTimeout(() => { dropdown.style.display = 'none'; }, 150);
+    // If nothing selected, clear
+    if (!hiddenId.value) {
+      this.value = '';
+      this.className = '';
+      clearSupplierFields();
+    }
+  });
+
+  function clearSupplierFields() {
+    currentSupplier = null;
+    resetValidation();
+    const itemId   = document.getElementById('itemId');
+    const itemDesc = document.getElementById('itemDesc');
+    const pg       = document.getElementById('productGroup');
+    [itemId, itemDesc, pg].forEach(el => el.disabled = true);
+    pg.innerHTML = '<option value="">Select supplier first...</option>';
+    document.getElementById('itemIdHint').textContent = 'Select a supplier first.';
+    document.getElementById('pgHint').textContent = '';
+    clearFields();
+    updateSubmitState();
+  }
   populateSelect('salesGroup',       SALES_GROUPS,  'Select...');
   populateSelect('purchaseDiscount', PURCH_GROUPS,  'Select...');
   document.getElementById('locationId').value = '110';
@@ -436,8 +544,7 @@ function applyClassificationRules(supplierId, productGroupVal) {
 // -------------------------------------------------------
 // SUPPLIER CHANGE
 // -------------------------------------------------------
-document.getElementById('supplierId').addEventListener('change', function () {
-  currentSupplier = this.value;
+function onSupplierSelected(supplierId) {
   resetValidation();
 
   const itemId   = document.getElementById('itemId');
@@ -487,7 +594,7 @@ document.getElementById('supplierId').addEventListener('change', function () {
 
   applyClassificationRules(currentSupplier, pg.value);
   updateSubmitState();
-});
+}
 
 // -------------------------------------------------------
 // PRODUCT GROUP CHANGE — re-evaluate purchase discount
@@ -702,6 +809,9 @@ function resetValidation() {
 function resetForm() {
   currentSupplier = null;
   document.getElementById('supplierId').value       = '';
+  document.getElementById('supplierSearch').value   = '';
+  document.getElementById('supplierSearch').className = '';
+  document.getElementById('supplierHint').textContent = '';
   document.getElementById('itemId').value           = '';
   document.getElementById('itemId').className       = '';
   document.getElementById('itemId').disabled        = true;
