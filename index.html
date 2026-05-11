@@ -42,10 +42,7 @@
       box-shadow: 0 1px 6px rgba(0,0,0,0.07);
     }
 
-    header img.logo {
-      height: 44px;
-      display: block;
-    }
+    header img.logo { height: 44px; display: block; }
 
     header .badge {
       font-size: 0.7rem;
@@ -69,7 +66,7 @@
       border: 1px solid var(--border);
       border-radius: 6px;
       width: 100%;
-      max-width: 680px;
+      max-width: 720px;
       box-shadow: 0 2px 12px rgba(13,31,60,0.07);
       overflow: hidden;
     }
@@ -96,7 +93,7 @@
 
     .card-body { padding: 1.75rem; }
 
-    .field { margin-bottom: 1.4rem; }
+    .field { margin-bottom: 1.3rem; }
 
     label {
       display: block;
@@ -105,7 +102,7 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--text);
-      margin-bottom: 0.45rem;
+      margin-bottom: 0.4rem;
     }
 
     label .req { color: var(--red); margin-left: 2px; }
@@ -140,14 +137,14 @@
 
     .hint.error   { color: var(--red);   font-weight: 600; }
     .hint.success { color: var(--green); font-weight: 600; }
-    .hint.warning { color: var(--amber); font-weight: 600; }
 
-    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
 
     .divider {
       border: none;
       border-top: 1px solid var(--border);
-      margin: 1.5rem 0;
+      margin: 1.4rem 0;
     }
 
     .section-label {
@@ -156,7 +153,24 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--gray);
-      margin-bottom: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    /* locked field */
+    .locked-field {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .locked-field select { flex: 1; }
+    .lock-badge {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray);
+      white-space: nowrap;
+      font-family: 'IBM Plex Mono', monospace;
     }
 
     #dupWarning {
@@ -294,30 +308,23 @@
     </div>
     <div class="card-body">
 
+      <!-- SUPPLIER -->
       <div class="section-label">Supplier</div>
-
       <div class="field">
-        <label for="supplier">Supplier <span class="req">*</span></label>
-        <select id="supplier">
-          <option value="">Select a supplier...</option>
-        </select>
+        <label for="supplierId">Primary Supplier ID <span class="req">*</span></label>
+        <select id="supplierId"></select>
       </div>
 
       <hr class="divider" />
-      <div class="section-label">Item Details</div>
 
-      <div class="field">
-        <label for="itemId">Item ID <span class="req">*</span></label>
-        <input type="text" id="itemId" placeholder="Enter item ID" disabled />
-        <div class="hint" id="itemIdHint">Select a supplier to see format requirements.</div>
-      </div>
+      <!-- ITEM IDENTITY -->
+      <div class="section-label">Item Identity</div>
 
-      <div class="row">
+      <div class="row2">
         <div class="field">
-          <label for="productGroup">Product Group <span class="req">*</span></label>
-          <select id="productGroup" disabled>
-            <option value="">Select supplier first...</option>
-          </select>
+          <label for="itemId">Item ID <span class="req">*</span></label>
+          <input type="text" id="itemId" placeholder="Enter item ID" disabled />
+          <div class="hint" id="itemIdHint">Select a supplier to see format requirements.</div>
         </div>
         <div class="field">
           <label for="itemDesc">Item Description <span class="req">*</span></label>
@@ -325,13 +332,80 @@
         </div>
       </div>
 
-      <div class="field">
-        <label for="extDesc">Extended Description</label>
-        <textarea id="extDesc" rows="2" placeholder="Optional additional detail" disabled style="resize:vertical;"></textarea>
+      <hr class="divider" />
+
+      <!-- CLASSIFICATION -->
+      <div class="section-label">Classification</div>
+
+      <div class="row2">
+        <div class="field">
+          <label for="productGroup">Product Group ID <span class="req">*</span></label>
+          <select id="productGroup" disabled>
+            <option value="">Select supplier first...</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="salesGroup">Sales Group ID <span class="req">*</span></label>
+          <select id="salesGroup">
+            <option value="">Select...</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label for="purchaseDiscount">Purchase Discount Group ID <span class="req">*</span></label>
+          <select id="purchaseDiscount">
+            <option value="">Select...</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="uom">Unit of Measure <span class="req">*</span></label>
+          <select id="uom">
+            <option value="EA" selected>EA</option>
+            <option value="FT">FT</option>
+            <option value="IN">IN</option>
+          </select>
+        </div>
       </div>
 
       <hr class="divider" />
 
+      <!-- LOCATION -->
+      <div class="section-label">Location</div>
+
+      <div class="field" style="max-width:320px;">
+        <label for="locationId">Location ID <span class="req">*</span></label>
+        <select id="locationId">
+          <option value="110">110 — HYD Houston (default)</option>
+          <option value="119">119 — HYD Houston S &amp; R</option>
+          <option value="120">120 — HYD Grand Prairie</option>
+          <option value="129">129 — HYD Grand Prairie S &amp; R</option>
+          <option value="130">130 — HYD San Antonio</option>
+          <option value="140">140 — Flint Hydraulics</option>
+          <option value="149">149 — HYD Memphis S &amp; R</option>
+          <option value="150">150 — HYD Arizona</option>
+          <option value="160">160 — HYD Broussard</option>
+          <option value="170">170 — HYD Tulsa</option>
+          <option value="180">180 — HYD Oklahoma City</option>
+          <option value="190">190 — HYD Colorado</option>
+          <option value="199">199 — HYD Colorado S &amp; R</option>
+          <option value="210">210 — HYD FC Houston</option>
+          <option value="211">211 — HYD DC Houston</option>
+          <option value="220">220 — HYD FC Grand Prairie</option>
+          <option value="230">230 — HYD FC San Antonio</option>
+          <option value="240">240 — HYD Memphis FC</option>
+          <option value="260">260 — HYD FC Broussard</option>
+          <option value="270">270 — HYD FC Tulsa</option>
+          <option value="280">280 — HYD FC Oklahoma City</option>
+          <option value="290">290 — HYD FC Colorado</option>
+          <option value="310">310 — Hydraquip Electric Systems</option>
+        </select>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- DUPLICATE WARNING -->
       <div id="dupWarning">
         <div class="dup-title">Possible Duplicate Items Found</div>
         <ul id="dupList"></ul>
@@ -365,40 +439,110 @@
   let hasDuplicates   = false;
   let validationTimer = null;
 
-  async function init() {
-    try {
-      const res = await fetch(SUPPLIERS_FILE);
-      suppliers = await res.json();
-      populateSupplierDropdown();
-    } catch (e) {
-      showToast('Could not load suppliers.json. Make sure it is in the same folder.', 'error');
-    }
-  }
+  // -------------------------------------------------------
+  // STATIC DATA
+  // -------------------------------------------------------
+  const PRODUCT_GROUPS = [
+    'ADAPTALL','AIRWAY','ANCHOR','AQPADAPT','AQPFIT','AQPHOSE','AQPIND','AQPQD',
+    'AQPTAGS','AQPX','BANDIT','BEHCLAMP','BN000000','BRENNAN','CAMPBELL','CCPF',
+    'COMATROL','DEFAULT','DIXQD','DONFILT','DYNAMIC','EAVACC','EAVDIRV','ETELEM',
+    'FFX','GC000000','GEARTEK','HUMQE','HUMVAL','HUSQSO','LINC30','LINC40',
+    'LINC475','MAGCPLG','MARMON','MICO','MISC','MISCDEN','MISCHOSE','NORACT',
+    'NORFIT','NORSTAT','PE000000','SCHELE','SCHFILT','SDCNTRL','SDLSHT','SDPVG',
+    'SDSER40','SDX','STUCIQD','SYNHOSE','VERSA','WA000000','XPLO'
+  ];
 
-  function populateSupplierDropdown() {
-    const sel = document.getElementById('supplier');
-    suppliers.forEach(s => {
+  const SALES_GROUPS = [
+    'ANCHORA','AQPGEN','BRENNANA','COMATROL','DEFAULT','DESCASEA','DIXONA',
+    'DIXSTAND','LIST','M99','NEW ITEM','NORGRENC','SCHRDERB','VERSA','VERSAA','WAGOA'
+  ];
+
+  const PURCHASE_DISCOUNT_GROUPS = [
+    'AEROGEN','ANCHORA','AQPADAP','AQPGEN','AQPIND','BRENNANA','DEFAULT','DESCASEA',
+    'DIXONA','DIXQD','DIXSTAND','DONAL B','DPSGEN','DPSGEN2','DPSICS','DPSLSHT',
+    'DPSPARTS','DPSPVG','EATON1','EATON2','FAIRPART','FIXDCOST','HUMQE','HUMVAL',
+    'HUSCO','LINC40%','LINC47.5','M99','NEW ITEM','NORGRENC','SCHRDERB','SCHROEDR',
+    'TUTHILL','VERSA','VERSAA','WAGOA'
+  ];
+
+  const ALL_SUPPLIERS = [
+    '3','100018','105090','105111','105179','105182','105210','105230','105261',
+    '105272','105298','105336','105371','105390','105399','105410','105460','105472',
+    '105490','105533','105553','105573','105591','105614','105633','105637','105702',
+    '105753','105846','105857','105867','105901','105936','105953','105971','105987',
+    '106005','106009','106061','106143','106188','106189','106192','106251','106264',
+    '106267','106279','106290','106338','106358','106364','106385','106388','106397',
+    '106416','106447','106580','106720','111887','112280','113870','116607','116665',
+    '119415','119528','119848','120076','121300','121558','122150','123080','124758',
+    '124808','124857','124863','124866','124873','124878','124882','125445','126026',
+    '126036','126130','126180','126335','148255','151433','151603','151621','152906',
+    '158695','175816','177788','177886','177943','178011','178017','178020','178109',
+    '178116','178135','178147','178187','178196','194527','206967','209017','216362',
+    '219583'
+  ];
+
+  // -------------------------------------------------------
+  // INIT
+  // -------------------------------------------------------
+  function populateSelect(id, items, placeholder) {
+    const sel = document.getElementById(id);
+    sel.innerHTML = `<option value="">${placeholder}</option>`;
+    items.forEach(v => {
       const opt = document.createElement('option');
-      opt.value = s.supplier_id;
-      opt.textContent = `${s.supplier_id} — ${s.supplier_name}`;
+      opt.value = v;
+      opt.textContent = v;
       sel.appendChild(opt);
     });
   }
 
-  document.getElementById('supplier').addEventListener('change', function () {
+  async function init() {
+    // Static dropdowns
+    populateSelect('salesGroup',       SALES_GROUPS,             'Select...');
+    populateSelect('purchaseDiscount', PURCHASE_DISCOUNT_GROUPS, 'Select...');
+
+    // Supplier dropdown - all suppliers (IDs only until P21 API wired)
+    const supplierSel = document.getElementById('supplierId');
+    supplierSel.innerHTML = '<option value="">Select a supplier...</option>';
+    ALL_SUPPLIERS.forEach(id => {
+      const opt = document.createElement('option');
+      opt.value = id;
+      opt.textContent = id;
+      supplierSel.appendChild(opt);
+    });
+
+    // Default location to 110
+    document.getElementById('locationId').value = '110';
+
+    // Load supplier format rules
+    try {
+      const res = await fetch(SUPPLIERS_FILE);
+      suppliers = await res.json();
+      // Enhance supplier dropdown labels for known suppliers
+      suppliers.forEach(s => {
+        const opt = supplierSel.querySelector(`option[value="${s.supplier_id}"]`);
+        if (opt) opt.textContent = `${s.supplier_id} — ${s.supplier_name}`;
+      });
+    } catch (e) {
+      console.warn('Could not load suppliers.json');
+    }
+  }
+
+  // -------------------------------------------------------
+  // SUPPLIER CHANGE
+  // -------------------------------------------------------
+  document.getElementById('supplierId').addEventListener('change', function () {
     const id = this.value;
     currentSupplier = suppliers.find(s => s.supplier_id === id) || null;
 
-    const itemId   = document.getElementById('itemId');
+    const itemId = document.getElementById('itemId');
     const itemDesc = document.getElementById('itemDesc');
-    const extDesc  = document.getElementById('extDesc');
-    const pg       = document.getElementById('productGroup');
-    const hint     = document.getElementById('itemIdHint');
+    const pg = document.getElementById('productGroup');
+    const hint = document.getElementById('itemIdHint');
 
     resetValidation();
 
-    if (!currentSupplier) {
-      [itemId, itemDesc, extDesc, pg].forEach(el => el.disabled = true);
+    if (!id) {
+      [itemId, itemDesc, pg].forEach(el => el.disabled = true);
       pg.innerHTML = '<option value="">Select supplier first...</option>';
       hint.textContent = 'Select a supplier to see format requirements.';
       hint.className = 'hint';
@@ -406,24 +550,44 @@
       return;
     }
 
-    [itemId, itemDesc, extDesc, pg].forEach(el => el.disabled = false);
-    itemId.value     = '';
+    [itemId, itemDesc].forEach(el => el.disabled = false);
+    itemId.value = '';
     itemId.className = '';
 
-    hint.textContent = `Format: ${currentSupplier.pattern_display}`;
-    hint.className   = 'hint';
+    // Product group: if supplier has specific groups use those, else full list
+    pg.disabled = false;
+    if (currentSupplier && currentSupplier.product_groups && currentSupplier.product_groups.length) {
+      pg.innerHTML = '<option value="">Select product group...</option>';
+      currentSupplier.product_groups.forEach(g => {
+        const opt = document.createElement('option');
+        opt.value = g.id;
+        opt.textContent = g.label;
+        pg.appendChild(opt);
+      });
+    } else {
+      pg.innerHTML = '<option value="">Select product group...</option>';
+      PRODUCT_GROUPS.forEach(g => {
+        const opt = document.createElement('option');
+        opt.value = g;
+        opt.textContent = g;
+        pg.appendChild(opt);
+      });
+    }
 
-    pg.innerHTML = '<option value="">Select product group...</option>';
-    currentSupplier.product_groups.forEach(g => {
-      const opt = document.createElement('option');
-      opt.value       = g.id;
-      opt.textContent = g.label;
-      pg.appendChild(opt);
-    });
+    // Format hint
+    if (currentSupplier) {
+      hint.textContent = `Format: ${currentSupplier.pattern_display}`;
+    } else {
+      hint.textContent = 'No format rule on file for this supplier — enter carefully.';
+    }
+    hint.className = 'hint';
 
     updateSubmitState();
   });
 
+  // -------------------------------------------------------
+  // ITEM ID VALIDATION
+  // -------------------------------------------------------
   document.getElementById('itemId').addEventListener('input', function () {
     resetDupWarning();
     dupCheckPassed = false;
@@ -433,17 +597,17 @@
     const hint  = document.getElementById('itemIdHint');
 
     input.className  = '';
-    hint.textContent = currentSupplier ? `Format: ${currentSupplier.pattern_display}` : '';
+    hint.textContent = currentSupplier ? `Format: ${currentSupplier.pattern_display}` : 'No format rule on file — enter carefully.';
     hint.className   = 'hint';
     updateSubmitState();
 
-    if (!currentSupplier || input.value.trim() === '') return;
+    if (input.value.trim() === '') return;
     validationTimer = setTimeout(() => validateItemId(input), 600);
   });
 
   document.getElementById('itemId').addEventListener('blur', function () {
     if (validationTimer) clearTimeout(validationTimer);
-    if (!currentSupplier || this.value.trim() === '') return;
+    if (this.value.trim() === '') return;
     validateItemId(this);
   });
 
@@ -451,8 +615,17 @@
     const val   = input.value.trim().toUpperCase();
     input.value = val;
     const hint  = document.getElementById('itemIdHint');
-    const regex = new RegExp(currentSupplier.regex);
 
+    if (!currentSupplier) {
+      // No format rule - accept anything but warn
+      input.className  = 'valid';
+      hint.textContent = 'No format rule on file. Verify this ID manually.';
+      hint.className   = 'hint warning';
+      updateSubmitState();
+      return;
+    }
+
+    const regex = new RegExp(currentSupplier.regex);
     if (regex.test(val)) {
       input.className  = 'valid';
       hint.textContent = 'Format looks good.';
@@ -465,26 +638,42 @@
     updateSubmitState();
   }
 
-  ['productGroup', 'itemDesc'].forEach(id => {
+  // -------------------------------------------------------
+  // OTHER FIELD LISTENERS
+  // -------------------------------------------------------
+  ['productGroup','salesGroup','purchaseDiscount','uom','locationId'].forEach(id => {
     document.getElementById(id).addEventListener('change', updateSubmitState);
-    document.getElementById(id).addEventListener('input',  updateSubmitState);
   });
-
+  document.getElementById('itemDesc').addEventListener('input', updateSubmitState);
   document.getElementById('dupConfirm').addEventListener('change', function () {
     dupCheckPassed = this.checked;
     updateSubmitState();
   });
 
+  // -------------------------------------------------------
+  // SUBMIT STATE
+  // -------------------------------------------------------
   function updateSubmitState() {
-    const itemIdVal = document.getElementById('itemId').value.trim();
-    const pgVal     = document.getElementById('productGroup').value;
-    const descVal   = document.getElementById('itemDesc').value.trim();
-    const formatOk  = currentSupplier && new RegExp(currentSupplier.regex).test(itemIdVal);
-    const allFilled = formatOk && pgVal && descVal;
-    const dupOk     = !hasDuplicates || dupCheckPassed;
+    const itemIdVal  = document.getElementById('itemId').value.trim();
+    const itemIdEl   = document.getElementById('itemId');
+    const pgVal      = document.getElementById('productGroup').value;
+    const sgVal      = document.getElementById('salesGroup').value;
+    const pdgVal     = document.getElementById('purchaseDiscount').value;
+    const uomVal     = document.getElementById('uom').value;
+    const locVal     = document.getElementById('locationId').value;
+    const descVal    = document.getElementById('itemDesc').value.trim();
+    const supplierVal= document.getElementById('supplierId').value;
+
+    const idOk = itemIdVal !== '' && (itemIdEl.className === 'valid');
+    const allFilled = supplierVal && idOk && descVal && pgVal && sgVal && pdgVal && uomVal && locVal;
+    const dupOk = !hasDuplicates || dupCheckPassed;
+
     document.getElementById('submitBtn').disabled = !(allFilled && dupOk);
   }
 
+  // -------------------------------------------------------
+  // SUBMIT
+  // -------------------------------------------------------
   document.getElementById('submitBtn').addEventListener('click', async function () {
     const itemId = document.getElementById('itemId').value.trim();
     if (!dupCheckPassed) {
@@ -494,12 +683,19 @@
     await createItem();
   });
 
+  // -------------------------------------------------------
+  // DUPLICATE CHECK (stub)
+  // -------------------------------------------------------
   async function checkDuplicates(itemId) {
     const normalized = itemId.replace(/[-.\s]/g, '').toUpperCase();
     console.log(`[STUB] Duplicate check for: ${normalized}`);
+    // TODO: replace with P21 API call
     return [];
   }
 
+  // -------------------------------------------------------
+  // CREATE ITEM (stub)
+  // -------------------------------------------------------
   async function createItem() {
     const btn = document.getElementById('submitBtn');
     btn.disabled  = true;
@@ -507,14 +703,18 @@
     document.getElementById('apiNote').textContent = '';
 
     const payload = {
-      item_id:          document.getElementById('itemId').value.trim(),
-      item_desc:        document.getElementById('itemDesc').value.trim(),
-      extended_desc:    document.getElementById('extDesc').value.trim(),
-      product_group_id: document.getElementById('productGroup').value,
-      supplier_id:      currentSupplier.supplier_id
+      item_id:                   document.getElementById('itemId').value.trim(),
+      item_desc:                 document.getElementById('itemDesc').value.trim(),
+      product_group_id:          document.getElementById('productGroup').value,
+      sales_group_id:            document.getElementById('salesGroup').value,
+      purchase_discount_group_id:document.getElementById('purchaseDiscount').value,
+      unit_of_measure:           document.getElementById('uom').value,
+      location_id:               document.getElementById('locationId').value,
+      primary_supplier_id:       document.getElementById('supplierId').value
     };
 
     console.log('[STUB] Would POST to P21 API:', payload);
+    // TODO: replace with real P21 API call
     await new Promise(r => setTimeout(r, 900));
     showToast(`Item ${payload.item_id} created successfully (stub mode).`, 'success');
     document.getElementById('apiNote').textContent = '[stub — not connected to P21 yet]';
@@ -522,6 +722,9 @@
     resetForm();
   }
 
+  // -------------------------------------------------------
+  // DUP WARNING
+  // -------------------------------------------------------
   function showDupWarning(dups) {
     hasDuplicates = true;
     const list = document.getElementById('dupList');
@@ -543,6 +746,9 @@
     document.getElementById('dupList').innerHTML        = '';
   }
 
+  // -------------------------------------------------------
+  // RESET
+  // -------------------------------------------------------
   function resetValidation() {
     if (validationTimer) clearTimeout(validationTimer);
     const itemId     = document.getElementById('itemId');
@@ -552,18 +758,20 @@
   }
 
   function resetForm() {
-    document.getElementById('supplier').value         = '';
-    document.getElementById('itemId').value           = '';
-    document.getElementById('itemId').className       = '';
-    document.getElementById('itemId').disabled        = true;
-    document.getElementById('itemDesc').value         = '';
-    document.getElementById('itemDesc').disabled      = true;
-    document.getElementById('extDesc').value          = '';
-    document.getElementById('extDesc').disabled       = true;
-    document.getElementById('productGroup').innerHTML = '<option value="">Select supplier first...</option>';
-    document.getElementById('productGroup').disabled  = true;
-    document.getElementById('itemIdHint').textContent = 'Select a supplier to see format requirements.';
-    document.getElementById('itemIdHint').className   = 'hint';
+    document.getElementById('supplierId').value         = '';
+    document.getElementById('itemId').value             = '';
+    document.getElementById('itemId').className         = '';
+    document.getElementById('itemId').disabled          = true;
+    document.getElementById('itemDesc').value           = '';
+    document.getElementById('itemDesc').disabled        = true;
+    document.getElementById('productGroup').innerHTML   = '<option value="">Select supplier first...</option>';
+    document.getElementById('productGroup').disabled    = true;
+    document.getElementById('salesGroup').value         = '';
+    document.getElementById('purchaseDiscount').value   = '';
+    document.getElementById('uom').value                = 'EA';
+    document.getElementById('locationId').value         = '110';
+    document.getElementById('itemIdHint').textContent   = 'Select a supplier to see format requirements.';
+    document.getElementById('itemIdHint').className     = 'hint';
     resetDupWarning();
     currentSupplier = null;
     updateSubmitState();
@@ -571,6 +779,9 @@
 
   document.getElementById('resetBtn').addEventListener('click', resetForm);
 
+  // -------------------------------------------------------
+  // TOAST
+  // -------------------------------------------------------
   function showToast(msg, type = 'success') {
     const t         = document.getElementById('toast');
     t.textContent   = msg;
