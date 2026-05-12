@@ -224,25 +224,18 @@ const SALES_MAP = {
   '105179': { val: 'ANCHORA',  lock: true,  reason: 'Anchor Fluid Power uses the ANCHORA price library' },
   '105261': { val: 'BRENNANA', lock: true,  reason: 'Brennan Industries uses the BRENNANA price library' },
   '105753': { val: 'BRENNANA', lock: true,  reason: 'Spartan Industrial (Brennan line) uses BRENNANA' },
-  '106447': { val: 'BRENNANA', lock: true,  reason: 'Brennan alt supplier uses BRENNANA price library' },
   '105336': { val: 'COMATROL', lock: false, reason: 'Danfoss Comatrol items typically use COMATROL — verify with purchasing if unsure' },
-  '105371': { val: 'DESCASEA', lock: true,  reason: 'Des-Case uses the DESCASEA price library' },
   '106005': { val: 'NORGRENC', lock: true,  reason: 'Norgren uses the NORGRENC price library' },
   '106192': { val: 'SCHRDERB', lock: true,  reason: 'Schroeder Industries uses the SCHRDERB price library' },
-  '106364': { val: 'VERSAA',   lock: true,  reason: 'Versa alt supplier uses VERSAA price library' },
   '106385': { val: 'VERSAA',   lock: false, reason: 'Versa Products typically uses VERSA or VERSAA — confirm with purchasing' },
   '206967': { val: 'WAGOA',    lock: false, reason: 'Wago typically uses WAGOA price library — confirm with purchasing' },
-  '178011': { val: 'M99',      lock: true,  reason: 'Amazon purchases use the M99 price library' },
-  '124863': { val: 'M99',      lock: false, reason: 'E&G Terminal items often use M99 — confirm with purchasing' },
   '119528': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
   '119848': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
-  '177788': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
   '177886': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
   '177943': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
   '178017': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
   '178020': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
   '178109': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
-  '178135': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
   '178187': { val: 'NEW ITEM', lock: true,  reason: 'This supplier has no established price library yet — use NEW ITEM' },
 };
 
@@ -253,38 +246,26 @@ const PURCH_MAP = {
   '105179': { val: 'ANCHORA',  lock: true,  reason: 'Anchor Fluid Power uses ANCHORA discount schedule' },
   '105261': { val: 'BRENNANA', lock: true,  reason: 'Brennan Industries uses BRENNANA discount schedule' },
   '105336': { val: 'DPSICS',   lock: true,  reason: 'Danfoss Comatrol uses DPSICS discount schedule' },
-  '105371': { val: 'DESCASEA', lock: true,  reason: 'Des-Case uses DESCASEA discount schedule' },
-  '105390': { val: 'DPSPVG',   lock: true,  reason: 'D&W Nameplate (PVG) uses DPSPVG discount schedule' },
   '105399': { val: 'DPSLSHT',  lock: true,  reason: 'Danfoss LSHT uses DPSLSHT discount schedule' },
   '105460': { val: 'DONAL B',  lock: true,  reason: 'Donaldson uses DONAL B discount schedule' },
   '105533': { val: 'FAIRPART', lock: true,  reason: 'Fairfield Mfg uses FAIRPART discount schedule' },
-  '105591': { val: 'EATON1',   lock: true,  reason: 'Future Fastener (Eaton line) uses EATON1 discount schedule' },
   '105637': { val: 'HUMVAL',   lock: false, reason: 'Humphrey uses HUMVAL for valves or HUMQE for quick exhaust — select product group first' },
   '105702': { val: 'HUSCO',    lock: true,  reason: 'Husco International uses HUSCO discount schedule' },
   '105753': { val: 'BRENNANA', lock: true,  reason: 'Spartan Industrial (Brennan line) uses BRENNANA discount schedule' },
   '105953': { val: 'MICO',     lock: true,  reason: 'ZF Off-Highway uses MICO discount schedule' },
   '106005': { val: 'NORGRENC', lock: true,  reason: 'Norgren uses NORGRENC discount schedule' },
   '106192': { val: 'SCHRDERB', lock: true,  reason: 'Schroeder uses SCHRDERB discount schedule' },
-  '106279': { val: 'AQPGEN',   lock: true,  reason: 'Synflex uses AQPGEN discount schedule' },
   '106358': { val: 'TUTHILL',  lock: true,  reason: 'Tuthill uses TUTHILL discount schedule' },
-  '106364': { val: 'VERSAA',   lock: true,  reason: 'Versa alt supplier uses VERSAA discount schedule' },
   '106385': { val: 'VERSA',    lock: true,  reason: 'Versa Products uses VERSA discount schedule' },
-  '106447': { val: 'BRENNANA', lock: true,  reason: 'Brennan alt supplier uses BRENNANA discount schedule' },
   '111887': { val: 'DPSPVG',   lock: true,  reason: 'Danfoss PVG uses DPSPVG discount schedule' },
-  '178011': { val: 'M99',      lock: true,  reason: 'Amazon purchases use M99 discount schedule' },
-  '178116': { val: 'DPSPARTS', lock: true,  reason: 'This supplier uses DPSPARTS discount schedule' },
-  '209017': { val: 'AQPGEN',   lock: true,  reason: 'Hampton Rubber uses AQPGEN discount schedule' },
   '119528': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
   '119848': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
-  '177788': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
   '177886': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
   '177943': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
   '178017': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
   '178020': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
   '178109': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
-  '178135': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
   '178187': { val: 'NEW ITEM', lock: true,  reason: 'No established discount schedule — use NEW ITEM' },
-  '124863': { val: 'M99',      lock: false, reason: 'E&G Terminal often uses M99 — confirm with purchasing' },
 };
 
 // Product group suggestions by supplier - only when confident
@@ -292,32 +273,21 @@ const PROD_MAP = {
   '105090': { val: 'ADAPTALL', reason: 'Adaptall items go in ADAPTALL' },
   '105111': null, // driven by item type - handled separately
   '105179': { val: 'ANCHOR',   reason: 'Anchor Fluid Power items go in ANCHOR' },
-  '105272': { val: 'CAMPBELL', reason: 'Campbell Fittings items go in CAMPBELL' },
   '105336': { val: 'COMATROL', reason: 'Danfoss Comatrol items typically go in COMATROL' },
-  '105371': { val: 'MISC',     reason: 'Des-Case items vary — MISC is most common, verify' },
-  '105390': { val: 'SDX',      reason: 'D&W Nameplate items go in SDX' },
   '105399': { val: 'SDLSHT',   reason: 'Danfoss LSHT items go in SDLSHT' },
   '105460': { val: 'DONFILT',  reason: 'Donaldson filter items go in DONFILT' },
   '105472': { val: 'DYNAMIC',  reason: 'Dynamic Fluid items go in DYNAMIC' },
   '105533': { val: 'FFX',      reason: 'Fairfield Mfg items go in FFX' },
-  '105591': { val: 'EAVACC',   reason: 'Future Fastener items go in EAVACC' },
   '105637': { val: 'HUMVAL',   reason: 'Humphrey valves go in HUMVAL, quick exhausts in HUMQE' },
   '105702': { val: 'HUSQSO',   reason: 'Husco items go in HUSQSO' },
   '105953': { val: 'MICO',     reason: 'ZF Off-Highway (MICO) items go in MICO' },
-  '105971': { val: 'NORACT',   reason: 'Monnier (Norgren actuator) items go in NORACT' },
   '106005': { val: 'NORFIT',   reason: 'Norgren fitting items go in NORFIT' },
-  '106009': { val: 'NORSTAT',  reason: 'Norstat items go in NORSTAT' },
   '106188': { val: 'SDX',      reason: 'Danfoss SDX items typically go in SDX' },
   '106192': { val: 'SCHFILT',  reason: 'Schroeder filter items go in SCHFILT, elements in SCHELE' },
   '106264': { val: 'STUCIQD',  reason: 'Structured Solutions items go in STUCIQD' },
-  '106279': { val: 'SYNHOSE',  reason: 'Synflex hose items go in SYNHOSE' },
   '106385': { val: 'VERSA',    reason: 'Versa Products items go in VERSA' },
-  '106364': { val: 'VERSA',    reason: 'Versa alt items typically go in VERSA' },
   '111887': { val: 'SDPVG',    reason: 'Danfoss PVG items go in SDPVG' },
   '124873': { val: 'LINC40',   reason: 'Lincoln Industrial items go in LINC40 or LINC47.5' },
-  '124808': { val: 'MARMON',   reason: 'Tube Service items go in MARMON' },
-  '124882': { val: 'XPLO',     reason: 'Tipco items typically go in XPLO' },
-  '152906': { val: 'ETELEM',   reason: 'This supplier items go in ETELEM' },
   '206967': { val: 'WA000000', reason: 'Wago items go in WA000000' },
 };
 
@@ -347,13 +317,18 @@ const DESC_TEMPLATES = {
   'element': 'Filter Element, [Spec]',
 };
 
-const ITEM_ID_REGEX = /^[A-Z0-9][A-Z0-9\-\.\/\s]{2,39}$/;
+const ITEM_ID_PATTERNS = {"105090":[{"display":["9999999"],"regex":"^[0-9]{7}$","dominance":34,"min":7,"max":7,"examples":["2679332","2594045","2617863"]}],"105111":[{"display":["AA999-99AAA","AA999-99AA"],"regex":"(?:^[A-Z]{2}[0-9]{3}\\-[0-9]{2}[A-Z]{3}$)|(?:^[A-Z]{2}[0-9]{3}\\-[0-9]{2}[A-Z]{2}$)|(?:^[A-Z]{2}[0-9]{3}\\-[0-9]{2}[A-Z]$)|(?:^[A-Z]{3}[0-9]{3}\\-[0-9]{2}[A-Z]{4}$)|(?:^[A-Z][0-9]{5}\\-[0-9]{3}[A-Z]$)|(?:^[A-Z]{2}[0-9]{4}\\-[0-9]{2}[A-Z]$)|(?:^[A-Z][0-9]{5}\\-[0-9]{3}[A-Z]{2}$)","dominance":30,"min":9,"max":13,"examples":["H90024-250RC","EC215-08LRL","EC215-04LRL"]},{"display":["AA999-99","AA99999-999"],"regex":"(?:^[A-Z]{2}[0-9]{3}\\-[0-9]{2}$)|(?:^[A-Z]{2}[0-9]{5}\\-[0-9]{3}$)|(?:^[A-Z][0-9]{6}\\-[0-9]{3}$)|(?:^[A-Z]{2}[0-9]{5}\\-[0-9]{2}$)|(?:^[A-Z]{2}[0-9]{3}\\-[0-9]$)","dominance":21,"min":7,"max":11,"examples":["FC425-12","FC234-10","GH681-20"]}],"105230":[{"display":["AA99999-AA","AA9999-A"],"regex":"(?:^[A-Z]{2}[0-9]{5}\\-[A-Z]{2}$)|(?:^[A-Z]{2}[0-9]{4}\\-[A-Z]$)|(?:^[A-Z]{2}[0-9]{4}\\-[A-Z]{2}$)|(?:^[A-Z][0-9]{5}\\-[A-Z]{2}$)|(?:^[A-Z][0-9]{4}\\-[A-Z]{2}$)|(?:^[A-Z]{3}[0-9]{5}\\-[A-Z]{2}$)|(?:^[A-Z]{3}[0-9]{4}\\-[A-Z]{2}$)","dominance":41,"min":8,"max":11,"examples":["US41050-AL","US51315-AL","CC0840-Z"]}],"105261":[{"display":["9999-99-99-AA","9999-99-99-A"],"regex":"(?:^[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}\\-[A-Z]{2}$)|(?:^[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}\\-[A-Z]$)|(?:^[0-9]{4}\\-[0-9]\\-[0-9]\\-[A-Z]$)|(?:^[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}\\-[A-Z]{3}$)","dominance":37,"min":10,"max":14,"examples":["7002-06-04-BS","6500-04-04-FG","7042-04-04-BS"]}],"105298":[{"display":["AA99","AA999"],"regex":"(?:^[A-Z]{2}[0-9]{2}$)|(?:^[A-Z]{2}[0-9]{3}$)|(?:^[A-Z]{3}[0-9]{3}$)|(?:^[A-Z]{2}[0-9]$)|(?:^[A-Z]{3}[0-9]{2}$)","dominance":40,"min":3,"max":6,"examples":["PD80","PD60","PD160"]},{"display":["AAA-99","AAA-9"],"regex":"(?:^[A-Z]{3}\\-[0-9]{2}$)|(?:^[A-Z]{3}\\-[0-9]$)|(?:^[A-Z]{2}\\-[0-9]{2}$)|(?:^[A-Z]{2}\\-[0-9]$)|(?:^[A-Z]{2}\\-[0-9]{3}$)","dominance":25,"min":4,"max":6,"examples":["ASC-6","ASC-8","CD-12"]}],"105336":[{"display":["999999","99999999"],"regex":"(?:^[0-9]{6}$)|(?:^[0-9]{8}$)|(?:^[0-9]{9}$)","dominance":89,"min":6,"max":9,"examples":["130181","11169043","920608"]}],"105399":[{"display":["999A9999","999A999999"],"regex":"(?:^[0-9]{3}[A-Z][0-9]{4}$)|(?:^[0-9]{3}[A-Z][0-9]{6}$)","dominance":66,"min":8,"max":10,"examples":["151B2054","151B2052","151B0113"]},{"display":["99999999","999999"],"regex":"(?:^[0-9]{8}$)|(?:^[0-9]{6}$)|(?:^[0-9]{7}$)","dominance":30,"min":6,"max":8,"examples":["11178622","11225382","11001831"]}],"105410":[{"display":["AAA999999A","AAAAA9999AA"],"regex":"(?:^[A-Z]{3}[0-9]{6}[A-Z]$)|(?:^[A-Z]{5}[0-9]{4}[A-Z]{2}$)|(?:^[A-Z]{3}[0-9]{7}[A-Z]$)|(?:^[A-Z]{5}[0-9]{2}[A-Z]{3}$)","dominance":26,"min":10,"max":11,"examples":["HQCHK15KNC","CVH000500S","FWISL2000ZK"]}],"105460":[{"display":["A999999","AAA9999"],"regex":"(?:^[A-Z][0-9]{6}$)|(?:^[A-Z]{3}[0-9]{4}$)","dominance":98,"min":7,"max":7,"examples":["P165332","P562521","P165569"]}],"105472":[{"display":["AA9A-999A","AAA9A-999A"],"regex":"(?:^[A-Z]{2}[0-9][A-Z]\\-[0-9]{3}[A-Z]$)|(?:^[A-Z]{3}[0-9][A-Z]\\-[0-9]{3}[A-Z]$)","dominance":63,"min":9,"max":10,"examples":["CF1P-020A","CF1C-002A","CF1P-140A"]}],"105533":[{"display":["9999999","999999"],"regex":"(?:^[0-9]{7}$)|(?:^[0-9]{6}$)|(?:^[0-9]{8}$)","dominance":58,"min":6,"max":8,"examples":["9008763","6210801","3200801"]}],"105553":[{"display":["9999-99-99-AA","9999-99-99-A"],"regex":"(?:^[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}\\-[A-Z]{2}$)|(?:^[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}\\-[A-Z]$)|(?:^[0-9]{4}\\-[0-9]\\-[0-9]\\-[A-Z]{2}$)|(?:^[0-9]{4}\\-[0-9]\\-[0-9]\\-[A-Z]{3}$)","dominance":21,"min":11,"max":13,"examples":["2711-04-04-O","6400-16-20-O","6502-8-8-SS"]}],"105614":[{"display":["999999","99999"],"regex":"(?:^[0-9]{6}$)|(?:^[0-9]{5}$)","dominance":60,"min":5,"max":6,"examples":["622257","721009","721691"]}],"105633":[{"display":["9999999","99999999999"],"regex":"(?:^[0-9]{7}$)|(?:^[0-9]{11}$)|(?:^[0-9]{5}$)|(?:^[0-9]{6}$)|(?:^[0-9]{8}$)|(?:^[0-9]{10}$)","dominance":38,"min":5,"max":11,"examples":["12042","9013339","9400137"]}],"105857":[{"display":["A9A","A99A"],"regex":"(?:^[A-Z][0-9][A-Z]$)|(?:^[A-Z][0-9]{2}[A-Z]$)","dominance":26,"min":3,"max":4,"examples":["W12P","W3P","W6S"]},{"display":["AA99-99AA-AA99","AA99-9A-AA99"],"regex":"(?:^[A-Z]{2}[0-9]{2}\\-[0-9]{2}[A-Z]{2}\\-[A-Z]{2}[0-9]{2}$)|(?:^[A-Z]{2}[0-9]{2}\\-[0-9][A-Z]\\-[A-Z]{2}[0-9]{2}$)|(?:^[A-Z]{2}[0-9]{2}\\-[0-9][A-Z]\\-[A-Z][0-9]{3}$)","dominance":22,"min":12,"max":14,"examples":["DT04-12PA-BL04","DT06-12SA-EP06","DT06-6S-EP11"]}],"105867":[{"display":["AA-99","AAA-99"],"regex":"(?:^[A-Z]{2}\\-[0-9]{2}$)|(?:^[A-Z]{3}\\-[0-9]{2}$)|(?:^[A-Z]{3}\\-[0-9]$)|(?:^[A-Z]{2}\\-[0-9]$)|(?:^[A-Z]{4}\\-[0-9]{3}$)|(?:^[A-Z]{2}\\-[0-9]{4}$)","dominance":30,"min":4,"max":8,"examples":["MC-20","MC-12","WFA-48"]}],"105901":[{"display":["A99999999"],"regex":"^[A-Z][0-9]{8}$","dominance":34,"min":9,"max":9,"examples":["M10002006","P09002406","M10010408"]}],"105936":[{"display":["99999A999","9999A99"],"regex":"(?:^[0-9]{5}[A-Z][0-9]{3}$)|(?:^[0-9]{4}[A-Z][0-9]{2}$)|(?:^[0-9]{4}[A-Z][0-9]{3}$)|(?:^[0-9]{5}[A-Z][0-9]{2}$)|(?:^[0-9]{4}[A-Z][0-9]$)","dominance":84,"min":6,"max":9,"examples":["74965K67","3013T908","74965K69"]}],"105953":[{"display":["99-999-999"],"regex":"^[0-9]{2}\\-[0-9]{3}\\-[0-9]{3}$","dominance":95,"min":10,"max":10,"examples":["02-520-260","03-460-153","42-115-021"]}],"106005":[{"display":["99-999-9999","99-999-999"],"regex":"(?:^[0-9]{2}\\-[0-9]{3}\\-[0-9]{4}$)|(?:^[0-9]{2}\\-[0-9]{3}\\-[0-9]{3}$)","dominance":23,"min":10,"max":11,"examples":["12-023-0604","12-447-0418","12-447-0618"]}],"106188":[{"display":["99999999","9999999"],"regex":"(?:^[0-9]{8}$)|(?:^[0-9]{7}$)|(?:^[0-9]{6}$)|(?:^[0-9]{5}$)","dominance":80,"min":5,"max":8,"examples":["11131280","5000116","83009062"]}],"106189":[{"display":["999A9999","999A99999"],"regex":"(?:^[0-9]{3}[A-Z][0-9]{4}$)|(?:^[0-9]{3}[A-Z][0-9]{5}$)","dominance":57,"min":8,"max":9,"examples":["163D9204","163D9203","163D9272"]},{"display":["99999999"],"regex":"^[0-9]{8}$","dominance":24,"min":8,"max":8,"examples":["11195145","83089140","11147268"]}],"106192":[{"display":["A99","AA99"],"regex":"(?:^[A-Z][0-9]{2}$)|(?:^[A-Z]{2}[0-9]{2}$)|(?:^[A-Z]{3}[0-9]{2}$)|(?:^[A-Z]{2}[0-9]$)|(?:^[A-Z][0-9]{7}$)|(?:^[A-Z]{3}[0-9]$)|(?:^[A-Z][0-9]$)","dominance":22,"min":2,"max":8,"examples":["KZ10","KZ5","NZ10"]}],"106251":[{"display":["9999-99-99-AA"],"regex":"^[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}\\-[A-Z]{2}$","dominance":39,"min":13,"max":13,"examples":["6404-16-16-SS","2700-08-08-SS","2404-06-08-SS"]},{"display":["AAAA-99-99A","AAA-99-99A"],"regex":"(?:^[A-Z]{4}\\-[0-9]{2}\\-[0-9]{2}[A-Z]$)|(?:^[A-Z]{3}\\-[0-9]{2}\\-[0-9]{2}[A-Z]$)|(?:^[A-Z]{5}\\-[0-9]{2}\\-[0-9]{2}[A-Z]{2}$)|(?:^[A-Z]{2}\\-[0-9]{2}\\-[0-9]{2}[A-Z]{2}$)","dominance":25,"min":10,"max":13,"examples":["HB-20-16MP","SABU-06-06U","SMC-08-04N"]}],"106264":[{"display":["999999999"],"regex":"^[0-9]{9}$","dominance":84,"min":9,"max":9,"examples":["801601005","801601004","100610124"]}],"106388":[{"display":["99-999999","999999-9"],"regex":"(?:^[0-9]{2}\\-[0-9]{6}$)|(?:^[0-9]{6}\\-[0-9]$)|(?:^[0-9]{7}\\-[0-9]{3}$)","dominance":43,"min":8,"max":11,"examples":["02-174919","431808-3","02-344693"]},{"display":["999999","99999999"],"regex":"(?:^[0-9]{6}$)|(?:^[0-9]{8}$)|(?:^[0-9]{4}$)|(?:^[0-9]{5}$)","dominance":32,"min":4,"max":8,"examples":["565465","566246","870509"]}],"106580":[{"display":["A99999 AAAA AAAA","A99999 AAAAAAA AAAA"],"regex":"(?:^[A-Z][0-9]{5}\\ [A-Z]{4}\\ [A-Z]{4}$)|(?:^[A-Z][0-9]{5}\\ [A-Z]{7}\\ [A-Z]{4}$)|(?:^[A-Z][0-9]{5}\\ [A-Z]{5}\\ [A-Z]{4}$)|(?:^[A-Z][0-9]{5}\\ [A-Z]{6}\\ [A-Z]{5}$)|(?:^[A-Z][0-9]{5}\\ [A-Z]{7}\\ [A-Z]{5}$)|(?:^[A-Z][0-9]{2}\\ [A-Z]{4}\\ [A-Z]{3}$)|(?:^[A-Z][0-9]{5}\\ [A-Z]{5}\\ [A-Z]{5}$)|(?:^[A-Z]{3}[0-9]{5}\\ [A-Z]{6}\\ [A-Z]{3}$)|(?:^[A-Z][0-9]{5}\\ [A-Z]{4}\\ [A-Z]{5}$)","dominance":32,"min":12,"max":20,"examples":["TGR00085 TORQUE HUB","D07 BOLT KIT","D05 BOLT KIT"]}],"111887":[{"display":["999A9999"],"regex":"^[0-9]{3}[A-Z][0-9]{4}$","dominance":60,"min":8,"max":8,"examples":["157B3171","157B6600","157B3999"]},{"display":["99999999"],"regex":"^[0-9]{8}$","dominance":40,"min":8,"max":8,"examples":["11107332","11166732","11166843"]}],"112280":[{"display":["AA-9999999","AA-9"],"regex":"(?:^[A-Z]{2}\\-[0-9]{7}$)|(?:^[A-Z]{2}\\-[0-9]$)","dominance":21,"min":4,"max":10,"examples":["CD-8","EP-0001699","EP-0011041"]}],"113870":[{"display":["AA9","AAAA999"],"regex":"(?:^[A-Z]{2}[0-9]$)|(?:^[A-Z]{4}[0-9]{3}$)|(?:^[A-Z]{3}[0-9]{3}$)|(?:^[A-Z]{2}[0-9]{2}$)|(?:^[A-Z]{3}[0-9]{2}$)|(?:^[A-Z]{4}[0-9]{2}$)|(?:^[A-Z]{6}[0-9]{3}$)|(?:^[A-Z]{3}[0-9]{4}$)|(?:^[A-Z]{4}[0-9]{4}$)|(?:^[A-Z]{4}[0-9]$)","dominance":26,"min":3,"max":9,"examples":["FS7","RST2010","FBVG100"]}],"116665":[{"display":["99999999","999999"],"regex":"(?:^[0-9]{8}$)|(?:^[0-9]{6}$)","dominance":21,"min":6,"max":8,"examples":["814063","813072","94065061"]}],"119528":[{"display":["AAAAAAAA #99 AAA","AAAAAAAA #9 AAA"],"regex":"(?:^[A-Z]{8}\\ \\#[0-9]{2}\\ [A-Z]{3}$)|(?:^[A-Z]{8}\\ \\#[0-9]\\ [A-Z]{3}$)|(?:^[A-Z]{8}\\ \\#[0-9]{2}\\ [A-Z]{4}$)","dominance":33,"min":15,"max":17,"examples":["PORTPLUG #10 ODT","PORTPLUG #12 ODT","PORTPLUG #6 ODT"]}],"119848":[{"display":["999-9999-999","999-99999-99"],"regex":"(?:^[0-9]{3}\\-[0-9]{4}\\-[0-9]{3}$)|(?:^[0-9]{3}\\-[0-9]{5}\\-[0-9]{2}$)|(?:^[0-9]{3}\\-[0-9]{3}\\-[0-9]{2}$)","dominance":41,"min":10,"max":12,"examples":["391-3784-028","391-2082-062","391-2884-074"]},{"display":["A999999","A9999"],"regex":"(?:^[A-Z][0-9]{6}$)|(?:^[A-Z][0-9]{4}$)|(?:^[A-Z]{3}[0-9]{5}$)|(?:^[A-Z]{2}[0-9]{7}$)|(?:^[A-Z]{2}[0-9]{4}$)|(?:^[A-Z][0-9]{5}$)|(?:^[A-Z]{2}[0-9]{5}$)","dominance":33,"min":5,"max":9,"examples":["UB3006242","Y1032","X733717"]}],"122150":[{"display":["9999999-9","999999-9"],"regex":"(?:^[0-9]{7}\\-[0-9]$)|(?:^[0-9]{6}\\-[0-9]$)","dominance":20,"min":8,"max":9,"examples":["1924463-3","776364-1","1375819-2"]}],"124873":[{"display":["99999","999999"],"regex":"(?:^[0-9]{5}$)|(?:^[0-9]{6}$)|(?:^[0-9]{4}$)","dominance":55,"min":4,"max":6,"examples":["14659","246002","84195"]}],"126036":[{"display":["AA99-9A-AA99","AA99-9A-A999"],"regex":"(?:^[A-Z]{2}[0-9]{2}\\-[0-9][A-Z]\\-[A-Z]{2}[0-9]{2}$)|(?:^[A-Z]{2}[0-9]{2}\\-[0-9][A-Z]\\-[A-Z][0-9]{3}$)|(?:^[A-Z]{2}[0-9]{2}\\-[0-9]{2}[A-Z]{2}\\-[A-Z]{2}[0-9]{2}$)|(?:^[A-Z]{2}[0-9]{2}\\-[0-9]{2}[A-Z]{2}\\-[A-Z][0-9]{3}$)","dominance":29,"min":12,"max":14,"examples":["DT06-12SA-EP06","DT06-3S-EP11","DT04-3P-E008"]}],"148255":[{"display":["AA999A-A99","AA999A-A9"],"regex":"(?:^[A-Z]{2}[0-9]{3}[A-Z]\\-[A-Z][0-9]{2}$)|(?:^[A-Z]{2}[0-9]{3}[A-Z]\\-[A-Z][0-9]$)","dominance":24,"min":9,"max":10,"examples":["SU201M-C5","SU203M-C5","SU204M-C10"]}],"151621":[{"display":["A999-99","A999-9999"],"regex":"(?:^[A-Z][0-9]{3}\\-[0-9]{2}$)|(?:^[A-Z][0-9]{3}\\-[0-9]{4}$)|(?:^[A-Z]{3}[0-9]{3}\\-[0-9]{2}$)","dominance":65,"min":7,"max":9,"examples":["M402-16","K402-16","A435-08"]}],"158695":[{"display":["99A999AAA","99A999AAAA"],"regex":"(?:^[0-9]{2}[A-Z][0-9]{3}[A-Z]{3}$)|(?:^[0-9]{2}[A-Z][0-9]{3}[A-Z]{4}$)|(?:^[0-9]{2}[A-Z]{3}[0-9][A-Z]$)|(?:^[0-9]{2}[A-Z]{4}[0-9][A-Z]$)","dominance":36,"min":7,"max":10,"examples":["10C450KCS","10C300KCS","10C275KCS"]},{"display":["99AAAAA"],"regex":"^[0-9]{2}[A-Z]{5}$","dominance":27,"min":7,"max":7,"examples":["62NLOCZ","50NLOCS","37NLOCS"]}],"177886":[{"display":["99999999999"],"regex":"^[0-9]{11}$","dominance":59,"min":11,"max":11,"examples":["53514004001","53514001001","11514005002"]}],"177943":[{"display":["AA999999","A99999"],"regex":"(?:^[A-Z]{2}[0-9]{6}$)|(?:^[A-Z][0-9]{5}$)|(?:^[A-Z]{5}[0-9]$)|(?:^[A-Z]{2}[0-9]{5}$)|(?:^[A-Z]{3}[0-9]{6}$)|(?:^[A-Z][0-9]{4}$)|(?:^[A-Z]{3}[0-9]{5}$)|(?:^[A-Z]{2}[0-9]{3}$)|(?:^[A-Z]{4}[0-9]{2}$)|(?:^[A-Z][0-9]{3}$)|(?:^[A-Z]{2}[0-9]{4}$)|(?:^[A-Z][0-9]{6}$)","dominance":33,"min":4,"max":9,"examples":["LABOR1","LABOR2","LABOR3"]},{"display":["999999","9999999"],"regex":"(?:^[0-9]{6}$)|(?:^[0-9]{7}$)|(?:^[0-9]{5}$)","dominance":20,"min":5,"max":7,"examples":["117100","10128","117197"]}],"178017":[{"display":["999999A","99999999A"],"regex":"(?:^[0-9]{6}[A-Z]$)|(?:^[0-9]{8}[A-Z]$)","dominance":79,"min":7,"max":9,"examples":["687659R","02267950R","687568R"]},{"display":["AAA99999","AAA9999"],"regex":"(?:^[A-Z]{3}[0-9]{5}$)|(?:^[A-Z]{3}[0-9]{4}$)","dominance":20,"min":7,"max":8,"examples":["MST10100","MST10010","MST9687"]}],"178020":[{"display":["999999A","99999999A"],"regex":"(?:^[0-9]{6}[A-Z]$)|(?:^[0-9]{8}[A-Z]$)|(?:^[0-9]{11}[A-Z]$)|(?:^[0-9]{10}[A-Z]{2}$)|(?:^[0-9]{11}[A-Z]{2}$)|(?:^[0-9]{6}[A-Z]{2}$)|(?:^[0-9]{2}[A-Z]{5}$)|(?:^[0-9]{4}[A-Z]{2}$)","dominance":78,"min":6,"max":13,"examples":["687569R","687652R","687630R"]}],"178109":[{"display":["AAAA 9.999-99 A 9.99","AAAA 9.99-99 A 9.99"],"regex":"(?:^[A-Z]{4}\\ [0-9]\\.[0-9]{3}\\-[0-9]{2}\\ [A-Z]\\ [0-9]\\.[0-9]{2}$)|(?:^[A-Z]{4}\\ [0-9]\\.[0-9]{2}\\-[0-9]{2}\\ [A-Z]\\ [0-9]\\.[0-9]{2}$)|(?:^[A-Z]{4}\\ [0-9]\\.[0-9]{4}\\-[0-9]{2}\\ [A-Z]\\ [0-9]\\.[0-9]{2}$)","dominance":29,"min":19,"max":21,"examples":["SHCS 0.375-16 X 6.50","SHCS 0.375-16 X 3.50","SHCS 0.375-16 X 4.00"]},{"display":["999999A"],"regex":"^[0-9]{6}[A-Z]$","dominance":24,"min":7,"max":7,"examples":["001296R","687690R","096168R"]}],"178187":[{"display":["999999A"],"regex":"^[0-9]{6}[A-Z]$","dominance":38,"min":7,"max":7,"examples":["423617R","429731R","924062R"]},{"display":["AA-999999","AA-99999"],"regex":"(?:^[A-Z]{2}\\-[0-9]{6}$)|(?:^[A-Z]{2}\\-[0-9]{5}$)","dominance":29,"min":8,"max":9,"examples":["PS-46839","PS-140830","PS-140668"]}],"178196":[{"display":["999999999A"],"regex":"^[0-9]{9}[A-Z]$","dominance":64,"min":10,"max":10,"examples":["002438104N","001446072S","005649633F"]},{"display":["A99999A"],"regex":"^[A-Z][0-9]{5}[A-Z]$","dominance":36,"min":7,"max":7,"examples":["B93196Z","B70515V","B70947Q"]}],"206967":[{"display":["9999-9999","999-999"],"regex":"(?:^[0-9]{4}\\-[0-9]{4}$)|(?:^[0-9]{3}\\-[0-9]{3}$)|(?:^[0-9]{4}\\-[0-9]{3}$)|(?:^[0-9]{3}\\-[0-9]{4}$)","dominance":95,"min":7,"max":9,"examples":["2002-1301","2002-2231","249-117"]}]};
 
-const SUPPLIER_NAMES = {
-  '3':'3','100018':'Hydraquip','105090':'Adaptall Americas Inc','105111':'Danfoss Power Solutions II LLC - Aeroquip (HYD)','105179':'Anchor Fluid Power (HYD)','105182':'APG Company, Llc','105210':'Automationdirect.Com (SIT & HYD)','105230':'Behringer Corporation (HYD)','105261':'Brennan Industries Inc. (HYD)','105272':'Campbell Fittings (HYD)','105298':'Caplugs (HYD)','105336':'Danfoss Power Solutions ICS - Comatrol (HYD)','105371':'Des-Case Corporation (HYD)','105390':'D & W Nameplate Service (HYD)','105399':'Danfoss Power Solutions LSHT (HYD)','105410':'Delaware Manufacturing Industries (HYD)','105460':'Donaldson Company (HYD)','105472':'Dynamic Fluid Components (HYD)','105490':'Eads Company (HYD)','105533':'Fairfield Mfg. Co Inc (HYD)','105553':'Fittings Unlimited (HYD)','105573':'Fluid Power Energy, Inc (HYD)','105591':'Future Fastener (HYD)','105614':'Geartek/Hydraulic Analysis, Inc. (HYD)','105633':'H & D Distributors (HYD)','105637':'Humphrey Products Company (HYD)','105702':'Husco International (HYD)','105753':'Spartan Industrial & Marine','105846':'Kuriyama Of America Inc (HYD)','105857':'LADD (HYD)','105867':'Lenz (HYD)','105901':'Magnaloy Coupling Co (HYD)','105936':'McMaster Carr (HYD)','105953':'ZF Off-Highway Solutions Minnesota Inc (HYD)','105971':'Monnier Inc (HYD)','105987':'Noshok Inc (HYD)','106005':'Norgren (HYD)','106009':'Norstat Inc (HYD)','106061':'Parker Hannifin (HYD)','106143':'Misc Supplier','106188':'Danfoss Power Solutions SDX (HYD)','106189':'Swagelok (HYD)','106192':'Schroeder Industries, LLC (HYD)','106251':'SHF, Inc. (HYD)','106264':'Structured Solutions Inc (HYD)','106267':'Suburban Manufacturing (HYD)','106279':'Synflex (HYD)','106290':'Tompkins Industries Inc (HYD)','106338':'Texcel Rubber Company (HYD)','106358':'Tuthill (HYD)','106364':'Versa Products Alt (HYD)','106385':'Versa Products (HYD)','106388':'Danfoss Power Solutions II LLC (HYD)','106397':'Misc (HYD)','106416':'Summit Electric (HYD)','106447':'Brennan Alt (HYD)','106580':'Misc Alt (HYD)','106720':'Misc 2 (HYD)','111887':'Danfoss Power Solutions PVG (HYD)','112280':'Hydraquip FC','113870':'Dixon Valve & Coupling Co (HYD)','116607':'Misc Alt 2 (HYD)','116665':'Hydrotechnik USA, Inc. (HYD)','119415':'Misc (HYD)','119528':'Misc New (HYD)','119848':'Misc New 2 (HYD)','120076':'Misc (HYD)','121300':'General Insulation Co., Inc','121558':'Misc (HYD)','122150':'Digi-Key Corporation (HYD)','123080':'Misc (HYD)','124758':'Green Bay Plastics Alt','124808':'Tube Service Co','124857':'BAND-IT-IDEX, Inc. (HYD)','124863':'E & G Terminal, Inc.','124866':'Green Bay Plastics, Inc.','124873':'Lincoln Industrial Corporation (HYD)','124878':'PT Coupling (HYD)','124882':'Tipco Technologies, Inc (HYD)','125445':'Misc (HYD)','126026':'Misc (HYD)','126036':'Misc (HYD)','126130':'Misc (HYD)','126180':'Misc (HYD)','126335':'Newark element14 (HYD)','148255':'Misc (HYD)','151433':'Misc (HYD)','151603':'F & R Manufacturing, Inc. (HYD)','151621':'Merit Brass Co. (HYD)','152906':'Misc (HYD)','158695':'Misc (HYD)','175816':'Misc (HYD)','177788':'Misc New (HYD)','177886':'Misc New (HYD)','177943':'Misc New (HYD)','178011':'AMAZON','178017':'Misc New (HYD)','178020':'Misc New (HYD)','178109':'Misc New (HYD)','178116':'Misc (HYD)','178135':'Misc New (HYD)','178147':'Waytek, Inc','178187':'Misc New (HYD)','178196':'Misc (HYD)','194527':'Misc (HYD)','206967':'Wago (HYD)','209017':'Hampton Rubber Company','216362':'Misc (HYD)','219583':'Renegade Industrial Supply - HYD'
+const SUPPLIER_NAMES = {'3':'3','100018':'Hydraquip','105090':'Adaptall Americas Inc','105111':'Danfoss Power Solutions II LLC - Aeroquip (HYD)','105179':'Anchor Fluid Power (HYD)','105210':'Automationdirect.Com (SIT & HYD)','105230':'Behringer Corporation (HYD)','105261':'Brennan Industries Inc. (HYD)','105298':'Caplugs (HYD)','105336':'Danfoss Power Solutions ICS - Comatrol (HYD)','105399':'Danfoss Power Solutions LSHT (HYD)','105410':'Delaware Manufacturing Industries (HYD)','105460':'Donaldson Company (HYD)','105472':'Dynamic Fluid Components (HYD)','105533':'Fairfield Mfg. Co Inc (HYD)','105553':'Fittings Unlimited (HYD)','105614':'Geartek/Hydraulic Analysis, Inc. (HYD)','105633':'H & D Distributors (HYD)','105637':'Humphrey Products Company (HYD)','105702':'Husco International (HYD)','105753':'Spartan Industrial & Marine','105857':'LADD (HYD)','105867':'Lenz (HYD)','105901':'Magnaloy Coupling Co (HYD)','105936':'McMaster Carr (HYD)','105953':'ZF Off-Highway Solutions Minnesota Inc (HYD)','105987':'Noshok Inc (HYD)','106005':'Norgren (HYD)','106188':'Danfoss Power Solutions SDX (HYD)','106189':'Swagelok (HYD)','106192':'Schroeder Industries, LLC (HYD)','106251':'SHF, Inc. (HYD)','106264':'Structured Solutions Inc (HYD)','106290':'Tompkins Industries Inc (HYD)','106338':'Texcel Rubber Company (HYD)','106358':'Tuthill (HYD)','106385':'Versa Products (HYD)','106388':'Danfoss Power Solutions II LLC (HYD)','106397':'Misc (HYD)','106416':'Summit Electric (HYD)','106580':'Misc Alt (HYD)','106720':'Misc 2 (HYD)','111887':'Danfoss Power Solutions PVG (HYD)','112280':'Hydraquip FC','113870':'Dixon Valve & Coupling Co (HYD)','116607':'Misc Alt 2 (HYD)','116665':'Hydrotechnik USA, Inc. (HYD)','119415':'Misc (HYD)','119528':'Misc New (HYD)','119848':'Misc New 2 (HYD)','122150':'Digi-Key Corporation (HYD)','124873':'Lincoln Industrial Corporation (HYD)','126026':'Misc (HYD)','126036':'Misc (HYD)','126180':'Misc (HYD)','148255':'Misc (HYD)','151433':'Misc (HYD)','151621':'Merit Brass Co. (HYD)','158695':'Misc (HYD)','177886':'Misc New (HYD)','177943':'Misc New (HYD)','178017':'Misc New (HYD)','178020':'Misc New (HYD)','178109':'Misc New (HYD)','178187':'Misc New (HYD)','178196':'Misc (HYD)','206967':'Wago (HYD)'
 };
 
-const ALL_SUPPLIER_IDS = ['3','100018','105090','105111','105179','105182','105210','105230','105261','105272','105298','105336','105371','105390','105399','105410','105460','105472','105490','105533','105553','105573','105591','105614','105633','105637','105702','105753','105846','105857','105867','105901','105936','105953','105971','105987','106005','106009','106061','106143','106188','106189','106192','106251','106264','106267','106279','106290','106338','106358','106364','106385','106388','106397','106416','106447','106580','106720','111887','112280','113870','116607','116665','119415','119528','119848','120076','121300','121558','122150','123080','124758','124808','124857','124863','124866','124873','124878','124882','125445','126026','126036','126130','126180','126335','148255','151433','151603','151621','152906','158695','175816','177788','177886','177943','178011','178017','178020','178109','178116','178135','178147','178187','178196','194527','206967','209017','216362','219583'];
+const ALL_SUPPLIER_IDS = ['3','100018','105090','105111','105179','105210','105230','105261','105298','105336',
+'105399','105410','105460','105472','105533','105553','105614','105633','105637','105702',
+'105753','105857','105867','105901','105936','105953','105987','106005','106188','106189',
+'106192','106251','106264','106290','106338','106358','106385','106388','106397','106416',
+'106580','106720','111887','112280','113870','116607','116665','119415','119528','119848',
+'122150','124873','126026','126036','126180','148255','151433','151621','158695','177886',
+'177943','178017','178020','178109','178187','178196','206967'];
 
 // -------------------------------------------------------
 // STATE
@@ -563,7 +538,18 @@ function onSupplierSelected(supplierId) {
 
   [itemId, itemDesc].forEach(el => el.disabled = false);
   itemId.value = ''; itemId.className = '';
-  document.getElementById('itemIdHint').textContent = 'Format: alphanumeric, 3-40 chars. Dashes and dots allowed.';
+  // Build pattern hint for this supplier
+  const _patterns = ITEM_ID_PATTERNS[supplierId];
+  if (_patterns) {
+    const _exBlock = _patterns.map(g => {
+      const _pats = g.display.join(' / ');
+      const _exs  = g.examples.join(', ');
+      return `<span style="display:block;margin-top:3px;"><strong>${_pats}</strong> &mdash; e.g. ${_exs}</span>`;
+    }).join('');
+    document.getElementById('itemIdHint').innerHTML = 'Known formats:' + _exBlock;
+  } else {
+    document.getElementById('itemIdHint').textContent = 'No pattern data on file — enter carefully and verify.';
+  }
   document.getElementById('itemIdHint').className = 'hint';
 
   // Product group
@@ -630,7 +616,18 @@ document.getElementById('itemId').addEventListener('input', function () {
   resetDupWarning(); dupCheckPassed = false;
   if (validationTimer) clearTimeout(validationTimer);
   this.className = '';
-  document.getElementById('itemIdHint').textContent = 'Format: alphanumeric, 3-40 chars. Dashes and dots allowed.';
+  // Build pattern hint for this supplier
+  const _patterns = ITEM_ID_PATTERNS[supplierId];
+  if (_patterns) {
+    const _exBlock = _patterns.map(g => {
+      const _pats = g.display.join(' / ');
+      const _exs  = g.examples.join(', ');
+      return `<span style="display:block;margin-top:3px;"><strong>${_pats}</strong> &mdash; e.g. ${_exs}</span>`;
+    }).join('');
+    document.getElementById('itemIdHint').innerHTML = 'Known formats:' + _exBlock;
+  } else {
+    document.getElementById('itemIdHint').textContent = 'No pattern data on file — enter carefully and verify.';
+  }
   document.getElementById('itemIdHint').className = 'hint';
   updateSubmitState();
   if (this.value.trim() === '') return;
@@ -647,13 +644,31 @@ function validateItemId(input) {
   const val = input.value.trim().toUpperCase();
   input.value = val;
   const hint = document.getElementById('itemIdHint');
-  if (ITEM_ID_REGEX.test(val)) {
+  const patterns = currentSupplier ? ITEM_ID_PATTERNS[currentSupplier] : null;
+
+  if (!patterns) {
+    // No pattern data - accept anything reasonable
+    const ok = /^[A-Z0-9][A-Z0-9\-\.\/ ]{1,39}$/.test(val);
+    input.className  = ok ? 'valid' : 'invalid';
+    hint.textContent = ok ? 'Format looks good.' : 'Invalid format. Check the supplier part number convention.';
+    hint.className   = ok ? 'hint success' : 'hint error';
+    updateSubmitState();
+    return;
+  }
+
+  // Test against all pattern groups combined
+  const allRegex = patterns.map(g => g.regex).join('|');
+  const matches  = new RegExp(allRegex).test(val);
+
+  if (matches) {
     input.className  = 'valid';
-    hint.textContent = 'Format looks good.';
+    hint.textContent = 'Format matches known pattern.';
     hint.className   = 'hint success';
   } else {
     input.className  = 'invalid';
-    hint.textContent = 'Invalid. Use 3-40 chars: letters, numbers, dashes, dots only. No spaces.';
+    // Build helpful error message
+    const exampleSet = patterns.flatMap(g => g.examples).slice(0,3).join(', ');
+    hint.innerHTML   = `Does not match known formats for this supplier. Examples: <strong>${exampleSet}</strong>`;
     hint.className   = 'hint error';
   }
   updateSubmitState();
