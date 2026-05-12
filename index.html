@@ -180,11 +180,11 @@
       <div class="row2">
         <div class="field">
           <div class="field-label-row"><label for="unitCost">Unit Cost</label></div>
-          <input type="text" id="unitCost" placeholder="0.00" inputmode="decimal" />
+          <input type="text" id="unitCost" placeholder="$0.00" inputmode="decimal" />
         </div>
         <div class="field">
           <div class="field-label-row"><label for="listPrice">List Price</label></div>
-          <input type="text" id="listPrice" placeholder="0.00" inputmode="decimal" />
+          <input type="text" id="listPrice" placeholder="$0.00" inputmode="decimal" />
         </div>
       </div>
 
@@ -282,74 +282,76 @@ const LOCATION_DIVISIONS = Object.fromEntries(
 //   divs:      one or more divisions, primary first
 //   pct:       human-readable split for the hint
 //   confident: matches the "Default? = YES" column in the lookup
-// Only divisions accounting for >= ~10% are listed.
+// When confident=true, ONLY the primary division branches are suggested
+// (even if there are minor secondary divisions in the data).
+// When confident=false, all significant divisions (>=10%) are included.
 const SUPPLIER_DIVISIONS = {
-  '3':      { divs: ['HES'],                                pct: '97% HES',                              confident: true  },
+  '3':      { divs: ['HES'],                     pct: '97% HES',                              confident: true  },
   '100018': { divs: ['Power Solutions','Fluid Conveyance'], pct: '66% PS / 27% FC',                      confident: false },
   '105090': { divs: ['Fluid Conveyance','Power Solutions'], pct: '61% FC / 38% PS',                      confident: false },
   '105111': { divs: ['Fluid Conveyance','Power Solutions'], pct: '75% FC / 23% PS',                      confident: false },
   '105179': { divs: ['Fluid Conveyance','Power Solutions'], pct: '52% FC / 42% PS',                      confident: false },
   '105210': { divs: ['HES','Power Solutions'],              pct: '73% HES / 25% PS',                     confident: false },
-  '105230': { divs: ['Power Solutions','Fluid Conveyance'], pct: '88% PS / 12% FC',                      confident: true  },
-  '105261': { divs: ['Fluid Conveyance','Power Solutions'], pct: '84% FC / 13% PS',                      confident: true  },
+  '105230': { divs: ['Power Solutions'],         pct: '88% PS',                               confident: true  },
+  '105261': { divs: ['Fluid Conveyance'],        pct: '84% FC',                               confident: true  },
   '105298': { divs: ['Power Solutions','Fluid Conveyance'], pct: '61% PS / 39% FC',                      confident: false },
-  '105336': { divs: ['Power Solutions'],                    pct: '98% PS',                               confident: true  },
-  '105399': { divs: ['Power Solutions'],                    pct: '98% PS',                               confident: true  },
-  '105410': { divs: ['Power Solutions','Fluid Conveyance'], pct: '89% PS / 11% FC',                      confident: true  },
-  '105460': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
-  '105472': { divs: ['Power Solutions'],                    pct: '89% PS',                               confident: true  },
-  '105533': { divs: ['Power Solutions','Repair'],           pct: '84% PS / 16% Repair',                  confident: true  },
-  '105553': { divs: ['Fluid Conveyance','Power Solutions'], pct: '85% FC / 12% PS',                      confident: true  },
-  '105614': { divs: ['Power Solutions'],                    pct: '97% PS',                               confident: true  },
+  '105336': { divs: ['Power Solutions'],         pct: '98% PS',                               confident: true  },
+  '105399': { divs: ['Power Solutions'],         pct: '98% PS',                               confident: true  },
+  '105410': { divs: ['Power Solutions'],         pct: '89% PS',                               confident: true  },
+  '105460': { divs: ['Power Solutions'],         pct: '100% PS',                              confident: true  },
+  '105472': { divs: ['Power Solutions'],         pct: '89% PS',                               confident: true  },
+  '105533': { divs: ['Power Solutions'],         pct: '84% PS',                               confident: true  },
+  '105553': { divs: ['Fluid Conveyance'],        pct: '85% FC',                               confident: true  },
+  '105614': { divs: ['Power Solutions'],         pct: '97% PS',                               confident: true  },
   '105633': { divs: ['Power Solutions','Repair'],           pct: '58% PS / 42% Repair',                  confident: false },
-  '105637': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
-  '105702': { divs: ['Power Solutions'],                    pct: '97% PS',                               confident: true  },
+  '105637': { divs: ['Power Solutions'],         pct: '100% PS',                              confident: true  },
+  '105702': { divs: ['Power Solutions'],         pct: '97% PS',                               confident: true  },
   '105857': { divs: ['HES','Power Solutions'],              pct: '59% HES / 37% PS',                     confident: false },
-  '105867': { divs: ['Power Solutions','Fluid Conveyance'], pct: '85% PS / 13% FC',                      confident: true  },
-  '105901': { divs: ['Power Solutions'],                    pct: '99% PS',                               confident: true  },
+  '105867': { divs: ['Power Solutions'],         pct: '85% PS',                               confident: true  },
+  '105901': { divs: ['Power Solutions'],         pct: '99% PS',                               confident: true  },
   '105936': { divs: ['Power Solutions','Repair','Fluid Conveyance'], pct: '67% PS / 20% Repair / 11% FC', confident: false },
-  '105953': { divs: ['Power Solutions'],                    pct: '95% PS',                               confident: true  },
-  '105987': { divs: ['Power Solutions'],                    pct: '92% PS',                               confident: true  },
-  '106005': { divs: ['Power Solutions'],                    pct: '94% PS',                               confident: true  },
-  '106188': { divs: ['Power Solutions'],                    pct: '85% PS',                               confident: true  },
-  '106189': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
-  '106192': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
+  '105953': { divs: ['Power Solutions'],         pct: '95% PS',                               confident: true  },
+  '105987': { divs: ['Power Solutions'],         pct: '92% PS',                               confident: true  },
+  '106005': { divs: ['Power Solutions'],         pct: '94% PS',                               confident: true  },
+  '106188': { divs: ['Power Solutions'],         pct: '85% PS',                               confident: true  },
+  '106189': { divs: ['Power Solutions'],         pct: '100% PS',                              confident: true  },
+  '106192': { divs: ['Power Solutions'],         pct: '100% PS',                              confident: true  },
   '106251': { divs: ['Fluid Conveyance','Power Solutions','HES'], pct: '69% FC / 14% PS / 14% HES',      confident: false },
   '106264': { divs: ['Fluid Conveyance','Power Solutions'], pct: '61% FC / 39% PS',                      confident: false },
   '106290': { divs: ['Fluid Conveyance','Power Solutions'], pct: '72% FC / 28% PS',                      confident: false },
-  '106338': { divs: ['Fluid Conveyance','Power Solutions'], pct: '85% FC / 15% PS',                      confident: true  },
-  '106358': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
-  '106385': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
-  '106388': { divs: ['Power Solutions'],                    pct: '99% PS',                               confident: true  },
-  '106397': { divs: ['Power Solutions'],                    pct: '96% PS',                               confident: true  },
-  '106416': { divs: ['HES'],                                pct: '94% HES',                              confident: true  },
+  '106338': { divs: ['Fluid Conveyance'],        pct: '85% FC',                               confident: true  },
+  '106358': { divs: ['Power Solutions'],         pct: '100% PS',                              confident: true  },
+  '106385': { divs: ['Power Solutions'],         pct: '100% PS',                              confident: true  },
+  '106388': { divs: ['Power Solutions'],         pct: '99% PS',                               confident: true  },
+  '106397': { divs: ['Power Solutions'],         pct: '96% PS',                               confident: true  },
+  '106416': { divs: ['HES'],                     pct: '94% HES',                              confident: true  },
   '106580': { divs: ['Power Solutions','Repair'],           pct: '49% PS / 45% Repair',                  confident: false },
   '106720': { divs: ['HES','Power Solutions'],              pct: '50% HES / 42% PS',                     confident: false },
-  '111887': { divs: ['Power Solutions'],                    pct: '99% PS',                               confident: true  },
-  '112280': { divs: ['Fluid Conveyance'],                   pct: '91% FC',                               confident: true  },
+  '111887': { divs: ['Power Solutions'],         pct: '99% PS',                               confident: true  },
+  '112280': { divs: ['Fluid Conveyance'],        pct: '91% FC',                               confident: true  },
   '113870': { divs: ['Fluid Conveyance','Power Solutions'], pct: '74% FC / 26% PS',                      confident: false },
-  '116607': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
-  '116665': { divs: ['Power Solutions','Fluid Conveyance'], pct: '84% PS / 14% FC',                      confident: true  },
+  '116607': { divs: ['Power Solutions'],         pct: '100% PS',                              confident: true  },
+  '116665': { divs: ['Power Solutions'],         pct: '84% PS',                               confident: true  },
   '119415': { divs: ['Power Solutions','HES'],              pct: '56% PS / 44% HES',                     confident: false },
-  '119528': { divs: ['Power Solutions','Fluid Conveyance'], pct: '90% PS / 10% FC',                      confident: true  },
-  '119848': { divs: ['Power Solutions'],                    pct: '97% PS',                               confident: true  },
+  '119528': { divs: ['Power Solutions'],         pct: '90% PS',                               confident: true  },
+  '119848': { divs: ['Power Solutions'],         pct: '97% PS',                               confident: true  },
   '122150': { divs: ['HES','Power Solutions'],              pct: '68% HES / 32% PS',                     confident: false },
   '124873': { divs: ['Power Solutions','Repair'],           pct: '72% PS / 18% Repair',                  confident: false },
-  '126026': { divs: ['HES'],                                pct: '96% HES',                              confident: true  },
-  '126036': { divs: ['HES'],                                pct: '91% HES',                              confident: true  },
-  '126180': { divs: ['HES','Power Solutions'],              pct: '86% HES / 14% PS',                     confident: true  },
-  '148255': { divs: ['HES'],                                pct: '100% HES',                             confident: true  },
-  '151433': { divs: ['Power Solutions'],                    pct: '99% PS',                               confident: true  },
-  '151621': { divs: ['Fluid Conveyance'],                   pct: '97% FC',                               confident: true  },
+  '126026': { divs: ['HES'],                     pct: '96% HES',                              confident: true  },
+  '126036': { divs: ['HES'],                     pct: '91% HES',                              confident: true  },
+  '126180': { divs: ['HES'],                     pct: '86% HES',                              confident: true  },
+  '148255': { divs: ['HES'],                     pct: '100% HES',                             confident: true  },
+  '151433': { divs: ['Power Solutions'],         pct: '99% PS',                               confident: true  },
+  '151621': { divs: ['Fluid Conveyance'],        pct: '97% FC',                               confident: true  },
   '158695': { divs: ['Power Solutions','Fluid Conveyance'], pct: '79% PS / 21% FC',                      confident: false },
-  '177886': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
-  '177943': { divs: ['Power Solutions'],                    pct: '99% PS',                               confident: true  },
-  '178017': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
-  '178020': { divs: ['Power Solutions'],                    pct: '99% PS',                               confident: true  },
-  '178109': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
+  '177886': { divs: ['Power Solutions'],         pct: '100% PS',                              confident: true  },
+  '177943': { divs: ['Power Solutions'],         pct: '99% PS',                               confident: true  },
+  '178017': { divs: ['Power Solutions'],         pct: '100% PS',                              confident: true  },
+  '178020': { divs: ['Power Solutions'],         pct: '99% PS',                               confident: true  },
+  '178109': { divs: ['Power Solutions'],         pct: '100% PS',                              confident: true  },
   '178187': { divs: ['Power Solutions','Repair'],           pct: '78% PS / 22% Repair',                  confident: false },
-  '178196': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
-  '206967': { divs: ['HES'],                                pct: '97% HES',                              confident: true  }
+  '178196': { divs: ['Power Solutions'],         pct: '100% PS',                              confident: true  },
+  '206967': { divs: ['HES'],                     pct: '97% HES',                              confident: true  }
 };
 
 // Sales group rules derived from P21 data.
@@ -509,7 +511,10 @@ function buildLocationDropdown(supplierId) {
   }
 
   // Split locations into suggested vs. other
-  const suggestedDivs = new Set(supInfo.divs);
+  // When confident=true, only match the PRIMARY division (first in the array).
+  // When confident=false, match ANY of the listed divisions.
+  const divisionsToMatch = supInfo.confident ? [supInfo.divs[0]] : supInfo.divs;
+  const suggestedDivs = new Set(divisionsToMatch);
   const suggested = [];
   const others    = [];
   LOCATIONS.forEach(([id, name]) => {
@@ -520,7 +525,8 @@ function buildLocationDropdown(supplierId) {
   // Build "Suggested" optgroup
   if (suggested.length > 0) {
     const og = document.createElement('optgroup');
-    og.label = `✓  SUGGESTED — ${supInfo.divs.join(' / ')}`;
+    const labelDivs = supInfo.confident ? supInfo.divs[0] : supInfo.divs.join(' / ');
+    og.label = `✓  SUGGESTED — ${labelDivs}`;
     og.className = 'og-suggested';
     suggested.forEach(([id, name]) => {
       const opt = document.createElement('option');
@@ -565,7 +571,7 @@ function buildLocationDropdown(supplierId) {
 
   // Hint
   if (supInfo.confident) {
-    hint.textContent = `Suggested: ${supInfo.divs.join(' / ')} branches (${supInfo.pct}).`;
+    hint.textContent = `Suggested: ${supInfo.divs[0]} branches (${supInfo.pct}).`;
     hint.className   = 'hint success';
   } else {
     hint.textContent = `Mixed usage — ${supInfo.pct}. Suggested branches highlighted; verify before saving.`;
@@ -580,7 +586,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const supInfo = SUPPLIER_DIVISIONS[currentSupplier];
     if (!supInfo) return;
     const chosenDiv = LOCATION_DIVISIONS[this.value];
-    const inSuggested = supInfo.divs.includes(chosenDiv);
+    const divisionsToMatch = supInfo.confident ? [supInfo.divs[0]] : supInfo.divs;
+    const inSuggested = divisionsToMatch.includes(chosenDiv);
     this.className = inSuggested ? 'has-suggestions' : '';
     const hint = document.getElementById('locationHint');
     if (!inSuggested) {
@@ -588,7 +595,7 @@ document.addEventListener('DOMContentLoaded', () => {
       hint.className   = 'hint info';
     } else {
       if (supInfo.confident) {
-        hint.textContent = `Suggested: ${supInfo.divs.join(' / ')} branches (${supInfo.pct}).`;
+        hint.textContent = `Suggested: ${supInfo.divs[0]} branches (${supInfo.pct}).`;
         hint.className   = 'hint success';
       } else {
         hint.textContent = `Mixed usage — ${supInfo.pct}. Suggested branches highlighted; verify before saving.`;
@@ -966,11 +973,11 @@ function validateItemId(input) {
     hint.textContent = 'Format matches known pattern.';
     hint.className   = 'hint success';
   } else {
-    input.className  = 'invalid';
-    // Build helpful error message
+    // Pattern mismatch - mark as warning but still allow submission
+    input.className  = 'valid';  // changed from 'invalid' to allow submission
     const exampleSet = patterns.flatMap(g => g.examples).slice(0,3).join(', ');
-    hint.innerHTML   = `Does not match known formats for this supplier. Examples: <strong>${exampleSet}</strong>`;
-    hint.className   = 'hint error';
+    hint.innerHTML   = `⚠ Does not match typical format for this supplier. Expected: <strong>${exampleSet}</strong> — Verify before saving.`;
+    hint.className   = 'hint warning';  // changed from 'error' to 'warning'
   }
   updateSubmitState();
 }
@@ -1010,6 +1017,36 @@ document.getElementById('itemDesc').addEventListener('input', function () {
 // -------------------------------------------------------
 // OTHER LISTENERS
 // -------------------------------------------------------
+// Currency formatting for cost and price
+function formatCurrency(input) {
+  let val = input.value.replace(/[^0-9.]/g, ''); // strip non-numeric except decimal
+  if (val === '') { input.value = ''; return; }
+  
+  // Allow only one decimal point
+  const parts = val.split('.');
+  if (parts.length > 2) val = parts[0] + '.' + parts.slice(1).join('');
+  
+  // Limit to 2 decimal places
+  if (parts.length === 2 && parts[1].length > 2) {
+    val = parts[0] + '.' + parts[1].substring(0, 2);
+  }
+  
+  const num = parseFloat(val);
+  if (isNaN(num)) { input.value = ''; return; }
+  
+  // Format with commas and $ sign
+  input.value = '$' + num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+['unitCost', 'listPrice'].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener('blur', function() { formatCurrency(this); });
+  el.addEventListener('input', function() {
+    // Allow typing, just strip invalid chars during input
+    this.value = this.value.replace(/[^0-9.$]/g, '');
+  });
+});
+
 ['salesGroup','purchaseDiscount','uom'].forEach(id => {
   document.getElementById(id).addEventListener('change', function() {
     // If user manually changes a locked field, warn them
