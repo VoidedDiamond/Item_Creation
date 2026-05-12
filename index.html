@@ -59,6 +59,11 @@
     #toast { display: none; position: fixed; bottom: 2rem; right: 2rem; background: var(--text); color: #fff; padding: 0.85rem 1.25rem; border-radius: 5px; font-size: 0.85rem; border-left: 4px solid var(--red); box-shadow: 0 4px 20px rgba(0,0,0,0.18); max-width: 340px; z-index: 999; }
     #toast.success { border-left-color: var(--green); }
     #toast.error   { border-left-color: var(--red); }
+    #toast .toast-content { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    #toast .toast-msg { flex: 1; }
+    #toast .toast-btn { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 3px; padding: 0.35rem 0.65rem; font-size: 0.75rem; font-weight: 600; color: #fff; cursor: pointer; transition: background 0.15s; white-space: nowrap; }
+    #toast .toast-btn:hover { background: rgba(255,255,255,0.3); }
+    #toast .toast-btn:active { background: rgba(255,255,255,0.4); }
     .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 6px; vertical-align: middle; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .api-note { font-size: 0.7rem; color: var(--gray); font-family: 'IBM Plex Mono', monospace; }
@@ -219,7 +224,7 @@
     </div>
   </div>
 </main>
-<div id="toast"></div>
+<div id="toast"><div class="toast-content"><span class="toast-msg"></span></div></div>
 
 <script>
 // -------------------------------------------------------
@@ -1115,7 +1120,7 @@ async function createItem() {
 
   console.log('[STUB] Would POST to P21 API:', payload);
   await new Promise(r => setTimeout(r, 900));
-  showToast(`Item ${payload.item_id} created successfully (stub mode).`, 'success');
+  showToast(`Item ${payload.item_id} created successfully (stub mode).`, 'success', payload.item_id);
   document.getElementById('apiNote').textContent = '[stub — not connected to P21 yet]';
   btn.innerHTML = 'Create Item in P21';
   resetForm();
@@ -1190,9 +1195,37 @@ document.getElementById('resetBtn').addEventListener('click', resetForm);
 // -------------------------------------------------------
 // TOAST
 // -------------------------------------------------------
-function showToast(msg, type = 'success') {
+function showToast(msg, type = 'success', itemIdToCopy = null) {
   const t = document.getElementById('toast');
-  t.textContent = msg; t.className = type; t.style.display = 'block';
+  const msgSpan = t.querySelector('.toast-msg');
+  const contentDiv = t.querySelector('.toast-content');
+  
+  msgSpan.textContent = msg;
+  t.className = type;
+  
+  // Remove any existing button
+  const existingBtn = contentDiv.querySelector('.toast-btn');
+  if (existingBtn) existingBtn.remove();
+  
+  // Add copy button if itemId provided
+  if (itemIdToCopy) {
+    const btn = document.createElement('button');
+    btn.className = 'toast-btn';
+    btn.textContent = 'Copy ID';
+    btn.onclick = () => {
+      navigator.clipboard.writeText(itemIdToCopy).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Copy ID'; }, 1200);
+      }).catch(err => {
+        console.error('Clipboard copy failed:', err);
+        btn.textContent = 'Failed';
+        setTimeout(() => { btn.textContent = 'Copy ID'; }, 1200);
+      });
+    };
+    contentDiv.appendChild(btn);
+  }
+  
+  t.style.display = 'block';
   setTimeout(() => { t.style.display = 'none'; }, 4500);
 }
 
