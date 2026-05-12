@@ -146,6 +146,16 @@
           </select>
         </div>
       </div>
+      <div class="row2">
+        <div class="field">
+          <div class="field-label-row"><label for="unitCost">Unit Cost</label></div>
+          <input type="text" id="unitCost" placeholder="0.00" inputmode="decimal" />
+        </div>
+        <div class="field">
+          <div class="field-label-row"><label for="listPrice">List Price</label></div>
+          <input type="text" id="listPrice" placeholder="0.00" inputmode="decimal" />
+        </div>
+      </div>
 
       <hr class="divider" />
       <div class="section-label">Location</div>
@@ -175,13 +185,6 @@
           <option value="280">280 — HYD FC Oklahoma City</option>
           <option value="290">290 — HYD FC Colorado</option>
           <option value="310">310 — Hydraquip Electric Systems</option>
-          <option value="810">810</option><option value="811">811</option>
-          <option value="812">812</option><option value="822">822</option>
-          <option value="850">850</option><option value="851">851</option>
-          <option value="855">855</option><option value="870">870</option>
-          <option value="871">871</option><option value="890">890</option>
-          <option value="891">891</option><option value="913">913</option>
-          <option value="914">914</option>
         </select>
       </div>
 
@@ -382,6 +385,14 @@ function init() {
         e.preventDefault();
         selectSupplier(id, name);
       });
+      div.addEventListener('mouseover', () => {
+        dropdown.querySelectorAll('.sd-item').forEach(el => el.classList.remove('hover'));
+        div.classList.add('hover');
+        activeIndex = i;
+      });
+      div.addEventListener('mouseout', () => {
+        div.classList.remove('hover');
+      });
       dropdown.appendChild(div);
     });
 
@@ -411,6 +422,28 @@ function init() {
 
   searchInput.addEventListener('keydown', function (e) {
     const items = dropdown.querySelectorAll('.sd-item');
+    if (e.key === 'Tab') {
+      // Auto-select if exactly one result OR if a row is hovered/active
+      if (items.length === 1) {
+        e.preventDefault();
+        const id = items[0].dataset.id;
+        selectSupplier(id, SUPPLIER_NAMES[id] || '');
+        return;
+      }
+      if (activeIndex >= 0 && items[activeIndex]) {
+        e.preventDefault();
+        const id = items[activeIndex].dataset.id;
+        selectSupplier(id, SUPPLIER_NAMES[id] || '');
+        return;
+      }
+      // Also check for mouse-hovered item
+      const hovered = dropdown.querySelector('.sd-item.hover');
+      if (hovered) {
+        e.preventDefault();
+        selectSupplier(hovered.dataset.id, SUPPLIER_NAMES[hovered.dataset.id] || '');
+        return;
+      }
+    }
     if (!items.length) return;
     if (e.key === 'ArrowDown') {
       e.preventDefault();
@@ -429,6 +462,14 @@ function init() {
       selectSupplier(id, name);
     } else if (e.key === 'Escape') {
       dropdown.style.display = 'none';
+    }
+  });
+
+  searchInput.addEventListener('focus', function () {
+    if (hiddenId.value) {
+      // Already has a selection - highlight all text and reopen dropdown
+      this.select();
+      buildSupplierList(this.value.split(' — ')[0] || this.value);
     }
   });
 
