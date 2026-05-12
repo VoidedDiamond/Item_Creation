@@ -9,7 +9,8 @@
     :root {
       --red:    #bf2027; --red-dk: #a31b21;
       --white:  #f5f7fa; --gray: #8a94a6; --border: #dce2ed;
-      --green:  #1a7f4b; --amber: #b45309;
+      --green:  #1a7f4b; --green-bg: #e8f5ed; --green-bg-soft: #f0f7f3;
+      --amber:  #b45309;
       --bg:     #eef1f7; --card: #ffffff; --text: #0d1f3c;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -69,6 +70,36 @@
     #supplierDropdown .sd-item .sd-name { font-size:0.82rem; }
     #supplierDropdown .sd-empty { padding:0.6rem 0.85rem; font-size:0.82rem; color:var(--gray); font-style:italic; }
     #supplierSearch.selected { border-color:var(--green); background:#f0f4f0; }
+
+    /* ---- Location-suggestion styling ---- */
+    #locationId optgroup.og-suggested {
+      font-weight: 700;
+      color: var(--green);
+      font-style: normal;
+      background: var(--green-bg);
+    }
+    #locationId optgroup.og-other {
+      font-weight: 600;
+      color: var(--gray);
+      font-style: normal;
+      background: #f5f7fa;
+    }
+    #locationId option.opt-suggested {
+      background-color: var(--green-bg-soft);
+      color: var(--text);
+      font-weight: 500;
+    }
+    #locationId option.opt-suggested::before { content: "✓ "; }
+    #locationId option.opt-other { color: var(--text); }
+    select#locationId.has-suggestions {
+      background: var(--green-bg-soft);
+      border-color: var(--green);
+    }
+    /* Legend chip shown when supplier is selected */
+    .legend-row { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; margin-top: 0.4rem; }
+    .legend-chip { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.68rem; font-family: 'IBM Plex Mono', monospace; color: var(--gray); padding: 0.15rem 0.5rem; background: #f5f7fa; border-radius: 3px; }
+    .legend-chip.suggested { background: var(--green-bg); color: var(--green); font-weight: 600; }
+    .legend-chip .swatch { width: 8px; height: 8px; border-radius: 2px; background: var(--green); display: inline-block; }
   </style>
 </head>
 <body>
@@ -162,30 +193,9 @@
       <div class="field" style="max-width:340px;">
         <div class="field-label-row"><label for="locationId">Location ID <span class="req">*</span></label></div>
         <select id="locationId">
-          <option value="110">110 — HYD Houston (default)</option>
-          <option value="119">119 — HYD Houston S &amp; R</option>
-          <option value="120">120 — HYD Grand Prairie</option>
-          <option value="129">129 — HYD Grand Prairie S &amp; R</option>
-          <option value="130">130 — HYD San Antonio</option>
-          <option value="140">140 — Flint Hydraulics</option>
-          <option value="149">149 — HYD Memphis S &amp; R</option>
-          <option value="150">150 — HYD Arizona</option>
-          <option value="160">160 — HYD Broussard</option>
-          <option value="170">170 — HYD Tulsa</option>
-          <option value="180">180 — HYD Oklahoma City</option>
-          <option value="190">190 — HYD Colorado</option>
-          <option value="199">199 — HYD Colorado S &amp; R</option>
-          <option value="210">210 — HYD FC Houston</option>
-          <option value="211">211 — HYD DC Houston</option>
-          <option value="220">220 — HYD FC Grand Prairie</option>
-          <option value="230">230 — HYD FC San Antonio</option>
-          <option value="240">240 — HYD Memphis FC</option>
-          <option value="260">260 — HYD FC Broussard</option>
-          <option value="270">270 — HYD FC Tulsa</option>
-          <option value="280">280 — HYD FC Oklahoma City</option>
-          <option value="290">290 — HYD FC Colorado</option>
-          <option value="310">310 — Hydraquip Electric Systems</option>
+          <!-- Populated by JS — see buildLocationDropdown() -->
         </select>
+        <div class="hint" id="locationHint">Select a supplier to see suggested branches.</div>
       </div>
 
       <hr class="divider" />
@@ -218,6 +228,129 @@
 const PRODUCT_GROUPS = ['ADAPTALL','AIRWAY','ANCHOR','AQPADAPT','AQPFIT','AQPHOSE','AQPIND','AQPQD','AQPTAGS','AQPX','BANDIT','BEHCLAMP','BN000000','BRENNAN','CAMPBELL','CCPF','COMATROL','DEFAULT','DIXQD','DONFILT','DYNAMIC','EAVACC','EAVDIRV','ETELEM','FFX','GC000000','GEARTEK','HUMQE','HUMVAL','HUSQSO','LINC30','LINC40','LINC475','MAGCPLG','MARMON','MICO','MISC','MISCDEN','MISCHOSE','NORACT','NORFIT','NORSTAT','PE000000','SCHELE','SCHFILT','SDCNTRL','SDLSHT','SDPVG','SDSER40','SDX','STUCIQD','SYNHOSE','VERSA','WA000000','XPLO'];
 const SALES_GROUPS   = ['ANCHORA','AQPGEN','BRENNANA','COMATROL','DEFAULT','DESCASEA','DIXONA','DIXSTAND','LIST','M99','NEW ITEM','NORGRENC','SCHRDERB','VERSA','VERSAA','WAGOA'];
 const PURCH_GROUPS   = ['AEROGEN','ANCHORA','AQPADAP','AQPGEN','AQPIND','BRENNANA','DEFAULT','DESCASEA','DIXONA','DIXQD','DIXSTAND','DONAL B','DPSGEN','DPSGEN2','DPSICS','DPSLSHT','DPSPARTS','DPSPVG','EATON1','EATON2','FAIRPART','FIXDCOST','HUMQE','HUMVAL','HUSCO','LINC40%','LINC47.5','M99','NEW ITEM','NORGRENC','SCHRDERB','SCHROEDR','TUTHILL','VERSA','VERSAA','WAGOA'];
+
+// ---------------------------------------------------------------------------
+// LOCATION DATA
+// ---------------------------------------------------------------------------
+// Master list of every selectable branch.  Order = order shown inside each
+// optgroup.  ID is string so the <select>.value comparison stays consistent.
+const LOCATIONS = [
+  ['110', 'HYD Houston (default)'],
+  ['119', 'HYD Houston S & R'],
+  ['120', 'HYD Grand Prairie'],
+  ['129', 'HYD Grand Prairie S & R'],
+  ['130', 'HYD San Antonio'],
+  ['140', 'Flint Hydraulics'],
+  ['149', 'HYD Memphis S & R'],
+  ['150', 'HYD Arizona'],
+  ['160', 'HYD Broussard'],
+  ['170', 'HYD Tulsa'],
+  ['180', 'HYD Oklahoma City'],
+  ['190', 'HYD Colorado'],
+  ['199', 'HYD Colorado S & R'],
+  ['210', 'HYD FC Houston'],
+  ['211', 'HYD DC Houston'],
+  ['220', 'HYD FC Grand Prairie'],
+  ['230', 'HYD FC San Antonio'],
+  ['240', 'HYD Memphis FC'],
+  ['260', 'HYD FC Broussard'],
+  ['270', 'HYD FC Tulsa'],
+  ['280', 'HYD FC Oklahoma City'],
+  ['290', 'HYD FC Colorado'],
+  ['310', 'Hydraquip Electric Systems']
+];
+
+// Branch -> KPI division.  Derived from the branch ID itself:
+//   - ends in 9              -> Repair       (e.g. 119, 129, 149, 199)
+//   - starts with 2          -> Fluid Conveyance (e.g. 210, 220, 290)
+//   - exactly "310"          -> HES          (Hydraquip Electric Systems)
+//   - everything else        -> Power Solutions
+// New branches will be classified automatically -- no edits needed here as
+// long as future IDs follow the same numbering convention.
+function divisionForLocation(id) {
+  if (id === '310')        return 'HES';
+  if (id.endsWith('9'))    return 'Repair';
+  if (id.startsWith('2'))  return 'Fluid Conveyance';
+  return 'Power Solutions';
+}
+const LOCATION_DIVISIONS = Object.fromEntries(
+  LOCATIONS.map(([id]) => [id, divisionForLocation(id)])
+);
+
+// Supplier -> recommended division(s) based on historical item assignments
+// (Location_Lookup.xlsx, Sheet1).
+//   divs:      one or more divisions, primary first
+//   pct:       human-readable split for the hint
+//   confident: matches the "Default? = YES" column in the lookup
+// Only divisions accounting for >= ~10% are listed.
+const SUPPLIER_DIVISIONS = {
+  '3':      { divs: ['HES'],                                pct: '97% HES',                              confident: true  },
+  '100018': { divs: ['Power Solutions','Fluid Conveyance'], pct: '66% PS / 27% FC',                      confident: false },
+  '105090': { divs: ['Fluid Conveyance','Power Solutions'], pct: '61% FC / 38% PS',                      confident: false },
+  '105111': { divs: ['Fluid Conveyance','Power Solutions'], pct: '75% FC / 23% PS',                      confident: false },
+  '105179': { divs: ['Fluid Conveyance','Power Solutions'], pct: '52% FC / 42% PS',                      confident: false },
+  '105210': { divs: ['HES','Power Solutions'],              pct: '73% HES / 25% PS',                     confident: false },
+  '105230': { divs: ['Power Solutions','Fluid Conveyance'], pct: '88% PS / 12% FC',                      confident: true  },
+  '105261': { divs: ['Fluid Conveyance','Power Solutions'], pct: '84% FC / 13% PS',                      confident: true  },
+  '105298': { divs: ['Power Solutions','Fluid Conveyance'], pct: '61% PS / 39% FC',                      confident: false },
+  '105336': { divs: ['Power Solutions'],                    pct: '98% PS',                               confident: true  },
+  '105399': { divs: ['Power Solutions'],                    pct: '98% PS',                               confident: true  },
+  '105410': { divs: ['Power Solutions','Fluid Conveyance'], pct: '89% PS / 11% FC',                      confident: true  },
+  '105460': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
+  '105472': { divs: ['Power Solutions'],                    pct: '89% PS',                               confident: true  },
+  '105533': { divs: ['Power Solutions','Repair'],           pct: '84% PS / 16% Repair',                  confident: true  },
+  '105553': { divs: ['Fluid Conveyance','Power Solutions'], pct: '85% FC / 12% PS',                      confident: true  },
+  '105614': { divs: ['Power Solutions'],                    pct: '97% PS',                               confident: true  },
+  '105633': { divs: ['Power Solutions','Repair'],           pct: '58% PS / 42% Repair',                  confident: false },
+  '105637': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
+  '105702': { divs: ['Power Solutions'],                    pct: '97% PS',                               confident: true  },
+  '105857': { divs: ['HES','Power Solutions'],              pct: '59% HES / 37% PS',                     confident: false },
+  '105867': { divs: ['Power Solutions','Fluid Conveyance'], pct: '85% PS / 13% FC',                      confident: true  },
+  '105901': { divs: ['Power Solutions'],                    pct: '99% PS',                               confident: true  },
+  '105936': { divs: ['Power Solutions','Repair','Fluid Conveyance'], pct: '67% PS / 20% Repair / 11% FC', confident: false },
+  '105953': { divs: ['Power Solutions'],                    pct: '95% PS',                               confident: true  },
+  '105987': { divs: ['Power Solutions'],                    pct: '92% PS',                               confident: true  },
+  '106005': { divs: ['Power Solutions'],                    pct: '94% PS',                               confident: true  },
+  '106188': { divs: ['Power Solutions'],                    pct: '85% PS',                               confident: true  },
+  '106189': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
+  '106192': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
+  '106251': { divs: ['Fluid Conveyance','Power Solutions','HES'], pct: '69% FC / 14% PS / 14% HES',      confident: false },
+  '106264': { divs: ['Fluid Conveyance','Power Solutions'], pct: '61% FC / 39% PS',                      confident: false },
+  '106290': { divs: ['Fluid Conveyance','Power Solutions'], pct: '72% FC / 28% PS',                      confident: false },
+  '106338': { divs: ['Fluid Conveyance','Power Solutions'], pct: '85% FC / 15% PS',                      confident: true  },
+  '106358': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
+  '106385': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
+  '106388': { divs: ['Power Solutions'],                    pct: '99% PS',                               confident: true  },
+  '106397': { divs: ['Power Solutions'],                    pct: '96% PS',                               confident: true  },
+  '106416': { divs: ['HES'],                                pct: '94% HES',                              confident: true  },
+  '106580': { divs: ['Power Solutions','Repair'],           pct: '49% PS / 45% Repair',                  confident: false },
+  '106720': { divs: ['HES','Power Solutions'],              pct: '50% HES / 42% PS',                     confident: false },
+  '111887': { divs: ['Power Solutions'],                    pct: '99% PS',                               confident: true  },
+  '112280': { divs: ['Fluid Conveyance'],                   pct: '91% FC',                               confident: true  },
+  '113870': { divs: ['Fluid Conveyance','Power Solutions'], pct: '74% FC / 26% PS',                      confident: false },
+  '116607': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
+  '116665': { divs: ['Power Solutions','Fluid Conveyance'], pct: '84% PS / 14% FC',                      confident: true  },
+  '119415': { divs: ['Power Solutions','HES'],              pct: '56% PS / 44% HES',                     confident: false },
+  '119528': { divs: ['Power Solutions','Fluid Conveyance'], pct: '90% PS / 10% FC',                      confident: true  },
+  '119848': { divs: ['Power Solutions'],                    pct: '97% PS',                               confident: true  },
+  '122150': { divs: ['HES','Power Solutions'],              pct: '68% HES / 32% PS',                     confident: false },
+  '124873': { divs: ['Power Solutions','Repair'],           pct: '72% PS / 18% Repair',                  confident: false },
+  '126026': { divs: ['HES'],                                pct: '96% HES',                              confident: true  },
+  '126036': { divs: ['HES'],                                pct: '91% HES',                              confident: true  },
+  '126180': { divs: ['HES','Power Solutions'],              pct: '86% HES / 14% PS',                     confident: true  },
+  '148255': { divs: ['HES'],                                pct: '100% HES',                             confident: true  },
+  '151433': { divs: ['Power Solutions'],                    pct: '99% PS',                               confident: true  },
+  '151621': { divs: ['Fluid Conveyance'],                   pct: '97% FC',                               confident: true  },
+  '158695': { divs: ['Power Solutions','Fluid Conveyance'], pct: '79% PS / 21% FC',                      confident: false },
+  '177886': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
+  '177943': { divs: ['Power Solutions'],                    pct: '99% PS',                               confident: true  },
+  '178017': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
+  '178020': { divs: ['Power Solutions'],                    pct: '99% PS',                               confident: true  },
+  '178109': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
+  '178187': { divs: ['Power Solutions','Repair'],           pct: '78% PS / 22% Repair',                  confident: false },
+  '178196': { divs: ['Power Solutions'],                    pct: '100% PS',                              confident: true  },
+  '206967': { divs: ['HES'],                                pct: '97% HES',                              confident: true  }
+};
 
 // Sales group rules derived from P21 data.
 // lock:true = this is the correct value for this supplier, warn user if they change it
@@ -340,6 +473,130 @@ let validationTimer = null;
 let dupCheckPassed  = false;
 let hasDuplicates   = false;
 let currentSupplier = null;
+
+// -------------------------------------------------------
+// LOCATION DROPDOWN BUILDER
+// -------------------------------------------------------
+// Rebuilds the location <select> based on the supplier's recommended
+// division(s).  Suggested branches go in an optgroup at the top with green
+// styling.  All other branches stay selectable below in a second optgroup.
+// If we have no data for the supplier, the dropdown falls back to a single
+// flat list and the default stays 110.
+function buildLocationDropdown(supplierId) {
+  const sel       = document.getElementById('locationId');
+  const hint      = document.getElementById('locationHint');
+  const supInfo   = supplierId ? SUPPLIER_DIVISIONS[supplierId] : null;
+  const prevValue = sel.value;       // try to preserve any manual pick
+  sel.innerHTML   = '';
+
+  // No supplier or no usage data --> flat list, no suggestions
+  if (!supInfo) {
+    LOCATIONS.forEach(([id, name]) => {
+      const opt = document.createElement('option');
+      opt.value = id;
+      opt.textContent = `${id} — ${name}`;
+      sel.appendChild(opt);
+    });
+    sel.value = prevValue && [...sel.options].some(o => o.value === prevValue) ? prevValue : '110';
+    sel.className = '';
+    if (!supplierId) {
+      hint.textContent = 'Select a supplier to see suggested branches.';
+    } else {
+      hint.textContent = 'No usage data on file for this supplier — pick the appropriate branch.';
+    }
+    hint.className = 'hint';
+    return;
+  }
+
+  // Split locations into suggested vs. other
+  const suggestedDivs = new Set(supInfo.divs);
+  const suggested = [];
+  const others    = [];
+  LOCATIONS.forEach(([id, name]) => {
+    if (suggestedDivs.has(LOCATION_DIVISIONS[id])) suggested.push([id, name]);
+    else                                            others.push([id, name]);
+  });
+
+  // Build "Suggested" optgroup
+  if (suggested.length > 0) {
+    const og = document.createElement('optgroup');
+    og.label = `✓  SUGGESTED — ${supInfo.divs.join(' / ')}`;
+    og.className = 'og-suggested';
+    suggested.forEach(([id, name]) => {
+      const opt = document.createElement('option');
+      opt.value = id;
+      opt.textContent = `${id} — ${name}`;
+      opt.className = 'opt-suggested';
+      og.appendChild(opt);
+    });
+    sel.appendChild(og);
+  }
+
+  // Build "Other" optgroup
+  if (others.length > 0) {
+    const og = document.createElement('optgroup');
+    og.label = '─  OTHER LOCATIONS';
+    og.className = 'og-other';
+    others.forEach(([id, name]) => {
+      const opt = document.createElement('option');
+      opt.value = id;
+      opt.textContent = `${id} — ${name}`;
+      opt.className = 'opt-other';
+      og.appendChild(opt);
+    });
+    sel.appendChild(og);
+  }
+
+  // Pick a default: keep prior pick if still present, else prefer 110 if it's
+  // among the suggested, else first suggested, else 110.
+  const suggestedIds = suggested.map(s => s[0]);
+  let target;
+  if (prevValue && [...sel.options].some(o => o.value === prevValue)) {
+    target = prevValue;
+  } else if (suggestedIds.includes('110')) {
+    target = '110';
+  } else if (suggestedIds.length > 0) {
+    target = suggestedIds[0];
+  } else {
+    target = '110';
+  }
+  sel.value = target;
+  sel.className = suggestedIds.includes(sel.value) ? 'has-suggestions' : '';
+
+  // Hint
+  if (supInfo.confident) {
+    hint.textContent = `Suggested: ${supInfo.divs.join(' / ')} branches (${supInfo.pct}).`;
+    hint.className   = 'hint success';
+  } else {
+    hint.textContent = `Mixed usage — ${supInfo.pct}. Suggested branches highlighted; verify before saving.`;
+    hint.className   = 'hint warning';
+  }
+}
+
+// Visual feedback when user picks an Other-group branch despite suggestions
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('locationId').addEventListener('change', function () {
+    if (!currentSupplier) return;
+    const supInfo = SUPPLIER_DIVISIONS[currentSupplier];
+    if (!supInfo) return;
+    const chosenDiv = LOCATION_DIVISIONS[this.value];
+    const inSuggested = supInfo.divs.includes(chosenDiv);
+    this.className = inSuggested ? 'has-suggestions' : '';
+    const hint = document.getElementById('locationHint');
+    if (!inSuggested) {
+      hint.textContent = `Note: ${this.value} (${chosenDiv || 'unknown'}) is outside this supplier's typical usage.`;
+      hint.className   = 'hint info';
+    } else {
+      if (supInfo.confident) {
+        hint.textContent = `Suggested: ${supInfo.divs.join(' / ')} branches (${supInfo.pct}).`;
+        hint.className   = 'hint success';
+      } else {
+        hint.textContent = `Mixed usage — ${supInfo.pct}. Suggested branches highlighted; verify before saving.`;
+        hint.className   = 'hint warning';
+      }
+    }
+  });
+});
 
 // -------------------------------------------------------
 // INIT
@@ -494,11 +751,12 @@ function init() {
     document.getElementById('itemIdHint').textContent = 'Select a supplier first.';
     document.getElementById('pgHint').textContent = '';
     clearFields();
+    buildLocationDropdown(null);
     updateSubmitState();
   }
   populateSelect('salesGroup',       SALES_GROUPS,  'Select...');
   populateSelect('purchaseDiscount', PURCH_GROUPS,  'Select...');
-  document.getElementById('locationId').value = '110';
+  buildLocationDropdown(null);  // initial flat list, default = 110
 }
 
 // -------------------------------------------------------
@@ -573,6 +831,7 @@ function onSupplierSelected(supplierId) {
     document.getElementById('itemIdHint').textContent = 'Select a supplier first.';
     document.getElementById('pgHint').textContent = '';
     clearFields();
+    buildLocationDropdown(null);
     updateSubmitState();
     return;
   }
@@ -620,6 +879,7 @@ function onSupplierSelected(supplierId) {
   }
 
   applyClassificationRules(currentSupplier, pg.value);
+  buildLocationDropdown(currentSupplier);
   updateSubmitState();
 }
 
@@ -658,7 +918,7 @@ document.getElementById('itemId').addEventListener('input', function () {
   if (validationTimer) clearTimeout(validationTimer);
   this.className = '';
   // Build pattern hint for this supplier
-  const _patterns = ITEM_ID_PATTERNS[supplierId];
+  const _patterns = currentSupplier ? ITEM_ID_PATTERNS[currentSupplier] : null;
   if (_patterns) {
     const _exBlock = _patterns.map(g => {
       const _pats = g.display.join(' / ');
@@ -666,7 +926,7 @@ document.getElementById('itemId').addEventListener('input', function () {
       return `<span style="display:block;margin-top:3px;"><strong>${_pats}</strong> &mdash; e.g. ${_exs}</span>`;
     }).join('');
     document.getElementById('itemIdHint').innerHTML = 'Known formats:' + _exBlock;
-  } else {
+  } else if (currentSupplier) {
     document.getElementById('itemIdHint').textContent = 'No pattern data on file — enter carefully and verify.';
   }
   document.getElementById('itemIdHint').className = 'hint';
@@ -750,7 +1010,7 @@ document.getElementById('itemDesc').addEventListener('input', function () {
 // -------------------------------------------------------
 // OTHER LISTENERS
 // -------------------------------------------------------
-['salesGroup','purchaseDiscount','uom','locationId'].forEach(id => {
+['salesGroup','purchaseDiscount','uom'].forEach(id => {
   document.getElementById(id).addEventListener('change', function() {
     // If user manually changes a locked field, warn them
     if (this.className === 'locked' || this.className === 'suggested') {
@@ -880,10 +1140,10 @@ function resetForm() {
   document.getElementById('productGroup').className = '';
   document.getElementById('pgHint').textContent     = '';
   document.getElementById('uom').value              = 'EA';
-  document.getElementById('locationId').value       = '110';
   document.getElementById('itemIdHint').textContent = 'Select a supplier first.';
   document.getElementById('itemIdHint').className   = 'hint';
   clearFields();
+  buildLocationDropdown(null);  // resets to flat list with 110 selected
   resetDupWarning();
   updateSubmitState();
 }
